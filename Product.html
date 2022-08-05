@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<!--    --------------icon------------>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+
+    }
+    .row{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100vh;
+    }
+    .col-sm-8{
+        background-color: #cccc;
+        width: 100%;
+        height: 150vh;
+        float: left;
+        position: relative;
+    }
+    .col-sm-4{
+        background-color: #0f6674;
+        width: 100%;
+        height: 150vh;
+        float: left;
+        }
+    /*///////cart*/
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 200px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+        float: left;
+        margin: 30px 18px 18px 18px;
+    }
+    .icon{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #ef0404;
+        width: 50px;
+        height: 25px;
+        line-height: 25px;
+        /*border-radius: 5px 0 0 5px ;*/
+    }
+
+    .price {
+        color: grey;
+        font-size: 18px;
+    }
+    .price- {
+        color: grey;
+        font-size: 15px;
+        text-decoration: line-through;
+    }
+
+    .card button {
+        border: none;
+        outline: 0;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .card button:hover {
+        opacity: 0.7;
+    }
+/*    --------------------*/
+
+    form{
+        margin: 25px;
+    }
+
+/*    -------search------------*/
+    input[type=text] {
+        width: 290px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 10px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+
+    input[type=text]:focus {
+        width: 100%;
+    }
+/*    ----------------------------*/
+    select{
+        margin: 20px 0 10px 0;
+        border-radius: 5px;
+        width: 290px;
+        height: 50px;
+        font-size: 18px;
+        text-align: center;
+    }
+/*    ----------------select---------*/
+    form a i{
+        margin-top: 20px;
+        font-size: 30px;
+        color: yellow;
+    }
+    button a i{
+        color: yellow;
+    }
+    label {
+        margin-top: 10px;
+        font-family:  Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 20px;
+    }
+    /*    --------lable thanh toán-----------*/
+    #total{
+        background-color: #ccc;
+        width: 290px;
+        height: 50px;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 50px;
+        margin-top: 40px;
+    }
+    form button{
+        width: 290px;
+        height: 50px;
+        margin-top: 120px;
+    }
+
+</style>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
+                    <h4>Tailored Jeans</h4>
+                    <p class="price-">$19.99</p>
+                    <p class="price">$19.99</p>
+                    <p><button><a>
+                        <i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                    </button></p>
+                    <div class="icon">30%</div>
+                </div>
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
+                    <h4>Tailored Jeans</h4>
+                    <p class="price-">$19.99</p>
+                    <p class="price">$19.99</p>
+                    <p><button><a>
+                        <i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                    </button></p>
+                    <div class="icon">30%</div>
+                </div>
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
+                    <h4>Tailored Jeans</h4>
+                    <p class="price-">$19.99</p>
+                    <p class="price">$19.99</p>
+                    <p><button >
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                    </button></p>
+                    <div class="icon">30%</div>
+                </div>
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
+                    <h4>Tailored Jeans</h4>
+                    <p class="price-">$19.99</p>
+                    <p class="price">$19.99</p>
+                    <p><button>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                    </button></p>
+                    <div class="icon">30%</div>
+                </div>
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
+                    <h4>Tailored Jeans</h4>
+                    <p class="price-">$19.99</p>
+                    <p class="price">$19.99</p>
+                    <p><button><a>
+                        <i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                    </button></p>
+                    <div class="icon">30%</div>
+                </div>
+                <div class="card">
+                    <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
+                    <h4>Tailored Jeans</h4>
+                    <p class="price-">$19.99</p>
+                    <p class="price">$19.99</p>
+                    <p><button><a>
+                        <i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                    </button></p>
+                    <div class="icon">30%</div>
+                </div>
+        </div >
+        <div class="col-sm-4">
+            <form>
+                <input type="text" name="search" placeholder="Search..">
+                <select id="category" name="categorylist" form="carform">
+                    <option value="" selected disabled>--Chọn--</option>
+                    <option value="saab">Saab</option>
+                    <option value="opel">Opel</option>
+                    <option value="audi">Audi</option>
+                    <option value="audi">Audi</option>
+                </select>
+                <select id="sort" name="sortlist" form="carform">
+                    <option value="" selected disabled>--Giá--</option>
+                    <option value="minPrice">Thấp Nhất</option>
+                    <option value="maxPrice">Cao Nhất</option>
+                </select>
+                <label>Đánh giá:</label><br>
+                <a id="star"><i  class='fas fa-star' onclick="clickstar()"></i></a>
+                <a><i class='fas fa-star'></i></a>
+                <a><i class='fas fa-star'></i></a>
+                <a><i class='fas fa-star'></i></a>
+                <a><i class='fas fa-star'></i></a><br><br>
+                <span>4.7</span>
+                <label id="total">10VND</label>
+                <button id="pay" type="button" class="btn btn-warning">PAY</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    let array = [
+        {
+            id : 1,
+            name : "Nike",
+            category : "Giày",
+            price : 20
+        },
+        {
+            id : 1,
+            name : "Áo",
+            category : "Áo",
+            price : 20
+        },
+        {
+            id : 1,
+            name : "Quần",
+            category : "Quần",
+            price : 20
+        },
+        {
+            id : 1,
+            name : "kính",
+            category : "Kính",
+            price : 20
+        }
+
+    ];
+    $
+
+
+
+
+//     let user = [];
+//
+//     function getData(){
+//         axios({
+//             method : 'get',
+//             url : 'https://62e8ab6e93938a545be933c4.mockapi.io/Student',
+//             data: {
+//                 id : "7",
+//                 name : "Trung",
+//                 phone : "009994364565757"
+//             }
+//         }).then(res =>{
+//             user = res.data;
+//             console.log(user);
+//             // console.log(res.data);
+//             renderData();
+//         }).catch(err =>{
+//             console.log(err);
+//         });
+//     }
+//
+//     function renderData(){
+//         let element = `<tr>
+//         <th>ID</th>
+//         <th>Name</th>
+//         <th>Phone</th>
+// </tr>`
+//         user.map(value =>{
+//             element +=`<tr>
+//         <td>${value.id}</td>
+//         <td>${value.name}</td>
+//         <td>${value.phone}</td>
+// </tr>`
+//         });
+//         document.getElementById("table").innerHTML = element
+//     }
+
+    // function clickstar(){
+    //     $(document).ready(function (){
+    //     $('#star').click(function (){
+    //         $(this).css("background-color", "yellow");
+    //     })
+    //     })
+    // }
+</script>
+</body>
+</html>
