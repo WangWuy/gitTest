@@ -1,1 +1,87 @@
-123456
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <style>
+        .product {
+            display: flex;
+            margin: 8px;
+        }
+        .product p {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .app_content {
+            display: flex;
+            justify-content: space-between;
+        }
+        .modal-header {
+            background-color: #009688;
+        }
+        .modal-title {
+            text-align: center;
+        }
+        .quanti {
+            width: 73px;
+            height: 27px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Modal Example</h2>
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Open modal
+    </button>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Cart</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="app_content">
+                        <div class="product">
+                            <p>1</p>
+                            <p><img src="https://www.nike.com/vn/t/air-force-1-older-shoes-w6PsF3"></p>
+                            <p>Nike</p>
+                            <p>180$</p>
+                            <input type="number" class="quanti">
+                        </div>
+                        <div class="cancle">
+                            <button type="button" class="btn btn-danger" data-dismiss="div">X</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
