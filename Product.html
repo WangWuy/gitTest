@@ -152,82 +152,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-            <div class="card">
-                <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
-                <h4>Tailored Jeans</h4>
-                <p class="price-">$19.99</p>
-                <p class="price">$19.99</p>
-                <p><button><a>
-                    <i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                </button></p>
-                <div class="icon">30%</div>
-            </div>
-            <div class="card">
-                <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
-                <h4>Tailored Jeans</h4>
-                <p class="price-">$19.99</p>
-                <p class="price">$19.99</p>
-                <p><button><a>
-                    <i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                </button></p>
-                <div class="icon">30%</div>
-            </div>
-            <div class="card">
-                <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
-                <h4>Tailored Jeans</h4>
-                <p class="price-">$19.99</p>
-                <p class="price">$19.99</p>
-                <p><button >
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                </button></p>
-                <div class="icon">30%</div>
-            </div>
-            <div class="card">
-                <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
-                <h4>Tailored Jeans</h4>
-                <p class="price-">$19.99</p>
-                <p class="price">$19.99</p>
-                <p><button>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                </button></p>
-                <div class="icon">30%</div>
-            </div>
-            <div class="card">
-                <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
-                <h4>Tailored Jeans</h4>
-                <p class="price-">$19.99</p>
-                <p class="price">$19.99</p>
-                <p><button><a>
-                    <i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                </button></p>
-                <div class="icon">30%</div>
-            </div>
-            <div class="card">
-                <img src="https://i.pinimg.com/736x/78/9c/ae/789cae02f9550cbae3ce52a0f4cf4ef6.jpg" alt="Denim Jeans" style="width:100%">
-                <h4>Tailored Jeans</h4>
-                <p class="price-">$19.99</p>
-                <p class="price">$19.99</p>
-                <p><button><a>
-                    <i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                    <a><i class='fas fa-star'></i></a>
-                </button></p>
-                <div class="icon">30%</div>
+            <div id="cart">
+
             </div>
         </div >
         <div class="col-sm-4">
@@ -261,77 +187,60 @@
 
 <script>
 
-    let array = [
+    let data = [
         {
             id : 1,
             name : "Nike",
             category : "Giày",
             price : 20,
-            imane: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
+            image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
         {
             id : 1,
             name : "Áo",
             category : "Áo",
             price : 20,
-            imane: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
+            image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
         {
             id : 1,
             name : "Quần",
             category : "Quần",
             price : 20,
-            imane: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
+            image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
         {
             id : 1,
             name : "kính",
             category : "Kính",
             price : 20,
-            imane: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
+            image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         }
 
     ];
+    $(function () {
+        loadData()
+    })
+    function loadData() {
+        for (let i = 0; i < data.length; i++) {
+            $('#cart').append(
+                `<div class="card">
+                <img src="${data[i].image}" alt="Denim Jeans" style="width:100%">
+                <h4 class"tenSp">${data[i].name}</h4>
+                <p class="price-">$19.99</p>
+                <p class="price">${data[i].price}</p>
+                <p><button>
+                    <a><i class='fas fa-star'></i></a>
+                    <a><i class='fas fa-star'></i></a>
+                </button></p>
+                <div class="icon">30%</div>
+            </div>`
+            );
+            console.log(data[i]);
+        }
+    };
 
 
-
-
-    //     let user = [];
-    //
-    //     function getData(){
-    //         axios({
-    //             method : 'get',
-    //             url : 'https://62e8ab6e93938a545be933c4.mockapi.io/Student',
-    //             data: {
-    //                 id : "7",
-    //                 name : "Trung",
-    //                 phone : "009994364565757"
-    //             }
-    //         }).then(res =>{
-    //             user = res.data;
-    //             console.log(user);
-    //             // console.log(res.data);
-    //             renderData();
-    //         }).catch(err =>{
-    //             console.log(err);
-    //         });
-    //     }
-    //
-    //     function renderData(){
-    //         let element = `<tr>
-    //         <th>ID</th>
-    //         <th>Name</th>
-    //         <th>Phone</th>
-    // </tr>`
-    //         user.map(value =>{
-    //             element +=`<tr>
-    //         <td>${value.id}</td>
-    //         <td>${value.name}</td>
-    //         <td>${value.phone}</td>
-    // </tr>`
-    //         });
-    //         document.getElementById("table").innerHTML = element
-    //     }
 
     // function clickstar(){
     //     $(document).ready(function (){
