@@ -91,7 +91,7 @@
 
     /*    -------search------------*/
     input[type=text] {
-        width: 100%;
+        width: 290px;
         box-sizing: border-box;
         border: 2px solid #ccc;
         border-radius: 4px;
@@ -111,7 +111,7 @@
     select{
         margin: 20px 0 10px 0;
         border-radius: 5px;
-        width: 100%;
+        width: 290px;
         height: 50px;
         font-size: 18px;
         text-align: center;
@@ -133,7 +133,7 @@
     /*    --------lable thanh toán-----------*/
     #total{
         background-color: #ccc;
-        width: 100%;
+        width: 290px;
         height: 50px;
         border-radius: 5px;
         text-align: center;
@@ -141,14 +141,14 @@
         margin-top: 40px;
     }
     form button{
-        width: 100%;
+        width: 290px;
         height: 50px;
         margin-top: 120px;
     }
 
 </style>
 <body>
-<h1>Hello</h1>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
@@ -192,7 +192,6 @@
             id : 1,
             name : "Nike",
             category : "Giày",
-            pricesale: 25,
             price : 20,
             image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
@@ -200,7 +199,6 @@
             id : 1,
             name : "Áo",
             category : "Áo",
-            pricesale: 25,
             price : 20,
             image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
@@ -208,7 +206,6 @@
             id : 1,
             name : "Quần",
             category : "Quần",
-            pricesale: 25,
             price : 20,
             image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
@@ -216,7 +213,6 @@
             id : 1,
             name : "kính",
             category : "Kính",
-            pricesale: 25,
             price : 20,
             image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         }
@@ -231,8 +227,8 @@
                 `<div class="card">
                 <img src="${data[i].image}" alt="Denim Jeans" style="width:100%">
                 <h4 class"tenSp">${data[i].name}</h4>
-                <p class="price-">${data[i].pricesale}$</p>
-                <p class="price">${data[i].price}$</p>
+                <p class="price-">$19.99</p>
+                <p class="price">${data[i].price}</p>
                 <p><button>
                     <a><i class='fas fa-star'></i></a>
                     <a><i class='fas fa-star'></i></a>
@@ -243,21 +239,16 @@
             console.log(data[i]);
         }
     };
-    $(document).ready(function(){
-        $("button").click(function(){
-            $("<span>Hello World!</span>").appendTo("p");
-        });
-    });
 
 
 
-    function clickstar(){
-        $(document).ready(function (){
-        $('#star').click(function (){
-            $(this).css("background-color", "yellow");
-        })
-        })
-    }
+    // function clickstar(){
+    //     $(document).ready(function (){
+    //     $('#star').click(function (){
+    //         $(this).css("background-color", "yellow");
+    //     })
+    //     })
+    // }
 </script>
 </body>
 </html>
