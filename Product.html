@@ -91,7 +91,7 @@
 
     /*    -------search------------*/
     input[type=text] {
-        width: 290px;
+        width: 100%;
         box-sizing: border-box;
         border: 2px solid #ccc;
         border-radius: 4px;
@@ -111,7 +111,7 @@
     select{
         margin: 20px 0 10px 0;
         border-radius: 5px;
-        width: 290px;
+        width: 100%;
         height: 50px;
         font-size: 18px;
         text-align: center;
@@ -133,7 +133,7 @@
     /*    --------lable thanh toán-----------*/
     #total{
         background-color: #ccc;
-        width: 290px;
+        width: 100%;
         height: 50px;
         border-radius: 5px;
         text-align: center;
@@ -141,7 +141,7 @@
         margin-top: 40px;
     }
     form button{
-        width: 290px;
+        width: 100%;
         height: 50px;
         margin-top: 120px;
     }
@@ -239,6 +239,11 @@
             console.log(data[i]);
         }
     };
+    $(document).ready(function(){
+        $("button").click(function(){
+            $("<span>Hello World!</span>").appendTo("p");
+        });
+    });
 
 
 
