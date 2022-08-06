@@ -192,6 +192,7 @@
             id : 1,
             name : "Nike",
             category : "Giày",
+            pricesale: 25,
             price : 20,
             image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
@@ -199,6 +200,7 @@
             id : 1,
             name : "Áo",
             category : "Áo",
+            pricesale: 25,
             price : 20,
             image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
@@ -206,6 +208,7 @@
             id : 1,
             name : "Quần",
             category : "Quần",
+            pricesale: 25,
             price : 20,
             image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         },
@@ -213,6 +216,7 @@
             id : 1,
             name : "kính",
             category : "Kính",
+            pricesale: 25,
             price : 20,
             image: 'https://tse1.mm.bing.net/th?id=OIP.Yhr1ICkq2eUBPooZ6qwGnwHaH_&pid=Api&P=0'
         }
@@ -227,8 +231,8 @@
                 `<div class="card">
                 <img src="${data[i].image}" alt="Denim Jeans" style="width:100%">
                 <h4 class"tenSp">${data[i].name}</h4>
-                <p class="price-">$19.99</p>
-                <p class="price">${data[i].price}</p>
+                <p class="price-">${data[i].pricesale}$</p>
+                <p class="price">${data[i].price}$</p>
                 <p><button>
                     <a><i class='fas fa-star'></i></a>
                     <a><i class='fas fa-star'></i></a>
