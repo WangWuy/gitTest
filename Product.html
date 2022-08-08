@@ -180,7 +180,6 @@
     }
     #addCart a{
         margin-top: 20px;
-
     }
     #addCart #icon-cart{
         color: #ffffff;
@@ -204,8 +203,8 @@
 <div class="container">
     <header class="header">
         <div id="addCart">
-            <a href="index.html"><i class='fas fa-shopping-cart'></i></a>
-            <p  id="icon-cart">0</p>
+            <a><i class='fas fa-shopping-cart'></i></a>
+            <p id="icon-cart">0</p>
         </div>
     </header>
     <div class="row">
@@ -320,38 +319,13 @@
         },
 
     ];
-    // $(function () {
-    //     loadData()
-    // })
-    // function loadData() {
-    //     for (let i = 0; i < data.length; i++) {
-    //         $('#cart').append(
-    //             `<div class="card">
-    //             <img src="${data[i].image}" alt="Denim Jeans" style="width:100%">
-    //             <h4 class"tenSp">${data[i].name}</h4>
-    //             <p class="price-">${data[i].pricesale}</p>
-    //             <p class="price">${data[i].price}</p>
-    //             <p >
-    //             <i class='fas fa-star'></i>
-    //             <i class='fas fa-star'></i>
-    //             <i class='fas fa-star'></i>
-    //             <i class='fas fa-star'></i>
-    //             </p>
-    //             <p><button>
-    //                 <a>Add to cart</a>
-    //             </button></p>
-    //             <div class="icon">30%</div>
-    //         </div>`
-    //         );
-    //         console.log(data[i]);
-    //     }
-    // };
-
-    $(document).ready(function(){
-        $("#category").click(function(){
-            for (let i = 0; i < data.length; i++) {
-                $('#cart').append(
-                    `<div class="card">
+    $(function () {
+        loadData()
+    })
+    function loadData() {
+        for (let i = 0; i < data.length; i++) {
+            $('#cart').append(
+                `<div class="card">
                 <img src="${data[i].image}" alt="Denim Jeans" style="width:100%">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
@@ -367,11 +341,12 @@
                 </button></p>
                 <div class="icon">30%</div>
             </div>`
-                );
-                console.log(data[i]);
-            }
-        });
-    });
+            );
+            console.log(data[i]);
+        }
+    };
+
+
 
     // function clickstar(){
     //     $(document).ready(function (){
