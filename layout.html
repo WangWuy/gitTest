@@ -3,11 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+
+        }
+        .container {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+        }
+        .row{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+        }
+         #header{
+            background-color: rgb(17, 12, 155);
+            position: fixed;
+            /*width: 1110px;*/
+            height: 70px;
+            z-index: 1;
+        }
+        .col-sm-8{
+            margin-top: 70px;
+            background-color: #cccc;
+            width: 100%;
+            height: 150vh;
+            float: left;
+            position: relative;
+        }
+        .col-sm-4{
+            margin-top: 70px;
+            background-color: #0f6674;
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            float: right;
+            right: 0;
+            /*margin-right: 205px;*/
+        }
+        /*///////cart*/
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            max-width: 200px;
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+            float: left;
+            margin: 30px 18px 18px 18px;
+        }
+        .icon{
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #ef0404;
+            width: 50px;
+            height: 25px;
+            line-height: 25px;
+            /*border-radius: 5px 0 0 5px ;*/
+        }
+
+        .price {
+            color: grey;
+            font-size: 18px;
+            color: red;
+        }
+        .price- {
+            color: grey;
+            font-size: 15px;
+            text-decoration: line-through;
+        }
+
+        .card button {
+            border: none;
+            outline: 0;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .card button:hover {
+            opacity: 0.7;
+        }
+        /*    --------------------*/
+
+        form{
+            margin: 25px;
+        }
+
+        /*    -------search------------*/
+        input[type=text] {
+            width: 290px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 10px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+
+        input[type=text]:focus {
+            width: 100%;
+        }
+        /*    ----------------------------*/
+        select{
+            margin: 20px 0 10px 0;
+            border-radius: 5px;
+            width: 290px;
+            height: 50px;
+            font-size: 18px;
+            text-align: center;
+        }
+        /*    ----------------select---------*/
+        form a i{
+            margin-top: 20px;
+            font-size: 30px;
+            color: yellow;
+        }
+        button a i{
+            color: yellow;
+        }
+        label {
+            margin-top: 10px;
+            font-family:  Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+        }
+        /*    --------lable thanh toán-----------*/
+        #total{
+            background-color: #ccc;
+            width: 290px;
+            height: 50px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 50px;
+            margin-top: 40px;
+        }
+        form button{
+            width: 290px;
+            height: 50px;
+            margin-top: 120px;
+        }
+        /*    -------------------------giỏ hàng-----------------*/
+        #addCart{
+            width: 50px;
+            height: 50px;
+            position: relative;
+            float: right;
+            line-height: 60px;
+            margin-right: 30px;
+            border-radius: 25px;
+            margin-top: 10px;
+            color: #696969;
+        }
+        #addCart a i{
+            width: 45px; height: 45px;
+            font-size: 24px;
+            background-color: #ffffff;
+            border-radius: 50px;
+            line-height: 50px;
+            padding: 0 0 0 8px;
+        }
+        #addCart a i:hover{
+            color: #ccc;
+        }
+        #addCart a{
+            margin-top: 20px;
+        }
+        #addCart #icon-cart{
+            color: #ffffff;
+            font-size: 15px;
+            position: absolute;
+            border: thin solid red;
+            background-color: red;
+            width: 18px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            top: 0;
+            right: 0;
+        }
+    </style>
+
 </head>
 <body>
-        <div class="container">
+    <div class="container">
+        <div class="row">
+            <div class="col-12" id="header">
+                <header>
+                    <div id="addCart">
+                        <a><i class='fas fa-shopping-cart'></i></a>
+                        <p id="icon-cart">0</p>
+                    </div>
+                </header>
+            </div>
+<!--            <div class="col-sm-12">-->
+                <div class="col-sm-8">
+                    <div id="cart">
+                        <table class="myTable">
+                            <tbody id="myTable">
+                            <tr>
 
-            <label class="sua">sửa</label><label class="sua">sửa</label>
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div >
+
+                <div class="col-sm-4">
+                    <form>
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                        <select id="category" name="categorylist" form="carform">
+                            <option value="" selected disabled>--Chọn--</option>
+                            <option value="saab">Giày</option>
+                            <option value="opel">Áo</option>
+                            <option value="audi">Quần</option>
+                            <option value="audi">Phụ kiện</option>
+                        </select>
+                        <select id="sort" name="sortlist" form="carform">
+                            <option value="" selected disabled>--Giá--</option>
+                            <option value="minPrice">Thấp Nhất</option>
+                            <option value="maxPrice">Cao Nhất</option>
+                        </select><br>
+                        <label>Đánh giá:</label><br>
+                        <a id="star"><i  class='fas fa-star' onclick="clickstar()"></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a>
+                        <a><i class='fas fa-star'></i></a><br><br>
+                        <span>4.7</span>
+                        <label id="total">10VND</label>
+                        <button id="pay" type="button" class="btn btn-warning">Add to cart</button>
+                    </form>
+
+                </div>
+<!--            </div>-->
         </div>
+    </div>
+    <script>
+
+        let data = [
+            {
+                id : 1,
+                name : "Nike AIR Trắng",
+                category : "Giày",
+                pricesale : "2 000 000 VND",
+                price : "1 900 000 VND",
+                sale : 50,
+                image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
+            },
+            {
+                id : 2,
+                name : "Hoodie",
+                category : "Áo",
+                pricesale : "1 000 000 VND",
+                price : "990 000 VND",
+                sale : 10,
+                image: 'https://us.stuartslondon.com/images/script-logo-teddy-hoodie-oat-p44332-448539_image.jpg'
+            },
+            {
+                id : 3,
+                name : "Tây Âu",
+                category : "Quần",
+                pricesale : "600 000 VND",
+                price : "580 000 VND",
+                sale : 25,
+                image: 'https://product.hstatic.net/1000094286/product/1969_d_x__2__2d62254ffc9c44b08b435b81c94c9388_master.jpg'
+            },
+            {
+                id : 4,
+                name : "kính",
+                category : "Phụ kiện",
+                pricesale : "400 000 VND",
+                price : "390 000 VND",
+                sale : 30,
+                image: 'https://cf.shopee.vn/file/d5cd8979ca3d7fe06e05122c79e1cc51'
+            },
+            {
+                id : 5,
+                name : "Quần short",
+                category : "Quần",
+                pricesale : "1 000 000 VND",
+                price : "900 000 VND",
+                sale : 25,
+                image: 'https://annshop.vn/wp-content/uploads/10099-1043023651-d6ba175e4929af77f638-4.png'
+            },
+            {
+                id : 6,
+                name : "Polo Nam",
+                category : "Áo",
+                pricesale : "400 000 VND",
+                price : "390 000 VND",
+                sale : 50,
+                image: 'https://1.bp.blogspot.com/-QHWvhU56dm8/VZpC2i_tHcI/AAAAAAAABhY/bu0v5JdqGO8/s1600/3%2Bnew.jpg'
+            },
+            {
+                id : 7,
+                name : "Tất",
+                category : "Phụ kiện",
+                pricesale : "50 000 VND",
+                price : "39 000 VND",
+                sale : 30,
+                image: 'https://www.tripnow.vn/wp-content/uploads/2019/07/tat-nam-cao-co-2.jpg'
+            },
+            {
+                id : 8,
+                name : "Sơmi trắng",
+                category : "Áo",
+                pricesale : "450 000 VND",
+                price : "399 000 VND",
+                sale : 10,
+                image: 'https://www.shopbexy.com/wp-content/uploads/2019/09/Ao-So-Mi-Trang-Nu-Dep-ASMT56.jpg'
+            },
+            {
+                id : 9,
+                name : "Nike AIR",
+                category : "Giày",
+                pricesale : "2 100 000 VND",
+                price : "1 999 000 VND",
+                sale : 20,
+                image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
+            },
+
+        ];
+        $(function () {
+            loadData()
+        })
+        function loadData() {
+            for (let i = 0; i < data.length; i++) {
+                $('#myTable').append(
+                    `<div class="card">
+                <img src="${data[i].image}" alt="Denim Jeans" style="width:200px" height="200px">
+                <h4 class"tenSp">${data[i].name}</h4>
+                <p class="price-">${data[i].pricesale}</p>
+                <p class="price">${data[i].price}</p>
+                <p >
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+                </p>
+                <p><button>
+                    <a>Add to cart</a>
+                </button></p>
+                <div class="icon">${data[i].sale}%</div>
+            </div>`
+                );
+                console.log(data[i]);
+            }
+        };
+        //--------------------------search--------------
+        $('#myInput').on('keyup', function(event) {
+            event.preventDefault();
+            /* Event sk*/
+            var search = $(this).val().toLowerCase();
+            $('#myTable .card').filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
+            });
+        });
+
+    </script>
 </body>
 </html>
