@@ -6,11 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JQuery</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!--    --------------icon------------>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 </head>
 <style>
     *{
@@ -230,10 +226,10 @@
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
                 <select id="category" name="categorylist" form="carform">
                     <option value="" selected disabled>--Chọn--</option>
-                    <option value="Giày">Giày</option>
-                    <option value="Áo">Áo</option>
-                    <option value="Quần">Quần</option>
-                    <option value="Phụ kiện">Phụ kiện</option>
+                    <option value="giay">Giày</option>
+                    <option value="ao">Áo</option>
+                    <option value="quan">Quần</option>
+                    <option value="phu kien">Phụ kiện</option>
                 </select>
                 <select id="sort" name="sortlist" form="carform">
                     <option value="" selected disabled>--Giá--</option>
@@ -253,104 +249,114 @@
         </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<!--    --------------icon------------>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script>
 
-    let data = [
-        {
-            id : 1,
-            name : "Nike AIR Trắng",
-            category : "giày",
-            pricesale : "2 000 000 VND",
-            price : "1 900 000 VND",
-            sale : 50,
-            image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
-        },
-        {
-            id : 2,
-            name : "Hoodie",
-            category : "áo",
-            pricesale : "1 000 000 VND",
-            price : "990 000 VND",
-            sale : 10,
-            image: 'https://us.stuartslondon.com/images/script-logo-teddy-hoodie-oat-p44332-448539_image.jpg'
-        },
-        {
-            id : 3,
-            name : "Tây Âu",
-            category : "quần",
-            pricesale : "600 000 VND",
-            price : "580 000 VND",
-            sale : 25,
-            image: 'https://product.hstatic.net/1000094286/product/1969_d_x__2__2d62254ffc9c44b08b435b81c94c9388_master.jpg'
-        },
-        {
-            id : 4,
-            name : "kính",
-            category : "phụ kiện",
-            pricesale : "400 000 VND",
-            price : "390 000 VND",
-            sale : 30,
-            image: 'https://cf.shopee.vn/file/d5cd8979ca3d7fe06e05122c79e1cc51'
-        },
-        {
-            id : 5,
-            name : "Quần short",
-            category : "quần",
-            pricesale : "1 000 000 VND",
-            price : "900 000 VND",
-            sale : 25,
-            image: 'https://annshop.vn/wp-content/uploads/10099-1043023651-d6ba175e4929af77f638-4.png'
-        },
-        {
-            id : 6,
-            name : "Polo Nam",
-            category : "áo",
-            pricesale : "400 000 VND",
-            price : "390 000 VND",
-            sale : 50,
-            image: 'https://1.bp.blogspot.com/-QHWvhU56dm8/VZpC2i_tHcI/AAAAAAAABhY/bu0v5JdqGO8/s1600/3%2Bnew.jpg'
-        },
-        {
-            id : 7,
-            name : "Tất",
-            category : "phụ kiện",
-            pricesale : "50 000 VND",
-            price : "39 000 VND",
-            sale : 30,
-            image: 'https://www.tripnow.vn/wp-content/uploads/2019/07/tat-nam-cao-co-2.jpg'
-        },
-        {
-            id : 8,
-            name : "Sơmi trắng",
-            category : "áo",
-            pricesale : "450 000 VND",
-            price : "399 000 VND",
-            sale : 10,
-            image: 'https://www.shopbexy.com/wp-content/uploads/2019/09/Ao-So-Mi-Trang-Nu-Dep-ASMT56.jpg'
-        },
-        {
-            id : 9,
-            name : "Nike AIR",
-            category : "giày",
-            pricesale : "2 100 000 VND",
-            price : "1 999 000 VND",
-            sale : 20,
-            image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
-        },
+    // let data = [
+    //     {
+    //         id : 1,
+    //         name : "Nike AIR Trắng",
+    //         category : "giay",
+    //         pricesale : 2000000,
+    //         "price" : 1900000,
+    //         sale : 50,
+    //         image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
+    //     },
+    //     {
+    //         id : 2,
+    //         name : "Hoodie",
+    //         category : "ao",
+    //         pricesale : 1000000,
+    //         price : 990000,
+    //         sale : 10,
+    //         image: 'https://us.stuartslondon.com/images/script-logo-teddy-hoodie-oat-p44332-448539_image.jpg'
+    //     },
+    //     {
+    //         id : 3,
+    //         name : "Tây Âu",
+    //         category : "quan",
+    //         pricesale : 600000,
+    //         price : 580000,
+    //         sale : 25,
+    //         image: 'https://product.hstatic.net/1000094286/product/1969_d_x__2__2d62254ffc9c44b08b435b81c94c9388_master.jpg'
+    //     },
+    //     {
+    //         id : 4,
+    //         name : "kính",
+    //         category : "phu kien",
+    //         pricesale : 400000,
+    //         price : 390000,
+    //         sale : 30,
+    //         image: 'https://cf.shopee.vn/file/d5cd8979ca3d7fe06e05122c79e1cc51'
+    //     },
+    //     {
+    //         id : 5,
+    //         name : "Quần short",
+    //         category : "quan",
+    //         pricesale : 1000000,
+    //         price : 900000,
+    //         sale : 25,
+    //         image: 'https://annshop.vn/wp-content/uploads/10099-1043023651-d6ba175e4929af77f638-4.png'
+    //     },
+    //     {
+    //         id : 6,
+    //         name : "Polo Nam",
+    //         category : "ao",
+    //         pricesale : 400000,
+    //         price : 390000,
+    //         sale : 50,
+    //         image: 'https://1.bp.blogspot.com/-QHWvhU56dm8/VZpC2i_tHcI/AAAAAAAABhY/bu0v5JdqGO8/s1600/3%2Bnew.jpg'
+    //     },
+    //     {
+    //         id : 7,
+    //         name : "Tất",
+    //         category : "phu kien",
+    //         pricesale : 50000,
+    //         price : 39000,
+    //         sale : 30,
+    //         image: 'https://www.tripnow.vn/wp-content/uploads/2019/07/tat-nam-cao-co-2.jpg'
+    //     },
+    //     {
+    //         id : 8,
+    //         name : "Sơmi trắng",
+    //         category : "ao",
+    //         pricesale : 450000,
+    //         price : 399000,
+    //         sale : 10,
+    //         image: 'https://www.shopbexy.com/wp-content/uploads/2019/09/Ao-So-Mi-Trang-Nu-Dep-ASMT56.jpg'
+    //     },
+    //     {
+    //         id : 9,
+    //         name : "Nike AIR",
+    //         category : "giay",
+    //         pricesale : 2100000,
+    //         price : 1999000,
+    //         sale : 20,
+    //         image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
+    //     },
+    //
+    // ];
+    let data = [{"id":1,"name":"Nike AIR Trắng","category":"giay","pricesale":2000000,"price":1900000,"sale":50,"image":"http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg"},{"id":2,"name":"Hoodie","category":"ao","pricesale":1000000,"price":990000,"sale":10,"image":"https://us.stuartslondon.com/images/script-logo-teddy-hoodie-oat-p44332-448539_image.jpg"},{"id":3,"name":"Tây Âu","category":"quan","pricesale":600000,"price":580000,"sale":25,"image":"https://product.hstatic.net/1000094286/product/1969_d_x__2__2d62254ffc9c44b08b435b81c94c9388_master.jpg"},{"id":4,"name":"kính","category":"phu kien","pricesale":400000,"price":390000,"sale":30,"image":"https://cf.shopee.vn/file/d5cd8979ca3d7fe06e05122c79e1cc51"},{"id":5,"name":"Quần short","category":"quan","pricesale":1000000,"price":900000,"sale":25,"image":"https://annshop.vn/wp-content/uploads/10099-1043023651-d6ba175e4929af77f638-4.png"},{"id":6,"name":"Polo Nam","category":"ao","pricesale":400000,"price":390000,"sale":50,"image":"https://1.bp.blogspot.com/-QHWvhU56dm8/VZpC2i_tHcI/AAAAAAAABhY/bu0v5JdqGO8/s1600/3%2Bnew.jpg"},{"id":7,"name":"Tất","category":"phu kien","pricesale":50000,"price":39000,"sale":30,"image":"https://www.tripnow.vn/wp-content/uploads/2019/07/tat-nam-cao-co-2.jpg"},{"id":8,"name":"Sơmi trắng","category":"ao","pricesale":450000,"price":399000,"sale":10,"image":"https://www.shopbexy.com/wp-content/uploads/2019/09/Ao-So-Mi-Trang-Nu-Dep-ASMT56.jpg"},{"id":9,"name":"Nike AIR","category":"giay","pricesale":2100000,"price":1999000,"sale":20,"image":"https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg"}]
 
-    ];
     $(function () {
         loadData()
+        data.map(data =>{
+
+        })
     })
     function loadData() {
         for (let i = 0; i < data.length; i++) {
             $('#myTable').append(
                 `<div class="card">
-                <img src="${data[i].image}" alt="Denim Jeans" style="width:200px" height="200px">
+                <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
                 <p class="price">${data[i].price}</p>
+                <p class="category">${data[i].category}</p>
                 <p >
                 <i class='fas fa-star'></i>
                 <i class='fas fa-star'></i>
@@ -373,45 +379,60 @@
         var search = $(this).val().toLowerCase();
         $('#myTable .card').filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
+            // console.log(this)
         });
     });
-
-
-
-    //-----category--------
+    //------------------------category------------------------
     $('#category').on('change', function(event) {
-        // event.preventDefault();
+        event.preventDefault();
         /* Event sk*/
         var searchcategory = $(this).val().toLowerCase();
         console.log(searchcategory);
-        // $('#myTable .card').filter(function() {
-        //     $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
-        // });
-        let dataFilter = data.filter(item=> item.category.toLowerCase() === searchcategory)
-        // console.log(dataFilter)
-        let content = '';
-        for (let i = 0; i < dataFilter.length; i++) {
-            content +=
-                `<div class="card">
-                <img src="${dataFilter[i].image}" alt="Denim Jeans" style="width:200px" height="200px">
-                <h4 class"tenSp">${dataFilter[i].name}</h4>
-                <p class="price-">${dataFilter[i].pricesale}</p>
-                <p class="price">${dataFilter[i].price}</p>
-                <p >
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                </p>
-                <p><button>
-                    <a>Add to cart</a>
-                </button></p>
-                <div class="icon">${dataFilter[i].sale}%</div>
-            </div>`
-            console.log(dataFilter[i])
-        }
-        $('cart').html = content;
+
+        let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
+        console.log(dataFilter)
+        // console.log(searchcategory)
+
+        $('#myTable .card').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
+            // let a = $(this).text().toLowerCase();
+            console.log(this);
+            // console.log(a);
+        });
     });
+
+    //------------------------Giá thấp nhất cao nhất------------------------
+    $('#sort').on('change', function(event) {
+        event.preventDefault();
+        /* Event sk*/
+        var sortPrice = $(this).val();
+        console.log(sortPrice);
+
+
+        let a = []
+        for(let i = 0; i < data.length; i++) {
+            a = data[i].price
+            console.log([a])
+            a.sort(function (i, j){
+                return i-j
+            })
+            console.log(a)
+        }
+
+
+        // let dataFilter = data.filter(item=> item.price == sortPrice)
+        // // console.log(dataFilter)
+        // // console.log(searchcategory)
+        //
+        // $('#myTable .card').filter(function() {
+        //     $(this).toggle($(this).text().indexOf(sortPrice)>-1);
+        //     // let a = $(this).text().toLowerCase();
+        // //     // console.log(this);
+        // //     // console.log(a);
+        // });
+    });
+
+
 
 </script>
 </body>
