@@ -230,10 +230,10 @@
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
                 <select id="category" name="categorylist" form="carform">
                     <option value="" selected disabled>--Chọn--</option>
-                    <option value="Giày">Giày</option>
-                    <option value="Áo">Áo</option>
-                    <option value="Quần">Quần</option>
-                    <option value="Phụ kiện">Phụ kiện</option>
+                    <option value="giay">Giày</option>
+                    <option value="ao">Áo</option>
+                    <option value="quan">Quần</option>
+                    <option value="phu kien">Phụ kiện</option>
                 </select>
                 <select id="sort" name="sortlist" form="carform">
                     <option value="" selected disabled>--Giá--</option>
@@ -260,7 +260,7 @@
         {
             id : 1,
             name : "Nike AIR Trắng",
-            category : "giày",
+            category : "giay",
             pricesale : "2 000 000 VND",
             price : "1 900 000 VND",
             sale : 50,
@@ -269,7 +269,7 @@
         {
             id : 2,
             name : "Hoodie",
-            category : "áo",
+            category : "ao",
             pricesale : "1 000 000 VND",
             price : "990 000 VND",
             sale : 10,
@@ -278,7 +278,7 @@
         {
             id : 3,
             name : "Tây Âu",
-            category : "quần",
+            category : "quan",
             pricesale : "600 000 VND",
             price : "580 000 VND",
             sale : 25,
@@ -287,7 +287,7 @@
         {
             id : 4,
             name : "kính",
-            category : "phụ kiện",
+            category : "phu kien",
             pricesale : "400 000 VND",
             price : "390 000 VND",
             sale : 30,
@@ -296,7 +296,7 @@
         {
             id : 5,
             name : "Quần short",
-            category : "quần",
+            category : "quan",
             pricesale : "1 000 000 VND",
             price : "900 000 VND",
             sale : 25,
@@ -305,7 +305,7 @@
         {
             id : 6,
             name : "Polo Nam",
-            category : "áo",
+            category : "ao",
             pricesale : "400 000 VND",
             price : "390 000 VND",
             sale : 50,
@@ -314,7 +314,7 @@
         {
             id : 7,
             name : "Tất",
-            category : "phụ kiện",
+            category : "phu kien",
             pricesale : "50 000 VND",
             price : "39 000 VND",
             sale : 30,
@@ -323,7 +323,7 @@
         {
             id : 8,
             name : "Sơmi trắng",
-            category : "áo",
+            category : "ao",
             pricesale : "450 000 VND",
             price : "399 000 VND",
             sale : 10,
@@ -332,7 +332,7 @@
         {
             id : 9,
             name : "Nike AIR",
-            category : "giày",
+            category : "giay",
             pricesale : "2 100 000 VND",
             price : "1 999 000 VND",
             sale : 20,
@@ -347,10 +347,11 @@
         for (let i = 0; i < data.length; i++) {
             $('#myTable').append(
                 `<div class="card">
-                <img src="${data[i].image}" alt="Denim Jeans" style="width:200px" height="200px">
+                <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
                 <p class="price">${data[i].price}</p>
+                <p class="category">${data[i].category}</p>
                 <p >
                 <i class='fas fa-star'></i>
                 <i class='fas fa-star'></i>
@@ -373,44 +374,26 @@
         var search = $(this).val().toLowerCase();
         $('#myTable .card').filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
+            // console.log(this)
         });
     });
-
-
-
-    //-----category--------
+    //------------------------category------------------------
     $('#category').on('change', function(event) {
-        // event.preventDefault();
+        event.preventDefault();
         /* Event sk*/
         var searchcategory = $(this).val().toLowerCase();
         console.log(searchcategory);
-        // $('#myTable .card').filter(function() {
-        //     $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
-        // });
-        let dataFilter = data.filter(item=> item.category.toLowerCase() === searchcategory)
-        // console.log(dataFilter)
-        let content = '';
-        for (let i = 0; i < dataFilter.length; i++) {
-            content +=
-                `<div class="card">
-                <img src="${dataFilter[i].image}" alt="Denim Jeans" style="width:200px" height="200px">
-                <h4 class"tenSp">${dataFilter[i].name}</h4>
-                <p class="price-">${dataFilter[i].pricesale}</p>
-                <p class="price">${dataFilter[i].price}</p>
-                <p >
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                </p>
-                <p><button>
-                    <a>Add to cart</a>
-                </button></p>
-                <div class="icon">${dataFilter[i].sale}%</div>
-            </div>`
-            console.log(dataFilter[i])
-        }
-        $('cart').html = content;
+
+        let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
+        console.log(dataFilter)
+        // console.log(searchcategory)
+
+        $('#myTable .card').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
+            // let a = $(this).text().toLowerCase();
+            console.log(this);
+            // console.log(a);
+        });
     });
 
 </script>
