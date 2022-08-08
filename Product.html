@@ -40,7 +40,7 @@
         position: fixed;
         float: right;
         right: 0;
-        margin-right: 205px;
+        margin-right: 119px;
     }
     /*///////cart*/
     .card {
@@ -230,10 +230,6 @@
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
                 <select id="category" name="categorylist" form="carform">
                     <option value="" selected disabled>--Chọn--</option>
-                    <option value="saab">Giày</option>
-                    <option value="opel">Áo</option>
-                    <option value="audi">Quần</option>
-                    <option value="audi">Phụ kiện</option>
                 </select>
                 <select id="sort" name="sortlist" form="carform">
                     <option value="" selected disabled>--Giá--</option>
@@ -366,8 +362,9 @@
             console.log(data[i]);
         }
     };
+
     //--------------------------search--------------
-    $('#myInput').on('keyup', function(event) {
+    $('#category').on('change', function(event) {
         event.preventDefault();
         /* Event sk*/
         var search = $(this).val().toLowerCase();
@@ -375,6 +372,41 @@
             $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
         });
     });
+
+    // Đổ dữ liệu ra phần chọn danh mục
+    let dropDown = $('#category') // Tạo biến gọi đến id danh mục
+    const htmlData = data.map( // tạo biến htmlData map dữ liệu vào danh mục
+        (dish) => `<option value="${dish.category}">${dish.category}</option>`
+    ).sort()
+    dropDown.append(htmlData);
+
+    // Load du lieu san pham tu category
+    $(function () {
+        loadCategory()
+    })
+    function loadCategory() {
+        for (let i = 0; i < data.length; i++) {
+            $('#myTable').append(
+                `<div class="card">
+                <img src="${data[i].image}" alt="Denim Jeans" style="width:200px" height="200px">
+                <h4 class"tenSp">${data[i].name}</h4>
+                <p class="price-">${data[i].pricesale}</p>
+                <p class="price">${data[i].price}</p>
+                <p >
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+                </p>
+                <p><button>
+                    <a>Add to cart</a>
+                </button></p>
+                <div class="icon">${data[i].sale}%</div>
+            </div>`
+            );
+            console.log(data[i]);
+        }
+    };
 
 </script>
 </body>
