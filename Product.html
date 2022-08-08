@@ -251,7 +251,6 @@
 </div>
 
 <script>
-
     let data = [
         {
             id : 1,
@@ -341,12 +340,14 @@
     })
     function loadData() {
         for (let i = 0; i < data.length; i++) {
+
             $('#myTable').append(
                 `<div class="card">
                 <img src="${data[i].image}" alt="Denim Jeans" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
                 <p class="price">${data[i].price}</p>
+                <p class="category" style="display: none">${data[i].category}</p>
                 <p >
                 <i class='fas fa-star'></i>
                 <i class='fas fa-star'></i>
@@ -358,13 +359,15 @@
                 </button></p>
                 <div class="icon">${data[i].sale}%</div>
             </div>`
-            );
+        );
             console.log(data[i]);
+
         }
+
     };
 
     //--------------------------search--------------
-    $('#category').on('change', function(event) {
+    $('#myInput').on('keyup', function(event) {
         event.preventDefault();
         /* Event sk*/
         var search = $(this).val().toLowerCase();
@@ -380,33 +383,24 @@
     ).sort()
     dropDown.append(htmlData);
 
-    // Load du lieu san pham tu category
-    $(function () {
-        loadCategory()
-    })
-    function loadCategory() {
-        for (let i = 0; i < data.length; i++) {
-            $('#myTable').append(
-                `<div class="card">
-                <img src="${data[i].image}" alt="Denim Jeans" style="width:200px" height="200px">
-                <h4 class"tenSp">${data[i].name}</h4>
-                <p class="price-">${data[i].pricesale}</p>
-                <p class="price">${data[i].price}</p>
-                <p >
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                </p>
-                <p><button>
-                    <a>Add to cart</a>
-                </button></p>
-                <div class="icon">${data[i].sale}%</div>
-            </div>`
-            );
-            console.log(data[i]);
-        }
-    };
+    // -----category--------
+    $('#category').on('change', function(events) {
+        events.preventDefault();
+        /* Event chon danh muc*/
+        var searchCategory = $(this).val().toLowerCase();
+        $('#myTable .card').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(searchCategory)>-1);
+        });
+
+        let dataFilter = data.filter(item => item.category.toLowerCase() === searchCategory)
+        console.log(dataFilter)
+
+        $('#myTable .card').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(dataFilter)>-1);
+            // let a = $(this).val().toLowerCase()
+            console.log(this)
+        });
+    });
 
 </script>
 </body>
