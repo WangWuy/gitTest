@@ -217,11 +217,7 @@
             <form>
                 <input type="text" name="search" placeholder="Search..">
                 <select id="category" name="categorylist" form="carform">
-                    <option value="" selected disabled>--Chọn--</option>
-                    <option value="saab">Saab</option>
-                    <option value="opel">Opel</option>
-                    <option value="audi">Audi</option>
-                    <option value="audi">Audi</option>
+                    <option value="" selected disabled>--Danh mục--</option>
                 </select>
                 <select id="sort" name="sortlist" form="carform">
                     <option value="" selected disabled>--Giá--</option>
@@ -319,6 +315,8 @@
         },
 
     ];
+
+    // Đổ dữ liệu sản phẩm ra trang chủ
     $(function () {
         loadData()
     })
@@ -346,15 +344,23 @@
         }
     };
 
+    // Đổ dữ liệu ra phần chọn danh mục
+    let dropDown = $('#category') // Tạo biến gọi đến id danh mục
+    const htmlData = data.map( // tạo biến htmlData map dữ liệu vào danh mục
+        (dish) => `<option value="${dish.category}">${dish.category}</option>`
+    )
+    dropDown.append(htmlData);
 
+    // Lọc dữ liệu khi chọn danh mục
+    $('#category').on('change', function(event) {
+        event.preventDefault();
+        /* Event sk*/
+        var cateSearch = $(this).val().toLowerCase();
+        $('#myTable .card').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(cateSearch)>-1);
+        });
+    });
 
-    // function clickstar(){
-    //     $(document).ready(function (){
-    //     $('#star').click(function (){
-    //         $(this).css("background-color", "yellow");
-    //     })
-    //     })
-    // }
 </script>
 </body>
 </html>
