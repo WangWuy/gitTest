@@ -317,7 +317,6 @@
             price : 1900000,
             star: 3,
             sale : 50,
-            star : 5,
             image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
         },
         {
@@ -328,7 +327,6 @@
             price : 990000,
             star: 5,
             sale : 10,
-            star : 1,
             image: 'https://us.stuartslondon.com/images/script-logo-teddy-hoodie-oat-p44332-448539_image.jpg'
         },
         {
@@ -339,7 +337,6 @@
             price : 580000,
             star: 3,
             sale : 25,
-            star : 4,
             image: 'https://product.hstatic.net/1000094286/product/1969_d_x__2__2d62254ffc9c44b08b435b81c94c9388_master.jpg'
         },
         {
@@ -350,7 +347,6 @@
             price : 390000,
             star: 2,
             sale : 30,
-            star : 3,
             image: 'https://cf.shopee.vn/file/d5cd8979ca3d7fe06e05122c79e1cc51'
         },
         {
@@ -361,7 +357,6 @@
             price : 900000,
             star: 3,
             sale : 25,
-            star : 4,
             image: 'https://annshop.vn/wp-content/uploads/10099-1043023651-d6ba175e4929af77f638-4.png'
         },
         {
@@ -372,7 +367,6 @@
             price : 390000,
             star: 4,
             sale : 50,
-            star : 5,
             image: 'https://1.bp.blogspot.com/-QHWvhU56dm8/VZpC2i_tHcI/AAAAAAAABhY/bu0v5JdqGO8/s1600/3%2Bnew.jpg'
         },
         {
@@ -383,7 +377,6 @@
             price : 39000,
             star: 3,
             sale : 30,
-            star : 5,
             image: 'https://www.tripnow.vn/wp-content/uploads/2019/07/tat-nam-cao-co-2.jpg'
         },
         {
@@ -404,7 +397,6 @@
             price : 1999000,
             star: 1,
             sale : 20,
-            star : 5,
             image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
         },
 
@@ -567,21 +559,51 @@
             }
         });
     });
+    //-----------------------------------------
 
     $('#stars .star').on('click', function(event) {
         event.preventDefault();
         /* Event sk*/
         let clickStar = $(this).val();
-        for (let i = clickStar; i <= 5; i++) {
-            let dataStar = data.filter(item=> item.star == i)
-            // console.log(dataStar)
-            $('#myTable .card').filter(function() {
-                $(this).toggle($(this).text().indexOf(dataStar)>-1);
-                // let a = $(this).val()
-                // console.log(this);
-                // console.log(a);
-            });
+        console.log(clickStar)
+       let  data1 = data.filter(function(a, b) {
+            return a['star'] >= clickStar ;
+        });
+
+        let b = '';
+        for (let i = 0; i < data1.length; i++) {
+            let start = '';
+            for (let y = 0 ; y < data1[i]['star'] ; y++){
+                start += '<i class="fas fa-star"></i>';
+            }
+            b +=
+                `<div class="card">
+                <img src="${data1[i].image}" style="width:200px" height="200px">
+                <h4 class"tenSp">${data1[i].name}</h4>
+                <p class="price-">${data1[i].pricesale}</p>
+                <p class="price">${data1[i].price}</p>
+                <p class="category" style="display: none;">${data1[i].category}</p>
+                <p>
+                    ${start}
+                </p>
+                <p><button>
+                    <a>Add to cart</a>
+                </button></p>
+                <div class="icon">${data1[i].sale}%</div>
+            </div>`;
         }
+        $('#myTable').html(b);
+        // console.log(clickStar);
+        // for (let i = clickStar; i <= 5; i++) {
+        //     let dataStar = data.filter(item=> item.star == i)
+            // console.log(dataStar)
+            // $('#myTable .card').filter(function() {
+            //     $(this).toggle($(this).text().indexOf(clickStar)>-1);
+            //     // let a = $(this).val()
+            //     console.log(this);
+            //     // console.log(a);
+            // });
+        // }
     })
 </script>
 </body>
