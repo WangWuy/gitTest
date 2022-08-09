@@ -151,6 +151,29 @@
         height: 50px;
         margin-top: 120px;
     }
+    /* Rating Star Widgets Style */
+    .rating-stars ul {
+        list-style-type:none;
+        padding:0;
+        -moz-user-select:none;
+        -webkit-user-select:none;
+    }
+    .rating-stars ul > li.star {
+        display:inline-block;
+    }
+    /* Idle State of the stars */
+    .rating-stars ul > li.star > i.fa {
+        font-size:2.5em; /* Change the size of the stars */
+        color:#ccc; /* Color on idle state */
+    }
+    /* Hover state of the stars */
+    .rating-stars ul > li.star.hover > i.fa {
+        color:#FFCC36;
+    }
+    /* Selected state of the stars */
+    .rating-stars ul > li.star.selected > i.fa {
+        color:#FF912C;
+    }
     /*    --------------------header------------*/
     .header{
         background-color: rgb(17, 12, 155);
@@ -241,11 +264,26 @@
                     <option id="maxPrice" value="max" >Cao Nhất</option>
                 </select><br>
                 <label>Đánh giá:</label><br>
-                <a id="star"><i  class='fas fa-star' onclick="clickstar()"></i></a>
-                <a><i class='fas fa-star'></i></a>
-                <a><i class='fas fa-star'></i></a>
-                <a><i class='fas fa-star'></i></a>
-                <a><i class='fas fa-star'></i></a><br><br>
+                <!-- Rating Stars Box -->
+                <div class='rating-stars text-center'>
+                    <ul id='stars'>
+                        <li class='star' title='Poor' data-value='1'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Fair' data-value='2'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Good' data-value='3'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Excellent' data-value='4'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='WOW!!!' data-value='5'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                    </ul>
+                </div>
 
                 <label >Giá từ:</label>
                 <input id="inputto" value="0">
@@ -268,6 +306,7 @@
             category : "giay",
             pricesale : 2000000,
             price : 1900000,
+            star: 3,
             sale : 50,
             image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
         },
@@ -277,6 +316,7 @@
             category : "ao",
             pricesale : 1000000,
             price : 990000,
+            star: 5,
             sale : 10,
             image: 'https://us.stuartslondon.com/images/script-logo-teddy-hoodie-oat-p44332-448539_image.jpg'
         },
@@ -286,6 +326,7 @@
             category : "quan",
             pricesale : 600000,
             price : 580000,
+            star: 3,
             sale : 25,
             image: 'https://product.hstatic.net/1000094286/product/1969_d_x__2__2d62254ffc9c44b08b435b81c94c9388_master.jpg'
         },
@@ -295,6 +336,7 @@
             category : "phu kien",
             pricesale : 400000,
             price : 390000,
+            star: 2,
             sale : 30,
             image: 'https://cf.shopee.vn/file/d5cd8979ca3d7fe06e05122c79e1cc51'
         },
@@ -304,6 +346,7 @@
             category : "quan",
             pricesale : 1000000,
             price : 900000,
+            star: 3,
             sale : 25,
             image: 'https://annshop.vn/wp-content/uploads/10099-1043023651-d6ba175e4929af77f638-4.png'
         },
@@ -313,6 +356,7 @@
             category : "ao",
             pricesale : 400000,
             price : 390000,
+            star: 4,
             sale : 50,
             image: 'https://1.bp.blogspot.com/-QHWvhU56dm8/VZpC2i_tHcI/AAAAAAAABhY/bu0v5JdqGO8/s1600/3%2Bnew.jpg'
         },
@@ -322,6 +366,7 @@
             category : "phu kien",
             pricesale : 50000,
             price : 39000,
+            star: 3,
             sale : 30,
             image: 'https://www.tripnow.vn/wp-content/uploads/2019/07/tat-nam-cao-co-2.jpg'
         },
@@ -331,6 +376,7 @@
             category : "ao",
             pricesale : 450000,
             price : 399000,
+            star: 5,
             sale : 10,
             image: 'https://www.shopbexy.com/wp-content/uploads/2019/09/Ao-So-Mi-Trang-Nu-Dep-ASMT56.jpg'
         },
@@ -340,6 +386,7 @@
             category : "giay",
             pricesale : 2100000,
             price : 1999000,
+            star: 1,
             sale : 20,
             image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
         },
@@ -348,6 +395,7 @@
     $(function () {
         loadData()
     })
+
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
@@ -359,6 +407,7 @@
                 <p class="price">${data[i].price}</p>
                 <p class="category">${data[i].category}</p>
                 <p >
+                ${showStar(data[i].sale)}
                 <i class='fas fa-star'></i>
                 <i class='fas fa-star'></i>
                 <i class='fas fa-star'></i>
@@ -402,42 +451,25 @@
         });
     });
 
-    //--------------------------------------------
+    // Loc gia trong khoang nho nhat den lon nhat
     $('#inputto , #inputfrom').on('input', function (){
         let a = $('#inputto').val();
-        // console.log(a)
         let b = $('#inputfrom').val();
-        // console.log(b)
         for (let i = 0; i<data.length; i++){
-            // console.log(a,data[i].price,b)
             if(a  <=data[i].price && data[i].price <= b ){
                 console.log('gia tien ',data[i].price)
-                // console.log(data.length)
                 $('.listProduct:eq('+i+')').removeClass('d-none');
             }else {
                 $('.listProduct:eq('+i+')').addClass('d-none');
             }
         }
     })
-//    -------------------sort------------------
+//    -------------------sort gia thap nhat gia cao nhat------------------
     $('#sort').on('change', function (event){
         event.preventDefault();
-
-        /* Event sk*/
         var minPrice = $(this).val().toLowerCase();
         var maxPrice = $(this).val().toLowerCase();
-
-        // for (let i = 0; i<data.length; i++) {
-        //     let dataload = data[i].price;
-        //     console.log(dataload);
-        //
-        //
-        //     // let dataMin = dataload.sort(function (i, j){
-        //     //     return i - j ;
-        //     // });
-        //     // console.log(dataMin)
-        // }
-
+        // Neu chon gia tri min tra ve ham min va ngc lai
         if($(this).val() === 'min'){
             min();
         }else {
@@ -446,24 +478,51 @@
         loadData();
 
     })
-
-
-
+    // Chon gia thap nhat
     function min(){
         data = data.sort(function(a, b) {
             return a['price'] - b['price'];
         });
     }
-
+    // Chon gia cao nhat
     function max(){
         data = data.sort(function(a, b) {
             return b['price'] - a['price'];
         });
     }
 
+    /*  */
+    $(document).ready(function(){
+        /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
+        $('#stars li').on('mouseover', function(){
+            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện đang di chuột vào
 
+            // Bây giờ đánh dấu tất cả các ngôi sao không phải sau ngôi sao lơ lửng hiện tại
+            $(this).parent().children('li.star').each(function(e){
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                } else {
+                    $(this).removeClass('hover');
+                }
+            });
+        }).on('mouseout', function(){
+            $(this).parent().children('li.star').each(function(e){
+                $(this).removeClass('hover');
+            });
+        });
+        /* 2. Hành động thực hiện khi nhấp chuột */
+        $('#stars li').on('click', function(){
+            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện được chọn
+            var stars = $(this).parent().children('li.star');
 
-
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).removeClass('selected');
+            }
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).addClass('selected');
+            }
+        });
+    });
 </script>
 </body>
 </html>
