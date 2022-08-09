@@ -276,19 +276,19 @@
                 <!-- Rating Stars Box -->
                 <div class='rating-stars text-center'>
                     <ul id='stars'>
-                        <li class='star' title='Poor' data-value='1'>
+                        <li class='star' id="st1" data-value='1' value="1">
                             <i class='fa fa-star fa-fw'></i>
                         </li>
-                        <li class='star' title='Fair' data-value='2'>
+                        <li class='star' id="st2" data-value='2' value="2">
                             <i class='fa fa-star fa-fw'></i>
                         </li>
-                        <li class='star' title='Good' data-value='3'>
+                        <li class='star'id="st3" data-value='3' value="3">
                             <i class='fa fa-star fa-fw'></i>
                         </li>
-                        <li class='star' title='Excellent' data-value='4'>
+                        <li class='star' id="st4" data-value='4' value="4">
                             <i class='fa fa-star fa-fw'></i>
                         </li>
-                        <li class='star' title='WOW!!!' data-value='5'>
+                        <li class='star'id="st5" data-value='5' value="5">
                             <i class='fa fa-star fa-fw'></i>
                         </li>
                     </ul>
@@ -315,6 +315,7 @@
             category : "giay",
             pricesale : 2000000,
             price : 1900000,
+            star: 3,
             sale : 50,
             image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
         },
@@ -412,7 +413,7 @@
                 start += '<i class="fas fa-star"></i>';
             }
            a +=
-                `<div class="card listProduct">
+                `<div class="card">
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
@@ -449,7 +450,6 @@
         let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
         console.log(dataFilter)
         // console.log(searchcategory)
-
 
         $('#myTable .card').filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
@@ -502,7 +502,7 @@
             return b['price'] - a['price'];
         });
     }
-//-------------------------format input-----------------------
+//-------------------------format number input-----------------------
     $(function() {
         var $form = $( "#form" );
         var $input = $form.find( "input" );
@@ -524,8 +524,8 @@
 
     });
 
-//-----------------------------------
-    /*  */
+//----------------------------------------------------
+    /* Code su kien JS */
     $(document).ready(function(){
         /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
         $('#stars li').on('mouseover', function(){
@@ -544,7 +544,6 @@
                 $(this).removeClass('hover');
             });
         });
-
         /* 2. Hành động thực hiện khi nhấp chuột */
         $('#stars li').on('click', function(){
             var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện được chọn
@@ -558,6 +557,22 @@
             }
         });
     });
+
+    $('#stars .star').on('click', function(event) {
+        event.preventDefault();
+        /* Event sk*/
+        let clickStar = $(this).val();
+        for (let i = clickStar; i <= 5; i++) {
+            let dataStar = data.filter(item=> item.star == i)
+            // console.log(dataStar)
+            $('#myTable .card').filter(function() {
+                $(this).toggle($(this).text().indexOf(dataStar)>-1);
+                // let a = $(this).val()
+                // console.log(this);
+                // console.log(a);
+            });
+        }
+    })
 </script>
 </body>
 </html>
