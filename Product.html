@@ -208,7 +208,30 @@
         width: 200px;
         height: 40px;
     }
-
+    /*    --------------------star----------------------------------*/
+    .rating-stars ul {
+        list-style-type:none;
+        padding:0;
+        -moz-user-select:none;
+        -webkit-user-select:none;
+    }
+    .rating-stars ul > li.star {
+        display:inline-block;
+    }
+    /* Idle State of the stars */
+    .rating-stars ul > li.star > i.fa {
+        font-size:2.5em; /* Change the size of the stars */
+        color:#ccc; /* Color on idle state */
+    }
+    /* Hover state of the stars */
+    .rating-stars ul > li.star.hover > i.fa {
+        color:#FFCC36;
+    }
+    /* Selected state of the stars */
+    .rating-stars ul > li.star.selected > i.fa {
+        color:#FF912C;
+    }
+    /*    --------------------------*/
 
 </style>
 <body>
@@ -250,17 +273,31 @@
                     <option id="maxPrice" value="max" >Cao Nhất</option>
                 </select><br>
                 <label>Đánh giá:</label><br>
-                <a id="star"><i  class='fas fa-star' onclick="clickstar()"></i></a>
-                <a><i class='fas fa-star'></i></a>
-                <a><i class='fas fa-star'></i></a>
-                <a><i class='fas fa-star'></i></a>
-                <a><i class='fas fa-star'></i></a><br><br>
+                <div class='rating-stars text-center'>
+                    <ul id='stars'>
+                        <li class='star' id=""  title='Poor' data-value='1'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Fair' data-value='2'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Good' data-value='3'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='Excellent' data-value='4'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                        <li class='star' title='WOW!!!' data-value='5'>
+                            <i class='fa fa-star fa-fw'></i>
+                        </li>
+                    </ul>
+                </div>
 
                 <label >Từ &nbsp;: </label>
                 <input id="inputto" name="inputto" type="text" maxlength="13" value="1" ><br>
                 <label >Đến:</label>
                 <input id="inputfrom" name="inputfrom" type="text" maxlength="13" value="100000000">
-<!--                <label id="total">10VND</label>-->
+                <!--                <label id="total">10VND</label>-->
 
                 <button id="pay" type="button" class="btn btn-warning">Add to cart</button>
             </form>
@@ -373,7 +410,7 @@
             for (let y = 0 ; y < data[i]['star'] ; y++){
                 start += '<i class="fas fa-star"></i>';
             }
-           a +=
+            a +=
                 `<div class="card listProduct">
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
@@ -438,7 +475,7 @@
             }
         }
     })
-//    -------------------sort------------------
+    //    -------------------sort------------------
     $('#sort').on('change', function (event){
         event.preventDefault();
         ///lấy giá trị
@@ -465,7 +502,7 @@
             return b['price'] - a['price'];
         });
     }
-//-------------------------format input-----------------------
+    //-------------------------format input-----------------------
     $(function() {
         var $form = $( "#form" );
         var $input = $form.find( "input" );
@@ -487,7 +524,41 @@
 
     });
 
-//-----------------------------------
+    //-----------------------------------star---------------------
+    $(document).ready(function(){
+
+        /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
+        $('#stars li').on('mouseover', function(){
+            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện đang di chuột vào
+
+            // Bây giờ đánh dấu tất cả các ngôi sao không phải sau ngôi sao lơ lửng hiện tại
+            $(this).parent().children('li.star').each(function(e){
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                } else {
+                    $(this).removeClass('hover');
+                }
+            });
+
+        }).on('mouseout', function(){
+            $(this).parent().children('li.star').each(function(e){
+                $(this).removeClass('hover');
+            });
+        });
+
+        /* 2. Hành động thực hiện khi nhấp chuột */
+        $('#stars li').on('click', function(){
+            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện được chọn
+            var stars = $(this).parent().children('li.star');
+
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).removeClass('selected');
+            }
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).addClass('selected');
+            }
+        });
+    });
 
 
 

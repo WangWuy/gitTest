@@ -208,7 +208,30 @@
         width: 200px;
         height: 40px;
     }
-
+/*    --------------------star----------------------------------*/
+    .rating-stars ul {
+        list-style-type:none;
+        padding:0;
+        -moz-user-select:none;
+        -webkit-user-select:none;
+    }
+    .rating-stars ul > li.star {
+        display:inline-block;
+    }
+    /* Idle State of the stars */
+    .rating-stars ul > li.star > i.fa {
+        font-size:2.5em; /* Change the size of the stars */
+        color:#ccc; /* Color on idle state */
+    }
+    /* Hover state of the stars */
+    .rating-stars ul > li.star.hover > i.fa {
+        color:#FFCC36;
+    }
+    /* Selected state of the stars */
+    .rating-stars ul > li.star.selected > i.fa {
+        color:#FF912C;
+    }
+/*    --------------------------*/
 
 </style>
 <body>
@@ -501,7 +524,41 @@
 
     });
 
-    //-----------------------------------
+    //-----------------------------------star---------------------
+    $(document).ready(function(){
+
+        /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
+        $('#stars li').on('mouseover', function(){
+            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện đang di chuột vào
+
+            // Bây giờ đánh dấu tất cả các ngôi sao không phải sau ngôi sao lơ lửng hiện tại
+            $(this).parent().children('li.star').each(function(e){
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                } else {
+                    $(this).removeClass('hover');
+                }
+            });
+
+        }).on('mouseout', function(){
+            $(this).parent().children('li.star').each(function(e){
+                $(this).removeClass('hover');
+            });
+        });
+
+        /* 2. Hành động thực hiện khi nhấp chuột */
+        $('#stars li').on('click', function(){
+            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện được chọn
+            var stars = $(this).parent().children('li.star');
+
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).removeClass('selected');
+            }
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).addClass('selected');
+            }
+        });
+    });
 
 
 
