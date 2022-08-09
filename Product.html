@@ -28,7 +28,7 @@
         margin-top: 70px;
         background-color: #cccc;
         width: 100%;
-        height: 150vh;
+        height: auto;
         float: left;
         position: relative;
     }
@@ -412,7 +412,7 @@
             for (let y = 0 ; y < data[i]['star'] ; y++){
                 start += '<i class="fas fa-star"></i>';
             }
-           a +=
+            a +=
                 `<div class="card listProduct">
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
@@ -591,17 +591,6 @@
             </div>`;
         }
         $('#myTable').html(b);
-        // console.log(clickStar);
-        // for (let i = clickStar; i <= 5; i++) {
-        //     let dataStar = data.filter(item=> item.star == i)
-            // console.log(dataStar)
-            // $('#myTable .card').filter(function() {
-            //     $(this).toggle($(this).text().indexOf(clickStar)>-1);
-            //     // let a = $(this).val()
-            //     console.log(this);
-            //     // console.log(a);
-            // });
-        // }
     })
 </script>
 </body>
