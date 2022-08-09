@@ -200,6 +200,15 @@
         right: 0;
     }
     /*    --------------------------------------------*/
+    #inputto{
+        width: 200px;
+        height: 40px;
+    }
+    #inputfrom{
+        width: 200px;
+        height: 40px;
+    }
+
 
 </style>
 <body>
@@ -226,7 +235,7 @@
             </div>
         </div >
         <div class="col-sm-4">
-            <form>
+            <form id="form">
                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
                 <select id="category" name="categorylist" form="carform">
                     <option value="" selected disabled>--Chọn--</option>
@@ -247,10 +256,10 @@
                 <a><i class='fas fa-star'></i></a>
                 <a><i class='fas fa-star'></i></a><br><br>
 
-                <label >Giá từ:</label>
-                <input id="inputto" value="0">
+                <label >Từ &nbsp;: </label>
+                <input id="inputto" name="inputto" type="text" maxlength="13" value="1" ><br>
                 <label >Đến:</label>
-                <input id="inputfrom" value="10000000">
+                <input id="inputfrom" name="inputfrom" type="text" maxlength="13" value="100000000">
 <!--                <label id="total">10VND</label>-->
 
                 <button id="pay" type="button" class="btn btn-warning">Add to cart</button>
@@ -269,6 +278,7 @@
             pricesale : 2000000,
             price : 1900000,
             sale : 50,
+            star : 5,
             image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
         },
         {
@@ -278,6 +288,7 @@
             pricesale : 1000000,
             price : 990000,
             sale : 10,
+            star : 1,
             image: 'https://us.stuartslondon.com/images/script-logo-teddy-hoodie-oat-p44332-448539_image.jpg'
         },
         {
@@ -287,6 +298,7 @@
             pricesale : 600000,
             price : 580000,
             sale : 25,
+            star : 4,
             image: 'https://product.hstatic.net/1000094286/product/1969_d_x__2__2d62254ffc9c44b08b435b81c94c9388_master.jpg'
         },
         {
@@ -296,6 +308,7 @@
             pricesale : 400000,
             price : 390000,
             sale : 30,
+            star : 3,
             image: 'https://cf.shopee.vn/file/d5cd8979ca3d7fe06e05122c79e1cc51'
         },
         {
@@ -305,6 +318,7 @@
             pricesale : 1000000,
             price : 900000,
             sale : 25,
+            star : 4,
             image: 'https://annshop.vn/wp-content/uploads/10099-1043023651-d6ba175e4929af77f638-4.png'
         },
         {
@@ -314,6 +328,7 @@
             pricesale : 400000,
             price : 390000,
             sale : 50,
+            star : 5,
             image: 'https://1.bp.blogspot.com/-QHWvhU56dm8/VZpC2i_tHcI/AAAAAAAABhY/bu0v5JdqGO8/s1600/3%2Bnew.jpg'
         },
         {
@@ -323,6 +338,7 @@
             pricesale : 50000,
             price : 39000,
             sale : 30,
+            star : 5,
             image: 'https://www.tripnow.vn/wp-content/uploads/2019/07/tat-nam-cao-co-2.jpg'
         },
         {
@@ -332,6 +348,7 @@
             pricesale : 450000,
             price : 399000,
             sale : 10,
+            star : 5,
             image: 'https://www.shopbexy.com/wp-content/uploads/2019/09/Ao-So-Mi-Trang-Nu-Dep-ASMT56.jpg'
         },
         {
@@ -341,6 +358,7 @@
             pricesale : 2100000,
             price : 1999000,
             sale : 20,
+            star : 5,
             image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
         },
 
@@ -351,18 +369,19 @@
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
+            let start = '';
+            for (let y = 0 ; y < data[i]['star'] ; y++){
+                start += '<i class="fas fa-star"></i>';
+            }
            a +=
                 `<div class="card listProduct">
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
                 <p class="price">${data[i].price}</p>
-                <p class="category">${data[i].category}</p>
-                <p >
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
-                <i class='fas fa-star'></i>
+                <p class="category" style="display: none;">${data[i].category}</p>
+                <p>
+                    ${start}
                 </p>
                 <p><button>
                     <a>Add to cart</a>
@@ -422,21 +441,9 @@
 //    -------------------sort------------------
     $('#sort').on('change', function (event){
         event.preventDefault();
-
-        /* Event sk*/
+        ///lấy giá trị
         var minPrice = $(this).val().toLowerCase();
         var maxPrice = $(this).val().toLowerCase();
-
-        // for (let i = 0; i<data.length; i++) {
-        //     let dataload = data[i].price;
-        //     console.log(dataload);
-        //
-        //
-        //     // let dataMin = dataload.sort(function (i, j){
-        //     //     return i - j ;
-        //     // });
-        //     // console.log(dataMin)
-        // }
 
         if($(this).val() === 'min'){
             min();
@@ -446,8 +453,6 @@
         loadData();
 
     })
-
-
 
     function min(){
         data = data.sort(function(a, b) {
@@ -460,7 +465,29 @@
             return b['price'] - a['price'];
         });
     }
+//-------------------------format input-----------------------
+    $(function() {
+        var $form = $( "#form" );
+        var $input = $form.find( "input" );
 
+        $input.on( "keyup", function( event ) {
+            var selection = window.getSelection().toString();
+
+            var $this = $( this );
+            // Get the value.
+            var input = $this.val();
+
+            var input = input.replace(/[\D\s\._\-]+/g, "");
+            // input = input ? parseInt( input, 10 ) : 0; ////format dấu phẩy
+
+            $this.val( function() {
+                return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
+            } );
+        } );
+
+    });
+
+//-----------------------------------
 
 
 
