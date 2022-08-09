@@ -22,7 +22,7 @@
         margin: 0;
         padding: 0;
         width: 100%;
-        height: 100vh;
+        height: auto;
     }
     .col-sm-8{
         margin-top: 70px;
@@ -403,6 +403,11 @@
     ];
     $(function () {
         loadData()
+        search()
+        category()
+        fromTo()
+        sort()
+        star()
     })
 
     function loadData() {
@@ -412,8 +417,8 @@
             for (let y = 0 ; y < data[i]['star'] ; y++){
                 start += '<i class="fas fa-star"></i>';
             }
-            a +=
-                `<div class="card listProduct">
+           a +=
+                `<div class="card">
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
@@ -431,25 +436,29 @@
         $('#myTable').html(a);
     };
     //--------------------------search--------------
-    $('#myInput').on('input paste change', function(event) {
-        event.preventDefault();
-        /* Event sk*/
-        var search = $(this).val().toLowerCase();
-        $('#myTable .card').filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
-            // console.log(this)
-        });
-    });
+   function search(){
+       $('#myInput').on('input paste change', function(event) {
+           event.preventDefault();
+           /* Event sk*/
+           var search = $(this).val().toLowerCase();
+           $('#myTable .card').filter(function() {
+               $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
+               // console.log(this)
+           });
+       });
+   }
     //------------------------category------------------------
-    $('#category').on('change', function(event) {
-        event.preventDefault();
-        /* Event sk*/
-        var searchcategory = $(this).val().toLowerCase();
-        console.log(searchcategory);
+    function category(){
+        $('#category').on('change', function(event) {
+            event.preventDefault();
+            /* Event sk*/
+            var searchcategory = $(this).val().toLowerCase();
+            console.log(searchcategory);
 
-        let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-        console.log(dataFilter)
-        // console.log(searchcategory)
+            let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
+            console.log(dataFilter)
+            // console.log(searchcategory)
+
 
         $('#myTable .card').filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
@@ -459,7 +468,7 @@
         });
     });
 
-    // Loc gia trong khoang nho nhat den lon nhat
+    //--------------------------------------------
     $('#inputto , #inputfrom').on('input', function (){
         let a = $('#inputto').val();
         // console.log(a)
@@ -476,12 +485,13 @@
             }
         }
     })
-//    -------------------sort gia thap nhat gia cao nhat------------------
+//    -------------------sort------------------
     $('#sort').on('change', function (event){
         event.preventDefault();
+        ///lấy giá trị
         var minPrice = $(this).val().toLowerCase();
         var maxPrice = $(this).val().toLowerCase();
-        // Neu chon gia tri min tra ve ham min va ngc lai
+
         if($(this).val() === 'min'){
             min();
         }else {
@@ -490,39 +500,40 @@
         loadData();
 
     })
-    // Chon gia thap nhat
+
     function min(){
         data = data.sort(function(a, b) {
             return a['price'] - b['price'];
         });
     }
-    // Chon gia cao nhat
+
     function max(){
         data = data.sort(function(a, b) {
             return b['price'] - a['price'];
         });
     }
-//-------------------------format number input-----------------------
+//-------------------------format input-----------------------
     $(function() {
         var $form = $( "#form" );
         var $input = $form.find( "input" );
 
-        $input.on( "keyup", function( event ) {
-            var selection = window.getSelection().toString();
+           $input.on( "keyup", function( event ) {
+               var selection = window.getSelection().toString();
 
-            var $this = $( this );
-            // Get the value.
-            var input = $this.val();
+               var $this = $( this );
+               // Get the value.
+               var input = $this.val();
 
-            var input = input.replace(/[\D\s\._\-]+/g, "");
-            // input = input ? parseInt( input, 10 ) : 0; ////format dấu phẩy
+               var input = input.replace(/[\D\s\._\-]+/g, "");
+               // input = input ? parseInt( input, 10 ) : 0; ////format dấu phẩy
 
-            $this.val( function() {
-                return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
-            } );
-        } );
+               $this.val( function() {
+                   return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
+               } );
+           } );
 
-    });
+       });
+   }
 
 //----------------------------------------------------
     /* Code su kien JS */
@@ -557,25 +568,26 @@
             }
         });
     });
-    //-----------------------------------------
+    //-------------------------star----------------
 
-    $('#stars .star').on('click', function(event) {
-        event.preventDefault();
-        /* Event sk*/
-        let clickStar = $(this).val();
-        console.log(clickStar)
-       let  data1 = data.filter(function(a, b) {
-            return a['star'] >= clickStar ;
-        });
+    function star(){
+        $('#stars .star').on('click', function(event) {
+            event.preventDefault();
+            /* Event sk*/
+            let clickStar = $(this).val();
+            console.log(clickStar)
+            let  data1 = data.filter(function(a, b) {
+                return a['star'] >= clickStar ;
+            });
 
-        let b = '';
-        for (let i = 0; i < data1.length; i++) {
-            let start = '';
-            for (let y = 0 ; y < data1[i]['star'] ; y++){
-                start += '<i class="fas fa-star"></i>';
-            }
-            b +=
-                `<div class="card">
+            let b = '';
+            for (let i = 0; i < data1.length; i++) {
+                let start = '';
+                for (let y = 0 ; y < data1[i]['star'] ; y++){
+                    start += '<i class="fas fa-star"></i>';
+                }
+                b +=
+                    `<div class="card">
                 <img src="${data1[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data1[i].name}</h4>
                 <p class="price-">${data1[i].pricesale}</p>
@@ -589,9 +601,10 @@
                 </button></p>
                 <div class="icon">${data1[i].sale}%</div>
             </div>`;
-        }
-        $('#myTable').html(b);
-    })
+            }
+            $('#myTable').html(b);
+        })
+    }
 </script>
 </body>
 </html>
