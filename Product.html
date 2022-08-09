@@ -135,16 +135,7 @@
         font-family:  Tahoma, Geneva, Verdana, sans-serif;
         font-size: 20px;
     }
-    /*    --------lable thanh toán-----------*/
-    #total{
-        background-color: #ccc;
-        width: 290px;
-        height: 50px;
-        border-radius: 5px;
-        text-align: center;
-        line-height: 50px;
-        margin-top: 40px;
-    }
+    /*-------------------*/
     form button{
         width: 290px;
         height: 50px;
@@ -258,7 +249,7 @@
         </div >
         <div class="col-sm-4">
             <form id="form">
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                <input type="text" id="myInput"  placeholder="Search for names..">
                 <select id="category" name="categorylist" form="carform">
                     <option value="" selected disabled>--Chọn--</option>
                     <option value="giay">Giày</option>
@@ -294,10 +285,10 @@
                 </div>
 
                 <label >Từ &nbsp;: </label>
-                <input id="inputto" name="inputto" type="text" maxlength="13" value="1" ><br>
+                <input id="inputto" name="inputto" type="text" maxlength="13" value="1" onkeyup="format()"><br>
                 <label >Đến:</label>
-                <input id="inputfrom" name="inputfrom" type="text" maxlength="13" value="100000000">
-<!--                <label id="total">10VND</label>-->
+                <input id="inputfrom" name="inputfrom" type="text" maxlength="13" value="100000000" onkeyup="format()">
+                <!--                <label id="total">10VND</label>-->
 
                 <button id="pay" type="button" class="btn btn-warning">Add to cart</button>
             </form>
@@ -416,8 +407,8 @@
             for (let y = 0 ; y < data[i]['star'] ; y++){
                 start += '<i class="fas fa-star"></i>';
             }
-           a +=
-                `<div class="card">
+            a +=
+                `<div class="card listProduct">
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
@@ -435,17 +426,17 @@
         $('#myTable').html(a);
     };
     //--------------------------search--------------
-   function search(){
-       $('#myInput').on('input paste change', function(event) {
-           event.preventDefault();
-           /* Event sk*/
-           var search = $(this).val().toLowerCase();
-           $('#myTable .card').filter(function() {
-               $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
-               // console.log(this)
-           });
-       });
-   }
+    function search(){
+        $('#myInput').on('input paste change', function(event) {
+            event.preventDefault();
+            /* Event sk*/
+            var search = $(this).val().toLowerCase();
+            $('#myTable .card').filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
+                // console.log(this)
+            });
+        });
+    }
     //------------------------category------------------------
     function category(){
         $('#category').on('change', function(event) {
@@ -459,46 +450,51 @@
             // console.log(searchcategory)
 
 
-        $('#myTable .card').filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
-            // let a = $(this).text().toLowerCase();
-            console.log(this);
-            // console.log(a);
+            $('#myTable .card').filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
+                // let a = $(this).text().toLowerCase();
+                console.log(this);
+                // console.log(a);
+            });
         });
-    });
+    }
 
-    //--------------------------------------------
-    $('#inputto , #inputfrom').on('input', function (){
-        let a = $('#inputto').val();
-        // console.log(a)
-        let b = $('#inputfrom').val();
-        // console.log(b)
-        for (let i = 0; i<data.length; i++){
-            // console.log(a,data[i].price,b)
-            if(a  <=data[i].price && data[i].price <= b ){
-                console.log('gia tien ',data[i].price)
-                // console.log(data.length)
-                $('.listProduct:eq('+i+')').removeClass('d-none');
-            }else {
-                $('.listProduct:eq('+i+')').addClass('d-none');
+    //-----------------------from to---------------------
+    function fromTo(){
+        $('#inputto , #inputfrom').on('input', function (){
+            let a = $('#inputto').val();
+            // console.log(a)
+            let b = $('#inputfrom').val();
+            // console.log(b)
+            for (let i = 0; i<data.length; i++){
+                // console.log(a,data[i].price,b)
+                if(a  <=data[i].price && data[i].price <= b ){
+                    console.log('gia tien ',data[i].price)
+                    // console.log(data.length)
+                    $('.listProduct:eq('+i+')').removeClass('d-none');
+                }else {
+                    $('.listProduct:eq('+i+')').addClass('d-none');
+                }
             }
-        }
-    })
-//    -------------------sort------------------
-    $('#sort').on('change', function (event){
-        event.preventDefault();
-        ///lấy giá trị lon nho
-        var minPrice = $(this).val().toLowerCase();
-        var maxPrice = $(this).val().toLowerCase();
+        })
+    }
+    //    -------------------sort------------------
+    function sort(){
+        $('#sort').on('change', function (event){
+            event.preventDefault();
+            ///lấy giá trị
+            var minPrice = $(this).val().toLowerCase();
+            var maxPrice = $(this).val().toLowerCase();
 
-        if($(this).val() === 'min'){
-            min();
-        }else {
-            max();
-        }
-        loadData();
+            if($(this).val() === 'min'){
+                min();
+            }else {
+                max();
+            }
+            loadData();
 
-    })
+        })
+    }
 
     function min(){
         data = data.sort(function(a, b) {
@@ -511,30 +507,31 @@
             return b['price'] - a['price'];
         });
     }
-//-------------------------format input-----------------------
-    $(function() {
-        var $form = $( "#form" );
-        var $input = $form.find( "input" );
+    //-------------------------format input-----------------------
+    function format(){
+        $(function() {
+            var $form = $( "#form" );
+            var $input = $form.find( "input" );
 
-           $input.on( "keyup", function( event ) {
-               var selection = window.getSelection().toString();
+            $input.on( "keyup", function( event ) {
+                var selection = window.getSelection().toString();
 
-               var $this = $( this );
-               // Get the value.
-               var input = $this.val();
+                var $this = $( this );
+                // Get the value.
+                var input = $this.val();
 
-               var input = input.replace(/[\D\s\._\-]+/g, "");
-               // input = input ? parseInt( input, 10 ) : 0; ////format dấu phẩy
+                var input = input.replace(/[\D\s\._\-]+/g, "");
+                // input = input ? parseInt( input, 10 ) : 0; ////format dấu phẩy
 
-               $this.val( function() {
-                   return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
-               } );
-           } );
+                $this.val( function() {
+                    return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
+                } );
+            } );
 
-       });
-   }
+        });
+    }
 
-//----------------------------------------------------
+    //----------------------------------------------------
     /* Code su kien JS */
     $(document).ready(function(){
         /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
@@ -602,6 +599,50 @@
             </div>`;
             }
             $('#myTable').html(b);
+        })
+    }
+
+    let b = '';
+    $('#myInput').on('input', function (){
+        b = $(this).val()
+        load()
+        console.log(b)
+    })
+    $('#category').on('change', function (){
+        b = $(this).val()
+        // console.log(b)
+        load()
+
+    })
+    $('#sort').on('change', function (){
+        b = $(this).val()
+        //console.log(b)
+        load()
+    })
+    $('#stars .star').on('click', function (){
+        b = $(this).val()
+        // console.log(b)
+        load()
+    })
+
+
+    function load(){
+        let a, b, c, d;
+        $('#myInput').on('input', function (){
+            a = $(this).val()
+            // console.log(a)
+        })
+        $('#category').on('change', function (){
+            b = $(this).val()
+            // console.log(b)
+        })
+        $('#sort').on('change', function (){
+            c = $(this).val()
+            // console.log(b)
+        })
+        $('#stars .star').on('click', function (){
+            d = $(this).val()
+            // console.log(b)
         })
     }
 </script>
