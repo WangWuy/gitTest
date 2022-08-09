@@ -413,7 +413,7 @@
                 start += '<i class="fas fa-star"></i>';
             }
            a +=
-                `<div class="card">
+                `<div class="card listProduct">
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
@@ -467,7 +467,7 @@
         // console.log(b)
         for (let i = 0; i<data.length; i++){
             // console.log(a,data[i].price,b)
-            if(a  <=data[i].price && data[i].price <= b ){
+            if(a <= data[i].price && data[i].price <= b ){
                 console.log('gia tien ',data[i].price)
                 // console.log(data.length)
                 $('.listProduct:eq('+i+')').removeClass('d-none');
@@ -558,21 +558,18 @@
         });
     });
 
-    $('#stars .star').on('click', function(event) {
-        event.preventDefault();
-        /* Event sk*/
-        let clickStar = $(this).val();
-        for (let i = clickStar; i <= 5; i++) {
-            let dataStar = data.filter(item=> item.star == i)
-            // console.log(dataStar)
-            $('#myTable .card').filter(function() {
-                $(this).toggle($(this).text().indexOf(dataStar)>-1);
-                // let a = $(this).val()
-                // console.log(this);
-                // console.log(a);
-            });
-        }
-    })
+    function showStar(){
+        $('#stars .star').on('click', function(event) {
+            event.preventDefault();
+            /* Event sk*/
+            let clickStar = $(this).val();
+            for (let i = clickStar; i <= 5; i++) {
+                let dataStar = data.filter(item=> item.star == i)
+                console.log(dataStar)
+            }
+        })
+    }
+
 </script>
 </body>
 </html>
