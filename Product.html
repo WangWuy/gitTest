@@ -466,7 +466,7 @@
         });
     });
 
-    // Loc gia trong khoang nho nhat den lon nhat
+    //--------------------------------------------
     $('#inputto , #inputfrom').on('input', function (){
         let a = $('#inputto').val();
         // console.log(a)
@@ -483,13 +483,13 @@
             }
         }
     })
-//    -------------------sort gia thap nhat gia cao nhat------------------
+//    -------------------sort------------------
     $('#sort').on('change', function (event){
         event.preventDefault();
         ///lấy giá trị
         var minPrice = $(this).val().toLowerCase();
         var maxPrice = $(this).val().toLowerCase();
-        // Neu chon gia tri min tra ve ham min va ngc lai
+
         if($(this).val() === 'min'){
             min();
         }else {
@@ -498,13 +498,13 @@
         loadData();
 
     })
-    // Chon gia thap nhat
+
     function min(){
         data = data.sort(function(a, b) {
             return a['price'] - b['price'];
         });
     }
-    // Chon gia cao nhat
+
     function max(){
         data = data.sort(function(a, b) {
             return b['price'] - a['price'];
@@ -565,21 +565,51 @@
             }
         });
     });
+    //-----------------------------------------
 
     $('#stars .star').on('click', function(event) {
         event.preventDefault();
         /* Event sk*/
         let clickStar = $(this).val();
-        for (let i = clickStar; i <= 5; i++) {
-            let dataStar = data.filter(item=> item.star == i)
-            // console.log(dataStar)
-            $('#myTable .card').filter(function() {
-                $(this).toggle($(this).text().indexOf(dataStar)>-1);
-                // let a = $(this).val()
-                // console.log(this);
-                // console.log(a);
-            });
+        console.log(clickStar)
+       let  data1 = data.filter(function(a, b) {
+            return a['star'] >= clickStar ;
+        });
+
+        let b = '';
+        for (let i = 0; i < data1.length; i++) {
+            let start = '';
+            for (let y = 0 ; y < data1[i]['star'] ; y++){
+                start += '<i class="fas fa-star"></i>';
+            }
+            b +=
+                `<div class="card">
+                <img src="${data1[i].image}" style="width:200px" height="200px">
+                <h4 class"tenSp">${data1[i].name}</h4>
+                <p class="price-">${data1[i].pricesale}</p>
+                <p class="price">${data1[i].price}</p>
+                <p class="category" style="display: none;">${data1[i].category}</p>
+                <p>
+                    ${start}
+                </p>
+                <p><button>
+                    <a>Add to cart</a>
+                </button></p>
+                <div class="icon">${data1[i].sale}%</div>
+            </div>`;
         }
+        $('#myTable').html(b);
+        // console.log(clickStar);
+        // for (let i = clickStar; i <= 5; i++) {
+        //     let dataStar = data.filter(item=> item.star == i)
+            // console.log(dataStar)
+            // $('#myTable .card').filter(function() {
+            //     $(this).toggle($(this).text().indexOf(clickStar)>-1);
+            //     // let a = $(this).val()
+            //     console.log(this);
+            //     // console.log(a);
+            // });
+        // }
     })
 </script>
 </body>
