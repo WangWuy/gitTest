@@ -404,7 +404,9 @@
         category()
         fromTo()
         sort()
-        star()
+        // star()
+        numstar()
+        // load()
     })
     function loadData() {
         let a = '';
@@ -443,6 +445,7 @@
            });
        });
    }
+
     //------------------------category------------------------
     function category(){
         $('#category').on('change', function(event) {
@@ -451,7 +454,7 @@
             var searchcategory = $(this).val().toLowerCase();
             console.log(searchcategory);
 
-            let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
+            var dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
             console.log(dataFilter)
             // console.log(searchcategory)
 
@@ -468,9 +471,9 @@
     //-----------------------from to---------------------
     function fromTo(){
         $('#inputto , #inputfrom').on('input', function (){
-            let a = $('#inputto').val();
+            var a = $('#inputto').val();
             // console.log(a)
-            let b = $('#inputfrom').val();
+            var b = $('#inputfrom').val();
             // console.log(b)
             for (let i = 0; i<data.length; i++){
                 // console.log(a,data[i].price,b)
@@ -482,11 +485,18 @@
                     $('.listProduct:eq('+i+')').addClass('d-none');
                 }
             }
+            $('#myTable .card').filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
+                // let a = $(this).text().toLowerCase();
+                console.log(this);
+                // console.log(a);
+            });
+
         })
     }
 //    -------------------sort------------------
    function sort(){
-       $('#sort').on('change', function (event){
+        $('#sort').on('change', function (event){
            event.preventDefault();
            ///lấy giá trị
            var minPrice = $(this).val().toLowerCase();
@@ -576,9 +586,9 @@
         $('#stars .star').on('click', function(event) {
             event.preventDefault();
             /* Event sk*/
-            let clickStar = $(this).val();
+            var clickStar = $(this).val();
             console.log(clickStar)
-            let  data1 = data.filter(function(a, b) {
+            var  data1 = data.filter(function(a, b) {
                 return a['star'] >= clickStar ;
             });
 
@@ -607,6 +617,97 @@
             $('#myTable').html(b);
         })
     }
+
+    // function numstar(){
+    //     $('#stars .star').on('click', function(event) {
+    //         event.preventDefault();
+    //         /* Event sk*/
+    //         let clickStar = $(this).val();
+    //         console.log(clickStar)
+    //         // let b=[];
+    //         for (let i = 0; i <= data.length; i++) {
+    //             if(data[i].star >= clickStar){
+    //                 console.log(data[i])
+    //                 // b+=data[i].star
+    //             }
+    //         }
+    //         // console.log(b)
+    //
+    //     })
+    // }
+
+    // $(function sorttotal (){
+    //     var a1, b1, c1, d1;
+    //     a1 =  $('#myTable .card').filter(function() {
+    //         $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
+    //         // console.log(this)
+    //     });
+    //     b1 =  $('#myTable .card').filter(function() {
+    //         $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
+    //         // let a = $(this).text().toLowerCase();
+    //         console.log(this);
+    //         // console.log(a);
+    //     });
+    //     // c1 =
+    //         // for (let i = 0; i<data.length; i++){
+    //         //     // console.log(a,data[i].price,b)
+    //         //     if(a  <=data[i].price && data[i].price <= b ){
+    //         //         console.log('gia tien ',data[i].price)
+    //         //         // console.log(data.length)
+    //         //         $('.listProduct:eq('+i+')').removeClass('d-none');
+    //         //     }else {
+    //         //         $('.listProduct:eq('+i+')').addClass('d-none');
+    //         //     }
+    //         // }
+    // })
+    // $(function (){
+    //     let total = '';
+    //     total = $('#myInput').on('input', function (){
+    //         b = $(this).val()
+    //         load()
+    //
+    //     })
+    //         console.log(total)
+    // })
+    //
+    // $('#category').on('change', function (){
+    //     b = $(this).val()
+    //     // console.log(b)
+    //     load()
+    //
+    // })
+    // $('#sort').on('change', function (){
+    //     b = $(this).val()
+    //     //console.log(b)
+    //     load()
+    // })
+    // $('#stars .star').on('click', function (){
+    //     b = $(this).val()
+    //     // console.log(b)
+    //     load()
+    // })
+    //
+    //
+    // function load(){
+    //     let a, b, c, d;
+    //     $('#myInput').on('input', function (){
+    //         a = $(this).val()
+    //         // console.log(a)
+    //     })
+    //     $('#category').on('change', function (){
+    //         b = $(this).val()
+    //         // console.log(b)
+    //     })
+    //     $('#sort').on('change', function (){
+    //         c = $(this).val()
+    //         // console.log(b)
+    //     })
+    //     $('#stars .star').on('click', function (){
+    //         d = $(this).val()
+    //         // console.log(b)
+    //     })
+    // }
+
 </script>
 </body>
 </html>
