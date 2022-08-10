@@ -426,18 +426,19 @@
         $('#myTable').html(a);
     };
 
-
-
     //--------------------------search--------------
-    $('#myInput').on('input paste change', function(event) {
-        event.preventDefault();
-        /* Event sk*/
-        var search = $(this).val().toLowerCase();
-        $('#myTable .card').filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
-            // console.log(this)
-        });
-    });
+   function search(){
+       $('#myInput').on('input paste change', function(event) {
+           event.preventDefault();
+           /* Event sk*/
+           var search = $(this).val().toLowerCase();
+           $('#myTable .card').filter(function() {
+               $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
+               // console.log(this)
+           });
+       });
+   }
+
     //------------------------category------------------------
     function category(){
         $('#category').on('change', function(event) {
@@ -447,10 +448,7 @@
             // console.log(searchcategory);
 
             let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-            // console.log('Co: ' + (dataFilter.length))
-           // console.log(dataFilter)
-            // console.log(searchcategory)
-
+            // console.log('Co: ' + (dataFilter))
 
             $('#myTable .card').filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
@@ -478,18 +476,38 @@
                     $('.listProduct:eq('+i+')').addClass('d-none');
                 }
             }
-            // console.log(data.length)
         })
     }
-//    -------------------sort------------------
 
-
+    //    -------------------sort------------------
+   function sort(){
+       $('#sort').on('change', function (event){
+           event.preventDefault();
+           ///lấy giá trị
+           var minPrice = $(this).val().toLowerCase();
+           var maxPrice = $(this).val().toLowerCase();
+               if($(this).val() === 'min'){
+                   min();
+                   // $('.listProduct:eq('+i+')').removeClass('d-none');
+               }else {
+                   max();
+                   // $('.listProduct:eq('+i+')').addClass('d-none');
+               }
+           loadData();
+       })
+   }
+    function min(){
+        data = data.sort(function(a, b) {
+            return  a['price'] - b['price'];
+        });
+    }
     function max(){
         data = data.sort(function(a, b) {
             return b['price'] - a['price'];
         });
     }
-//-------------------------format input-----------------------
+
+    //-------------------------format input-----------------------
    function format(){
        $(function() {
            var $form = $( "#form" );
@@ -497,23 +515,18 @@
 
            $input.on( "keyup", function( event ) {
                var selection = window.getSelection().toString();
-
                var $this = $( this );
                // Get the value.
                var input = $this.val();
-
                var input = input.replace(/[\D\s\._\-]+/g, "");
-               // input = input ? parseInt( input, 10 ) : 0; ////format dấu phẩy
-
                $this.val( function() {
                    return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
                } );
            } );
-
        });
    }
 
-//----------------------------------------------------
+    //----------------------------------------------------
     /* Code su kien JS */
     $(document).ready(function(){
         /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
