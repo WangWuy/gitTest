@@ -290,7 +290,7 @@
                 <input id="inputfrom" name="inputfrom" type="text" maxlength="13" value="100000000" onkeyup="format()">
 <!--                <label id="total">10VND</label>-->
 
-                <button id="pay" type="button" class="btn btn-warning" >Add to cart</button>
+                <button id="pay" type="button" class="btn btn-warning" onclick="checkData()" >Add to cart</button>
             </form>
         </div>
     </div>
@@ -433,9 +433,10 @@
            var search = $(this).val().toLowerCase();
            $('#myTable .card').filter(function() {
                $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
-               // console.log(this)
+               console.log(' Có: ' + $('.listProduct:visible').length + ' sản phẩm');
            });
        });
+
    }
     //------------------------category------------------------
     function category(){
@@ -446,7 +447,7 @@
             console.log(searchcategory);
 
             let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-            console.log(dataFilter)
+           // console.log(dataFilter)
             // console.log(searchcategory)
 
 
@@ -469,13 +470,15 @@
             for (let i = 0; i<data.length; i++){
                 // console.log(a,data[i].price,b)
                 if(a  <=data[i].price && data[i].price <= b ){
-                    console.log('gia tien ',data[i].price)
-                    // console.log(data.length)
+                    // console.log((data[i].price).length)
+                    // console.log('gia tien ',data[i].price)
+                    console.log('Có: ' + $('.listProduct:visible').length);
                     $('.listProduct:eq('+i+')').removeClass('d-none');
                 }else {
                     $('.listProduct:eq('+i+')').addClass('d-none');
                 }
             }
+            // console.log(data.length)
         })
     }
 //    -------------------sort------------------
@@ -486,27 +489,39 @@
            var minPrice = $(this).val().toLowerCase();
            var maxPrice = $(this).val().toLowerCase();
 
-           if($(this).val() === 'min'){
-               min();
-           }else {
-               max();
+           for (let i = 0; i<data.length; i++){
+               if($(this).val() === 'min'){
+                   data = data.sort(function(a, b) {
+                       return a['price'] - b['price'];
+                   });
+               }else {
+                   data = data.sort(function(a, b) {
+                               return b['price'] - a['price'];
+                           });
+               }
+               loadData()
            }
-           loadData();
+           // if($(this).val() === 'min'){
+           //     min();
+           // }else {
+           //     max();
+           // }
+           // loadData();
 
        })
    }
 
-    function min(){
-        data = data.sort(function(a, b) {
-            return a['price'] - b['price'];
-        });
-    }
-
-    function max(){
-        data = data.sort(function(a, b) {
-            return b['price'] - a['price'];
-        });
-    }
+    // function min(){
+    //     data = data.sort(function(a, b) {
+    //         return a['price'] - b['price'];
+    //     });
+    // }
+    //
+    // function max(){
+    //     data = data.sort(function(a, b) {
+    //         return b['price'] - a['price'];
+    //     });
+    // }
 //-------------------------format input-----------------------
    function format(){
        $(function() {
@@ -605,7 +620,25 @@
 
 //    -------------------------log ra các số liệu từ data------------
 //    -------------------
-    function
+//     function checkData(){
+//     $('#myInput').on('input paste change', function(event) {
+//         event.preventDefault();
+//         /* Event sk*/
+//         var search = $(this).val().toLowerCase();
+//         // console.log(search)
+//
+//         let dataFilter = data.filter(item=> item.val() == search)
+//         console.log(dataFilter)
+//
+//         $('#myTable .card').filter(function() {
+//             $(this).toggle($(this).val().toLowerCase().indexOf(search)>-1);
+//             // console.log(this)
+//         });
+//     });
+
+
+    // })
+    // }
 
 </script>
 </body>
