@@ -334,7 +334,7 @@
         },
         {
             id: 2,
-            name: "hoodie",
+            name: "Hoodie",
             category: "ao",
             pricesale: 1000000,
             price: 990000,
@@ -485,8 +485,11 @@
             to = $('#input-to').val();
         console.log(name)
         $('#myTable').html('');
+//(data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
         for (let i = 0; i < data.length; i++) {
-            if ((data[i].name).includes(name, 1) || (data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name || name === "") {
+            if ((data[i].name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')).includes(name)
+                || (data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
+                || name === "") {
                 if (data[i].star >= rating || rating === "") {
                     if (data[i].category === category || category === "") {
                         if (from <= data[i].price && data[i].price <= to || from === "" && to === "") {
@@ -522,16 +525,16 @@
             }
         })
     }
-            function min(){
-                data = data.sort(function(a, b) {
-                    return  - a['price'] + b['price'];
-                });
-            }
-            function max(){
-                data = data.sort(function(a, b) {
-                    return -b['price'] + a['price'];
-                });
-            }
+    function min(){
+        data = data.sort(function(a, b) {
+            return  - a['price'] + b['price'];
+        });
+    }
+    function max(){
+        data = data.sort(function(a, b) {
+            return -b['price'] + a['price'];
+        });
+    }
 
     $('#sort').on('change', function (event){
         event.preventDefault();
@@ -545,7 +548,7 @@
         }
         loadData();
     })
-    // $("#search").easyAutocomplete(data);
+    $("#search").easyAutocomplete(data);
 
     $(document).ready(function () {
         /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
