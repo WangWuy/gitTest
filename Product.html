@@ -425,6 +425,7 @@
         }
         $('#myTable').html(a);
     };
+
     //--------------------------search--------------
    function search(){
        $('#myInput').on('input paste change', function(event) {
@@ -437,6 +438,7 @@
            });
        });
    }
+
     //------------------------category------------------------
     function category(){
         $('#category').on('change', function(event) {
@@ -446,7 +448,7 @@
             // console.log(searchcategory);
 
             let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-            // console.log('Co: ' + (dataFilter.length))
+            // console.log('Co: ' + (dataFilter))
 
             $('#myTable .card').filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
@@ -476,7 +478,8 @@
             }
         })
     }
-//    -------------------sort------------------
+
+    //    -------------------sort------------------
    function sort(){
        $('#sort').on('change', function (event){
            event.preventDefault();
@@ -503,7 +506,8 @@
             return b['price'] - a['price'];
         });
     }
-//-------------------------format input-----------------------
+
+    //-------------------------format input-----------------------
    function format(){
        $(function() {
            var $form = $( "#form" );
@@ -522,7 +526,7 @@
        });
    }
 
-//----------------------------------------------------
+    //----------------------------------------------------
     /* Code su kien JS */
     $(document).ready(function(){
         /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
@@ -570,9 +574,6 @@
                 }
         }
     })
-
-
-
 
 </script>
 </body>
