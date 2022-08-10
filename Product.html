@@ -290,7 +290,7 @@
                 <input id="inputfrom" name="inputfrom" type="text" maxlength="13" value="100000000" onkeyup="format()">
 <!--                <label id="total">10VND</label>-->
 
-                <button id="pay" type="button" class="btn btn-warning" >Add to cart</button>
+                <button onclick="category()" id="pay" type="button" class="btn btn-warning" >Add to cart</button>
             </form>
         </div>
     </div>
@@ -397,7 +397,7 @@
         category()
         fromTo()
         sort()
-        star()
+        // star()
     })
 
     function loadData() {
@@ -443,18 +443,17 @@
             event.preventDefault();
             /* Event sk*/
             var searchcategory = $(this).val().toLowerCase();
-            console.log(searchcategory);
+            // console.log(searchcategory);
 
             let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-            console.log(dataFilter)
-            // console.log(searchcategory)
-
+            // console.log('Co: ' + (dataFilter.length))
 
             $('#myTable .card').filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
                 // let a = $(this).text().toLowerCase();
-                console.log(this);
+                // console.log(this);
                 // console.log(a);
+
             });
         });
     }
@@ -466,11 +465,10 @@
             // console.log(a)
             let b = $('#inputfrom').val();
             // console.log(b)
-            for (let i = 0; i<data.length; i++){
+            for (let i = 0; i < data.length; i++){
                 // console.log(a,data[i].price,b)
-                if(a  <=data[i].price && data[i].price <= b ){
-                    console.log('gia tien ',data[i].price)
-                    // console.log(data.length)
+                if(a <= data[i].price && data[i].price <= b){
+                    // console.log('gia tien ',data[i].price)
                     $('.listProduct:eq('+i+')').removeClass('d-none');
                 }else {
                     $('.listProduct:eq('+i+')').addClass('d-none');
@@ -485,23 +483,21 @@
            ///lấy giá trị
            var minPrice = $(this).val().toLowerCase();
            var maxPrice = $(this).val().toLowerCase();
-
-           if($(this).val() === 'min'){
-               min();
-           }else {
-               max();
-           }
+               if($(this).val() === 'min'){
+                   min();
+                   // $('.listProduct:eq('+i+')').removeClass('d-none');
+               }else {
+                   max();
+                   // $('.listProduct:eq('+i+')').addClass('d-none');
+               }
            loadData();
-
        })
    }
-
     function min(){
         data = data.sort(function(a, b) {
-            return a['price'] - b['price'];
+            return  a['price'] - b['price'];
         });
     }
-
     function max(){
         data = data.sort(function(a, b) {
             return b['price'] - a['price'];
@@ -515,19 +511,14 @@
 
            $input.on( "keyup", function( event ) {
                var selection = window.getSelection().toString();
-
                var $this = $( this );
                // Get the value.
                var input = $this.val();
-
                var input = input.replace(/[\D\s\._\-]+/g, "");
-               // input = input ? parseInt( input, 10 ) : 0; ////format dấu phẩy
-
                $this.val( function() {
                    return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
                } );
            } );
-
        });
    }
 
@@ -564,48 +555,24 @@
             }
         });
     });
-    //-------------------------star----------------
 
-    function star(){
-        $('#stars .star').on('click', function(event) {
-            event.preventDefault();
-            /* Event sk*/
-            let clickStar = $(this).val();
-            console.log(clickStar)
-            let  data1 = data.filter(function(a, b) {
-                return a['star'] >= clickStar ;
-            });
-
-            let b = '';
-            for (let i = 0; i < data1.length; i++) {
-                let start = '';
-                for (let y = 0 ; y < data1[i]['star'] ; y++){
-                    start += '<i class="fas fa-star"></i>';
+//-------------------------star----------------
+    $('#stars .star').on('click', function(event) {
+        event.preventDefault();
+        /* Event sk*/
+        let clickStar = $(this).val();
+        for (let i = 0; i <= data.length; i++) {
+                if(data[i].star >= clickStar){
+                    console.log(data[i])
+                    $('.listProduct:eq('+i+')').removeClass('d-none');
+                }else {
+                    $('.listProduct:eq('+i+')').addClass('d-none');
                 }
-                b +=
-                    `<div class="card">
-                <img src="${data1[i].image}" style="width:200px" height="200px">
-                <h4 class"tenSp">${data1[i].name}</h4>
-                <p class="price-">${data1[i].pricesale}</p>
-                <p class="price">${data1[i].price}</p>
-                <p class="category" style="display: none;">${data1[i].category}</p>
-                <p>
-                    ${start}
-                </p>
-                <p><button>
-                    <a>Add to cart</a>
-                </button></p>
-                <div class="icon">${data1[i].sale}%</div>
-            </div>`;
-            }
-            $('#myTable').html(b);
-        })
-    }
+        }
+    })
 
 
-//    -------------------------log ra các số liệu từ data------------
-//    -------------------
-    function
+
 
 </script>
 </body>
