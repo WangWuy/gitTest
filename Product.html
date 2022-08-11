@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JQuery</title>
+    <title>Shoping</title>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -64,6 +64,7 @@
         width: 50px;
         height: 25px;
         line-height: 25px;
+        cursor: pointer;
         /*border-radius: 5px 0 0 5px ;*/
     }
 
@@ -151,7 +152,7 @@
     form button {
         width: 290px;
         height: 50px;
-        margin-top: 120px;
+        margin-top: 40px;
     }
 
     /* Rating Star Widgets Style */
@@ -164,6 +165,7 @@
 
     .rating-stars ul > li.star {
         display: inline-block;
+        cursor: pointer;
     }
 
     /* Idle State of the stars */
@@ -212,6 +214,7 @@
         border-radius: 50px;
         line-height: 50px;
         padding: 0 0 0 8px;
+        cursor: pointer;
     }
 
     #addCart a i:hover {
@@ -235,19 +238,54 @@
         line-height: 20px;
         top: 0;
         right: 0;
+        cursor: pointer;
     }
 
     /*    --------------------------------------------*/
-    #inputto {
+    #input-from {
         width: 200px;
         height: 40px;
     }
 
-    #inputfrom {
+    #input-to {
         width: 200px;
         height: 40px;
     }
 
+    /* Modole CSS */
+    .modal {
+    /*display: block;*/
+    }
+    .modal-product {
+        display: flex;
+        margin: 8px;
+    }
+    .modal-product p {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .app_content {
+        display: flex;
+        justify-content: space-between;
+    }
+    .modal-header {
+        background-color: #009688;
+    }
+    .modal-product__head {
+        height: 20px;
+        display: flex;
+        background-color: #ccc;
+    }
+    .modal-product__head p {
+        padding-left: 10px;
+    }
+    .modal-title {
+        text-align: center;
+    }
+    .quanti {
+        width: 73px;
+        height: 27px;
+    }
 
 </style>
 <body>
@@ -255,8 +293,8 @@
 <div class="container">
     <header class="header">
         <div id="addCart">
-            <a><i class='fas fa-shopping-cart'></i></a>
-            <p id="icon-cart">0</p>
+            <a data-toggle="modal" data-target="#myModal"><i class='fas fa-shopping-cart'></i></a>
+            <p data-toggle="modal" data-target="#myModal" id="icon-cart">0</p>
         </div>
     </header>
     <div class="row">
@@ -314,9 +352,44 @@
                 <input id="input-from" name="inputto" type="text" value="0"><br>
                 <label>Đến:</label>
                 <input id="input-to" name="inputfrom" type="text" value="0">
+
             </form>
         </div>
     </div>
+
+    <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cart</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                        <div class="app_content">
+                            <div class="modal-product">
+                                <p><img src="https://www.nike.com/vn/t/air-force-1-older-shoes-w6PsF3"></p>
+                                <p>Nike</p>
+                                <p>180$</p>
+                                <input type="number" class="quanti">
+                            </div>
+                            <div class="cancle">
+                                <button type="button" class="btn btn-danger" data-dismiss="div">X</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 <script>
@@ -467,7 +540,7 @@
                 <p>
                     ${start}
                 </p>
-                <p><button>
+                <p><button class="addToCart">
                     <a>Add to cart</a>
                 </button></p>
                 <div class="icon">${data[i].sale}%</div>
@@ -483,9 +556,8 @@
             rating = $('#stars .selected').length,
             from = $('#input-from').val(),
             to = $('#input-to').val();
-        console.log(name)
+        console.log(name, category, sort, rating)
         $('#myTable').html('');
-//(data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
         for (let i = 0; i < data.length; i++) {
             if ((data[i].name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')).includes(name)
                 || (data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
@@ -548,7 +620,6 @@
         }
         loadData();
     })
-    $("#search").easyAutocomplete(data);
 
     $(document).ready(function () {
         /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
@@ -582,6 +653,33 @@
         });
     });
 
+    // Xử lý cookie
+    $(function () {
+        let arrItem = []
+        if (JSON.parse(getCookie('listItem')) !== null) {
+            arrItem = JSON.parse(getCookie('listItem'))
+        }
+    })
+    $(document).on('click', '.addToCart', function (){
+        // Them item tu id trong card
+        let itemAdd = product.filter(item => item.id.indexOf($(this).parents('.card-body').find('.card-title').attr('data-id')) > -1)[0]
+        // Them item tu id
+        let sameItem = arrItem.filter(item => item.id.indexOf(itemAdd.id) > -1)[0]
+        // So sanh 2 id trong card va trong mang
+        // Neu 2 thang khac nhau thi push them 1 item
+        if(sameItem?.id !== itemAdd.id){
+            itemAdd.amount = "1"
+            arrItem.push(itemAdd)
+        }
+        else {
+            if(parseInt(arrItem[arrItem.indexOf(sameItem)].amount) < parseInt(arrItem[arrItem.indexOf(sameItem)].inventory) )
+                arrItem[arrItem.indexOf(sameItem)].amount = (parseInt(arrItem[arrItem.indexOf(sameItem)].amount) + 1).toString()
+        }
+
+        document.cookie = "listItem" + "=" + JSON.stringify(arrItem) + "; Path=/; Expires=Fri, 01 July 2022 00:00:01 GMT;';"
+        ShowItemInCart(arrItem)
+        TinhTienThanhToan()
+    })
     // $('#search').on('input', function (){
     //     let tuKhoa = $(this).val()
     //     tuKhoa = tuKhoa.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')
@@ -695,6 +793,7 @@
     //                 }
     //         }
     //     })
+
 
 </script>
 </body>
