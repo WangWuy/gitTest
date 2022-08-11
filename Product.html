@@ -529,37 +529,20 @@
         // setCookie("cokiesData","123")
 
     })
-    //--------------cookies--------------
-    // let listData = [];
-    //
-    // let cookies = document.cookie;
-    // // console.log(cookies)
 
+    /* Tạo 1 cookies trên web */
     function setCookie(cname, cvalue, exdays) {
         const d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        // let expires = "expires="+ d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";expires=" + d.toUTCString()+ ";path=/";
-
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         //tạo 1 cookies
-        // setCookie("cokiesData",data)
 
         //------------------
 
-
-
-
-
-    }
-    //    delete cookies
-    function deleteCookies(){
-        const d = new Date();
-        d.getTime(d.getTime() - 60 * 1000);
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
-    //    ----------------------------------
-
+    /* Get cookies truyền string vào web */
     function getCookie(cname) {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -576,29 +559,61 @@
         return "";
     }
 
-    function addCart(cart){
-        let listData = [];
+    /* Lấy data từ array chuyển thành string */
+    // $(function (){
 
-        let name =cart.parents('.card').find('h4').text();
-        let price =cart.parents('.card').find('.price').text();
-        // let star = $(this).parent('.card').find('').text();
-        listData.push({
-            a: name ,
-            b : price
-        })
+        function addCart(cart){
+            // if (JSON.parse(getCookie('listItem')) !== null){
+            //     arrItem = JSON.parse(getCookie('listItem'))
+            // }
+            // showItemInCart()
+            let listData = [];
+            let id = cart.parents('.card').find('.idSp').text();
+            let image = cart.parents('.card').find('.imgSp').attr('src');
+            let name = cart.parents('.card').find('h4').text();
+            let price = cart.parents('.card').find('.price').text();
+            listData.push({
+                a: id,
+                b: image,
+                c: name,
+                d: price
+            })
+            // console.log(listData);
+            setCookie("cookiesData",JSON.stringify(listData))
+        }
 
-        // console.log(listData);
-        setCookie("cokiessData",JSON.stringify(listData))
-        // console.log(name)
+    // Hiển thị sản phẩm trên cart
+    // function showItemInCart(listItem){
+    //     $('.modal-item').text(null)
+    //     listItem.map(item =>{
+    //         $('.modal-item').append(`
+    //         <div class="row w-100 m-0 align-items-center product-line">
+    //             <div class="col-2">
+    //                 <img src=${item.image} alt="img">
+    //             </div>
+    //             <div class="col-2" data-id=${item.id}>
+    //                 ${item.name}
+    //             </div>
+    //             <div class="col-2">
+    //                 ${item.inventory.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+    //             </div>
+    //             <div class="col-2">
+    //                 <input type="text" class="amount" value=${item.amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} data-maxValue = ${item.inventory} placeholder="0" >
+    //             </div>
+    //             <div class="col-2 thanhtien">${((parseInt(item.originalPrice) - parseInt(item.originalPrice) * parseInt(item.discount)/100) * parseInt(item.amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} vnđ</div>
+    //             <div class="col-2 delete-item"><i class="fa fa-trash "></i></div>
+    //         </div>
+    //     `)
+    //     })
+    // }
 
+    /* Xóa cookies */
+    function deleteCookies(){
+        const d = new Date();
+        d.getTime(d.getTime() - 60 * 1000);
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
 
-
-        //chuyển thành string
-        // document.cookie = "listData" + "=" + JSON.stringify(listData) + ";Path=/; Expires=Fri, 01 July 2022 00:00:01 GMT;';"
-        // console.log()
-
-
-    };
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
@@ -608,7 +623,8 @@
             }
             a +=
                 `<div class="card listProduct">
-                <img src="${data[i].image}" style="width:200px" height="200px">
+                <p class="idSp" style="display: none;">${data[i].id}</p>
+                <img class="imgSp" src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
                 <p class="price">${data[i].price}</p>
@@ -616,7 +632,6 @@
                 <p>
                     ${start}
                 </p>
-<!--                <p><button id="addToCart">-->
                 <p><button class="addToCart" onclick="addCart($(this))">
                     <a>Add to cart</a>
                 </button></p>
@@ -648,6 +663,7 @@
                                 start += '<i class="fas fa-star"></i>';
                             }
                             $('#myTable').append(`<div class="card listProduct">
+                <p class="idSp" style="display: none;">${data[i].id}</p>
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
@@ -730,26 +746,6 @@
             }
         });
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // $('#search').on('input', function (){
-    //     let tuKhoa = $(this).val()
-    //     tuKhoa = tuKhoa.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')
-    //     // console.log(tuKhoa)
-    // })
 
     //     //--------------------------search--------------
     //    function search(){
@@ -858,6 +854,7 @@
     //                 }
     //         }
     //     })
+
 
 </script>
 </body>
