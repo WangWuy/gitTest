@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JQuery</title>
+    <title>Shoping</title>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -33,7 +33,8 @@
         float: left;
         position: relative;
     }
-    .col-sm-4{
+
+    .col-sm-4 {
         margin-top: 70px;
         background-color: #0f6674;
         width: 370px;
@@ -43,6 +44,7 @@
         right: 0;
         margin-right: 205px;
     }
+
     /*///////cart*/
     .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -53,7 +55,8 @@
         float: left;
         margin: 30px 18px 18px 18px;
     }
-    .icon{
+
+    .icon {
         position: absolute;
         top: 0;
         right: 0;
@@ -61,6 +64,7 @@
         width: 50px;
         height: 25px;
         line-height: 25px;
+        cursor: pointer;
         /*border-radius: 5px 0 0 5px ;*/
     }
 
@@ -69,6 +73,7 @@
         font-size: 18px;
         color: red;
     }
+
     .price- {
         color: grey;
         font-size: 15px;
@@ -90,9 +95,10 @@
     .card button:hover {
         opacity: 0.7;
     }
+
     /*    --------------------*/
 
-    form{
+    form {
         margin: 25px;
     }
 
@@ -114,8 +120,9 @@
     input[type=text]:focus {
         width: 100%;
     }
+
     /*    ----------------------------*/
-    select{
+    select {
         margin: 20px 0 10px 0;
         border-radius: 5px;
         width: 290px;
@@ -123,59 +130,71 @@
         font-size: 18px;
         text-align: center;
     }
+
     /*    ----------------select---------*/
-    form a i{
+    form a i {
         margin-top: 20px;
         font-size: 30px;
         color: yellow;
     }
-    button a i{
+
+    button a i {
         color: yellow;
     }
+
     label {
         margin-top: 10px;
-        font-family:  Tahoma, Geneva, Verdana, sans-serif;
+        font-family: Tahoma, Geneva, Verdana, sans-serif;
         font-size: 20px;
     }
+
     /*-------------------*/
-    form button{
+    form button {
         width: 290px;
         height: 50px;
-        margin-top: 120px;
+        margin-top: 40px;
     }
+
     /* Rating Star Widgets Style */
     .rating-stars ul {
-        list-style-type:none;
-        padding:0;
-        -moz-user-select:none;
-        -webkit-user-select:none;
+        list-style-type: none;
+        padding: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
     }
+
     .rating-stars ul > li.star {
-        display:inline-block;
+        display: inline-block;
+        cursor: pointer;
     }
+
     /* Idle State of the stars */
     .rating-stars ul > li.star > i.fa {
-        font-size:2.5em; /* Change the size of the stars */
-        color:#ccc; /* Color on idle state */
+        font-size: 2.5em; /* Change the size of the stars */
+        color: #ccc; /* Color on idle state */
     }
+
     /* Hover state of the stars */
     .rating-stars ul > li.star.hover > i.fa {
-        color:#FFCC36;
+        color: #FFCC36;
     }
+
     /* Selected state of the stars */
     .rating-stars ul > li.star.selected > i.fa {
-        color:#FF912C;
+        color: #FF912C;
     }
+
     /*    --------------------header------------*/
-    .header{
+    .header {
         background-color: rgb(17, 12, 155);
         position: fixed;
         width: 1110px;
         height: 70px;
         z-index: 1;
     }
+
     /*    -------------------------giỏ hàng-----------------*/
-    #addCart{
+    #addCart {
         width: 50px;
         height: 50px;
         position: relative;
@@ -186,21 +205,27 @@
         margin-top: 10px;
         color: #696969;
     }
-    #addCart a i{
-        width: 45px; height: 45px;
+
+    #addCart a i {
+        width: 45px;
+        height: 45px;
         font-size: 24px;
         background-color: #ffffff;
         border-radius: 50px;
         line-height: 50px;
         padding: 0 0 0 8px;
+        cursor: pointer;
     }
-    #addCart a i:hover{
+
+    #addCart a i:hover {
         color: #ccc;
     }
-    #addCart a{
+
+    #addCart a {
         margin-top: 20px;
     }
-    #addCart #icon-cart{
+
+    #addCart #icon-cart {
         color: #ffffff;
         font-size: 15px;
         position: absolute;
@@ -213,17 +238,54 @@
         line-height: 20px;
         top: 0;
         right: 0;
+        cursor: pointer;
     }
+
     /*    --------------------------------------------*/
-    #inputto{
-        width: 200px;
-        height: 40px;
-    }
-    #inputfrom{
+    #inputto {
         width: 200px;
         height: 40px;
     }
 
+    #inputfrom {
+        width: 200px;
+        height: 40px;
+    }
+
+    /* Modole CSS */
+    .modal {
+    /*display: block;*/
+    }
+    .modal-product {
+        display: flex;
+        margin: 8px;
+    }
+    .modal-product p {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .app_content {
+        display: flex;
+        justify-content: space-between;
+    }
+    .modal-header {
+        background-color: #009688;
+    }
+    .modal-product__head {
+        height: 20px;
+        display: flex;
+        background-color: #ccc;
+    }
+    .modal-product__head p {
+        padding-left: 10px;
+    }
+    .modal-title {
+        text-align: center;
+    }
+    .quanti {
+        width: 73px;
+        height: 27px;
+    }
 
 </style>
 <body>
@@ -231,8 +293,8 @@
 <div class="container">
     <header class="header">
         <div id="addCart">
-            <a><i class='fas fa-shopping-cart'></i></a>
-            <p id="icon-cart">0</p>
+            <a data-toggle="modal" data-target="#myModal"><i class='fas fa-shopping-cart'></i></a>
+            <p data-toggle="modal" data-target="#myModal" id="icon-cart">0</p>
         </div>
     </header>
     <div class="row">
@@ -248,150 +310,191 @@
                 </table>
 
             </div>
-        </div >
+        </div>
         <div class="col-sm-4">
             <form id="form">
-                <input type="text" id="myInput"  placeholder="Search for names..">
-                <select id="category" name="categorylist" form="carform">
-                    <option value="" selected disabled>--Chọn--</option>
+                <input type="text" id="search" placeholder="Search for names..">
+                <select id="category" name="categorylist">
+                    <option value="" selected>Tất cả</option>
                     <option value="giay">Giày</option>
                     <option value="ao">Áo</option>
                     <option value="quan">Quần</option>
                     <option value="phu kien">Phụ kiện</option>
                 </select>
-                <select id="sort" name="sortlist" form="carform">
-                    <option value="" selected disabled>--Giá--</option>
-                    <option id="minPrice" value="min">Thấp Nhất</option>
-                    <option id="maxPrice" value="max" >Cao Nhất</option>
+                <select id="sort" name="sortlist">
+                    <option value="" selected>Giá</option>
+                    <option value="0">Cao - Thấp</option>
+                    <option value="1">Thấp - Cao</option>
                 </select><br>
                 <label>Đánh giá:</label><br>
                 <!-- Rating Stars Box -->
                 <div class='rating-stars text-center'>
                     <ul id='stars'>
-                        <li class='star' id="st1" data-value='1' value="1">
+                        <li class='star' data-value='1'>
                             <i class='fa fa-star fa-fw'></i>
                         </li>
-                        <li class='star' id="st2" data-value='2' value="2">
+                        <li class='star' data-value='2'>
                             <i class='fa fa-star fa-fw'></i>
                         </li>
-                        <li class='star'id="st3" data-value='3' value="3">
+                        <li class='star' data-value='3'>
                             <i class='fa fa-star fa-fw'></i>
                         </li>
-                        <li class='star' id="st4" data-value='4' value="4">
+                        <li class='star' data-value='4'>
                             <i class='fa fa-star fa-fw'></i>
                         </li>
-                        <li class='star'id="st5" data-value='5' value="5">
+                        <li class='star' data-value='5'>
                             <i class='fa fa-star fa-fw'></i>
                         </li>
                     </ul>
                 </div>
 
-                <label >Từ &nbsp;: </label>
-                <input id="inputto" name="inputto" type="text" maxlength="13" value="1" onkeyup="format()"><br>
-                <label >Đến:</label>
-                <input id="inputfrom" name="inputfrom" type="text" maxlength="13" value="100000000" onkeyup="format()">
-<!--                <label id="total">10VND</label>-->
+                <label>Từ &nbsp;: </label>
+                <input id="input-from" name="inputto" type="text" value="0"><br>
+                <label>Đến:</label>
+                <input id="input-to" name="inputfrom" type="text" value="0">
 
-                <button onclick="category()" id="pay" type="button" class="btn btn-warning" >Add to cart</button>
             </form>
         </div>
     </div>
+
+    <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cart</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                        <div class="app_content">
+                            <div class="modal-product">
+                                <p><img src="https://www.nike.com/vn/t/air-force-1-older-shoes-w6PsF3"></p>
+                                <p>Nike</p>
+                                <p>180$</p>
+                                <input type="number" class="quanti">
+                            </div>
+                            <div class="cancle">
+                                <button type="button" class="btn btn-danger" data-dismiss="div">X</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 <script>
 
     let data = [
         {
-            id : 1,
-            name : "Nike AIR Trắng",
-            category : "giay",
-            pricesale : 2000000,
-            price : 1900000,
+            id: 1,
+            name: "Nike AIR Trắng",
+            category: "giay",
+            pricesale: 2000000,
+            price: 1900000,
             star: 3,
-            sale : 50,
+            sale: 50,
             image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
         },
         {
-            id : 2,
-            name : "Hoodie",
-            category : "ao",
-            pricesale : 1000000,
-            price : 990000,
+            id: 2,
+            name: "Hoodie",
+            category: "ao",
+            pricesale: 1000000,
+            price: 990000,
             star: 5,
-            sale : 10,
+            sale: 10,
             image: 'https://us.stuartslondon.com/images/script-logo-teddy-hoodie-oat-p44332-448539_image.jpg'
         },
         {
-            id : 3,
-            name : "Tây Âu",
-            category : "quan",
-            pricesale : 600000,
-            price : 580000,
+            id: 3,
+            name: "Tây Âu",
+            category: "quan",
+            pricesale: 600000,
+            price: 580000,
             star: 3,
-            sale : 25,
+            sale: 25,
             image: 'https://product.hstatic.net/1000094286/product/1969_d_x__2__2d62254ffc9c44b08b435b81c94c9388_master.jpg'
         },
         {
-            id : 4,
-            name : "kính",
-            category : "phu kien",
-            pricesale : 400000,
-            price : 390000,
+            id: 4,
+            name: "kính",
+            category: "phu kien",
+            pricesale: 400000,
+            price: 390000,
             star: 2,
-            sale : 30,
+            sale: 30,
             image: 'https://cf.shopee.vn/file/d5cd8979ca3d7fe06e05122c79e1cc51'
         },
         {
-            id : 5,
-            name : "Quần short",
-            category : "quan",
-            pricesale : 1000000,
-            price : 900000,
+            id: 5,
+            name: "Quần short",
+            category: "quan",
+            pricesale: 1000000,
+            price: 900000,
             star: 3,
-            sale : 25,
+            sale: 25,
             image: 'https://annshop.vn/wp-content/uploads/10099-1043023651-d6ba175e4929af77f638-4.png'
         },
         {
-            id : 6,
-            name : "Polo Nam",
-            category : "ao",
-            pricesale : 400000,
-            price : 390000,
+            id: 6,
+            name: "Polo Nam",
+            category: "ao",
+            pricesale: 400000,
+            price: 390000,
             star: 4,
-            sale : 50,
+            sale: 50,
             image: 'https://1.bp.blogspot.com/-QHWvhU56dm8/VZpC2i_tHcI/AAAAAAAABhY/bu0v5JdqGO8/s1600/3%2Bnew.jpg'
         },
         {
-            id : 7,
-            name : "Tất",
-            category : "phu kien",
-            pricesale : 50000,
-            price : 39000,
+            id: 7,
+            name: "Tất",
+            category: "phu kien",
+            pricesale: 50000,
+            price: 39000,
             star: 3,
-            sale : 30,
+            sale: 30,
             image: 'https://www.tripnow.vn/wp-content/uploads/2019/07/tat-nam-cao-co-2.jpg'
         },
         {
-            id : 8,
-            name : "Sơmi trắng",
-            category : "ao",
-            pricesale : 450000,
-            price : 399000,
+            id: 8,
+            name: "Sơmi trắng",
+            category: "ao",
+            pricesale: 450000,
+            price: 399000,
             star: 5,
-            sale : 10,
+            sale: 10,
             image: 'https://www.shopbexy.com/wp-content/uploads/2019/09/Ao-So-Mi-Trang-Nu-Dep-ASMT56.jpg'
         },
         {
-            id : 9,
-            name : "Nike AIR",
-            category : "giay",
-            pricesale : 2100000,
-            price : 1999000,
+            id: 9,
+            name: "Nike AIR",
+            category: "giay",
+            pricesale: 2100000,
+            price: 1999000,
             star: 1,
-            sale : 20,
+            sale: 20,
             image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
         },
-
+        {
+            id: 10,
+            name: "Nike AIR",
+            category: "giay",
+            pricesale: 2100000,
+            price: 999000,
+            star: 3,
+            sale: 20,
+            image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
+        },
     ];
     $(function () {
         loadData();
@@ -424,10 +527,10 @@
         let a = '';
         for (let i = 0; i < data.length; i++) {
             let start = '';
-            for (let y = 0 ; y < data[i]['star'] ; y++){
+            for (let y = 0; y < data[i]['star']; y++) {
                 start += '<i class="fas fa-star"></i>';
             }
-           a +=
+            a +=
                 `<div class="card listProduct">
                 <img src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
@@ -437,7 +540,7 @@
                 <p>
                     ${start}
                 </p>
-                <p><button>
+                <p><button class="addToCart">
                     <a>Add to cart</a>
                 </button></p>
                 <div class="icon">${data[i].sale}%</div>
@@ -445,28 +548,6 @@
         }
         $('#myTable').html(a);
     };
-    //--------------------------search--------------
-   function search(){
-       $('#myInput').on('input paste change', function(event) {
-           event.preventDefault();
-           /* Event sk*/
-           var search = $(this).val().toLowerCase();
-           $('#myTable .card').filter(function() {
-               $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
-               // console.log(this)
-           });
-       });
-   }
-    //------------------------category------------------------
-    function category(){
-        $('#category').on('change', function(event) {
-            event.preventDefault();
-            /* Event sk*/
-            var searchcategory = $(this).val().toLowerCase();
-            // console.log(searchcategory);
-
-            let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-            // console.log('Co: ' + (dataFilter.length))
 
     function filter() {
         let name = $('#search').val().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, ''),
@@ -475,7 +556,7 @@
             rating = $('#stars .selected').length,
             from = $('#input-from').val(),
             to = $('#input-to').val();
-        console.log(name)
+        console.log(name, category, sort, rating)
         $('#myTable').html('');
 //(data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
         for (let i = 0; i < data.length; i++) {
@@ -573,6 +654,33 @@
         });
     });
 
+    // Xử lý cookie
+    $(function () {
+        let arrItem = []
+        if (JSON.parse(getCookie('listItem')) !== null) {
+            arrItem = JSON.parse(getCookie('listItem'))
+        }
+    })
+    $(document).on('click', '.addToCart', function (){
+        // Them item tu id trong card
+        let itemAdd = product.filter(item => item.id.indexOf($(this).parents('.card-body').find('.card-title').attr('data-id')) > -1)[0]
+        // Them item tu id
+        let sameItem = arrItem.filter(item => item.id.indexOf(itemAdd.id) > -1)[0]
+        // So sanh 2 id trong card va trong mang
+        // Neu 2 thang khac nhau thi push them 1 item
+        if(sameItem?.id !== itemAdd.id){
+            itemAdd.amount = "1"
+            arrItem.push(itemAdd)
+        }
+        else {
+            if(parseInt(arrItem[arrItem.indexOf(sameItem)].amount) < parseInt(arrItem[arrItem.indexOf(sameItem)].inventory) )
+                arrItem[arrItem.indexOf(sameItem)].amount = (parseInt(arrItem[arrItem.indexOf(sameItem)].amount) + 1).toString()
+        }
+
+        document.cookie = "listItem" + "=" + JSON.stringify(arrItem) + "; Path=/; Expires=Fri, 01 July 2022 00:00:01 GMT;';"
+        ShowItemInCart(arrItem)
+        TinhTienThanhToan()
+    })
     // $('#search').on('input', function (){
     //     let tuKhoa = $(this).val()
     //     tuKhoa = tuKhoa.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')
