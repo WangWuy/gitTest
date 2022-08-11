@@ -287,6 +287,24 @@
         height: 27px;
     }
 
+    .modal-dialog {
+        margin: 50px 0px 0px 440px;
+
+    }
+
+    .modal-content {
+        width: 600px;
+    }
+    .name-cart{
+        width: 150px;
+    }
+    .price-cart{
+        width: 70px;
+    }
+    .quanti-cart{
+        width: 70px;
+        margin: 0 0 0 70px;
+    }
 </style>
 <body>
 
@@ -599,10 +617,10 @@
                 // for (let i = 0; i < data.length; i++) {
                 $('.tblCart').append(`
                         <div class="modal-product">
-                            <p><img src="${arrItem.image}" style="width:40px" height="40px"></p>
-                            <p>${arrItem.name}</p>
-                            <p>${arrItem.price}</p>
-                            <input type="number" class="quanti">
+                            <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
+                            <div class="name-cart"><p>${arrItem.name}</p></div>
+                            <div class="price-cart"><p>${arrItem.price}</p></div>
+                            <div class="quanti-cart"><input type="number" class="quanti"></div>
                         </div>
                     `)
                 // }
