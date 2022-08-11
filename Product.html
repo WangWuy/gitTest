@@ -448,6 +448,9 @@
         $('#stars').on('click', function () {
             filter()
         })
+        $('#addToCart').on('click', function (){
+            addToCart()
+        })
     })
 
     function loadData() {
@@ -467,7 +470,7 @@
                 <p>
                     ${start}
                 </p>
-                <p><button>
+                <p><button id="addToCart">
                     <a>Add to cart</a>
                 </button></p>
                 <div class="icon">${data[i].sale}%</div>
@@ -485,7 +488,7 @@
             to = $('#input-to').val();
         console.log(name)
         $('#myTable').html('');
-//(data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
+
         for (let i = 0; i < data.length; i++) {
             if ((data[i].name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')).includes(name)
                 || (data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
@@ -506,7 +509,7 @@
                 <p>
                     ${start}
                 </p>
-                <p><button>
+                <p><button id="addToCart" value="1">
                     <a>Add to cart</a>
                 </button></p>
                 <div class="icon">${data[i].sale}%</div>
@@ -581,6 +584,45 @@
         });
     });
 
+    function addToCart(){
+        // let tblCart = $('#tblCart');
+        // let sl = 0;
+
+        $('#myTable .cart').on('click' ,function(event){
+            event.preventDefault();
+
+            let list = $(this).val();
+            // console.log(list)
+
+            let  data1 = data.filter(item=> item.name == 1)
+            console.log(data);
+
+            // let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
+
+
+        })
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // $('#search').on('input', function (){
     //     let tuKhoa = $(this).val()
     //     tuKhoa = tuKhoa.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')
@@ -638,22 +680,6 @@
     //                 }
     //             }
     //         })
-    //     }
-    //
-    //     //    -------------------sort------------------
-    //    function sort(){
-
-    //    }
-    //     function min(){
-    //         data = data.sort(function(a, b) {
-    //             return  a['price'] - b['price'];
-    //         });
-    //     }
-    //
-    //     function max(){
-    //         data = data.sort(function(a, b) {
-    //             return b['price'] - a['price'];
-    //         });
     //     }
     //
     //     //-------------------------format input-----------------------
