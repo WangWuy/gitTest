@@ -372,14 +372,13 @@
                     <div class="modal-body">
 
                         <div class="app_content">
-                            <div class="modal-product">
-                                <table id="tblCart">
-                                    <p><img src="https://www.nike.com/vn/t/air-force-1-older-shoes-w6PsF3"></p>
-                                    <p>Nike</p>
-                                    <p>180$</p>
-                                    <input type="number" class="quanti">
+                                <table class="tblCart">
+                                    <tbody id="tblCart">
+                                    <tr>
+
+                                    </tr>
+                                    </tbody>
                                 </table>
-                            </div>
                             <div class="cancle">
                                 <button type="button" class="btn btn-danger" data-dismiss="div">X</button>
                             </div>
@@ -560,14 +559,9 @@
     }
 
     /* Lấy data từ array chuyển thành string */
-    // $(function (){
+    var listData = [];
+    function addCart(cart){
 
-        function addCart(cart){
-            // if (JSON.parse(getCookie('listItem')) !== null){
-            //     arrItem = JSON.parse(getCookie('listItem'))
-            // }
-            // showItemInCart()
-            let listData = [];
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
@@ -580,32 +574,35 @@
             })
             // console.log(listData);
             setCookie("cookiesData",JSON.stringify(listData))
+            paraJS()
+            showItemInCart(listData)
         }
 
+    /* JSON to array JS */
+    function paraJS(){
+        let arrItem = []
+        if (JSON.parse(getCookie('cookiesData')) !== null){
+            arrItem = JSON.parse(getCookie('cookiesData'))
+        }
+        // console.log(arrItem)
+    }
+
     // Hiển thị sản phẩm trên cart
-    // function showItemInCart(listItem){
-    //     $('.modal-item').text(null)
-    //     listItem.map(item =>{
-    //         $('.modal-item').append(`
-    //         <div class="row w-100 m-0 align-items-center product-line">
-    //             <div class="col-2">
-    //                 <img src=${item.image} alt="img">
-    //             </div>
-    //             <div class="col-2" data-id=${item.id}>
-    //                 ${item.name}
-    //             </div>
-    //             <div class="col-2">
-    //                 ${item.inventory.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-    //             </div>
-    //             <div class="col-2">
-    //                 <input type="text" class="amount" value=${item.amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} data-maxValue = ${item.inventory} placeholder="0" >
-    //             </div>
-    //             <div class="col-2 thanhtien">${((parseInt(item.originalPrice) - parseInt(item.originalPrice) * parseInt(item.discount)/100) * parseInt(item.amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} vnđ</div>
-    //             <div class="col-2 delete-item"><i class="fa fa-trash "></i></div>
-    //         </div>
-    //     `)
-    //     })
-    // }
+    function showItemInCart(cookiesData){
+        $('.tblCart').text(null)
+        cookiesData.map(arrItem =>{
+        // for (let i = 0; i < data.length; i++) {
+            $('.tblCart').append(`
+            <div class="modal-product">
+                <p><img src="${arrItem.image}" style="width:40px" height="40px"></p>
+                <p>${arrItem.name}</p>
+                <p>${arrItem.price}</p>
+                <input type="number" class="quanti">
+            </div>
+        `)
+            // }
+        })
+    }
 
     /* Xóa cookies */
     function deleteCookies(){
