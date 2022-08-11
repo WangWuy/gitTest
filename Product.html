@@ -373,10 +373,12 @@
 
                         <div class="app_content">
                             <div class="modal-product">
-                                <p><img src="https://www.nike.com/vn/t/air-force-1-older-shoes-w6PsF3"></p>
-                                <p>Nike</p>
-                                <p>180$</p>
-                                <input type="number" class="quanti">
+                                <table id="tblCart">
+                                    <p><img src="https://www.nike.com/vn/t/air-force-1-older-shoes-w6PsF3"></p>
+                                    <p>Nike</p>
+                                    <p>180$</p>
+                                    <input type="number" class="quanti">
+                                </table>
                             </div>
                             <div class="cancle">
                                 <button type="button" class="btn btn-danger" data-dismiss="div">X</button>
@@ -521,11 +523,82 @@
         $('#stars').on('click', function () {
             filter()
         })
-        $('#addToCart').on('click', function (){
-            addToCart()
-        })
-    })
+        // $('#addToCart').on('click', function (){
+        //     addToCart()
+        // })
+        // setCookie("cokiesData","123")
 
+    })
+    //--------------cookies--------------
+    // let listData = [];
+    //
+    // let cookies = document.cookie;
+    // // console.log(cookies)
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        // let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";expires=" + d.toUTCString()+ ";path=/";
+
+        //tạo 1 cookies
+        // setCookie("cokiesData",data)
+
+        //------------------
+
+
+
+
+
+    }
+    //    delete cookies
+    function deleteCookies(){
+        const d = new Date();
+        d.getTime(d.getTime() - 60 * 1000);
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    //    ----------------------------------
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function addCart(cart){
+        let listData = [];
+
+        let name =cart.parents('.card').find('h4').text();
+        let price =cart.parents('.card').find('.price').text();
+        // let star = $(this).parent('.card').find('').text();
+        listData.push({
+            a: name ,
+            b : price
+        })
+
+        // console.log(listData);
+        setCookie("cokiessData",JSON.stringify(listData))
+        // console.log(name)
+
+
+
+        //chuyển thành string
+        // document.cookie = "listData" + "=" + JSON.stringify(listData) + ";Path=/; Expires=Fri, 01 July 2022 00:00:01 GMT;';"
+        // console.log()
+
+
+    };
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
@@ -543,8 +616,8 @@
                 <p>
                     ${start}
                 </p>
-                <p><button id="addToCart">
-                <p><button class="addToCart">
+<!--                <p><button id="addToCart">-->
+                <p><button class="addToCart" onclick="addCart($(this))">
                     <a>Add to cart</a>
                 </button></p>
                 <div class="icon">${data[i].sale}%</div>
@@ -656,31 +729,6 @@
             }
         });
     });
-
-    function addToCart(){
-        // let tblCart = $('#tblCart');
-        // let sl = 0;
-
-        $('#myTable .cart').on('click' ,function(event){
-            event.preventDefault();
-
-            let list = $(this).val();
-            // console.log(list)
-
-            let  data1 = data.filter(item=> item.name == 1)
-            console.log(data);
-
-            // let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-
-
-        })
-
-
-
-
-
-
-    }
 
 
 
