@@ -501,6 +501,7 @@
         /**
          * Lấy giá cao nhất
          */
+        checkCookie()
         data.sort(function (a, b) {
             return a.price - b.price;
         })
@@ -533,7 +534,7 @@
             a +=
                 `<div class="card listProduct">
                 <img src="${data[i].image}" style="width:200px" height="200px">
-                <h4 class"tenSp">${data[i].name}</h4>
+                <h4 class"tenSp" data-id=${data[i].id}>${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
                 <p class="price">${data[i].price}</p>
                 <p class="category" style="display: none;">${data[i].category}</p>
@@ -653,33 +654,103 @@
         });
     });
 
-    // Xử lý cookie
-    $(function () {
-        let arrItem = []
-        if (JSON.parse(getCookie('listItem')) !== null) {
-            arrItem = JSON.parse(getCookie('listItem'))
-        }
-    })
-    $(document).on('click', '.addToCart', function (){
-        // Them item tu id trong card
-        let itemAdd = product.filter(item => item.id.indexOf($(this).parents('.card-body').find('.card-title').attr('data-id')) > -1)[0]
-        // Them item tu id
-        let sameItem = arrItem.filter(item => item.id.indexOf(itemAdd.id) > -1)[0]
-        // So sanh 2 id trong card va trong mang
-        // Neu 2 thang khac nhau thi push them 1 item
-        if(sameItem?.id !== itemAdd.id){
-            itemAdd.amount = "1"
-            arrItem.push(itemAdd)
-        }
-        else {
-            if(parseInt(arrItem[arrItem.indexOf(sameItem)].amount) < parseInt(arrItem[arrItem.indexOf(sameItem)].inventory) )
-                arrItem[arrItem.indexOf(sameItem)].amount = (parseInt(arrItem[arrItem.indexOf(sameItem)].amount) + 1).toString()
-        }
+    function addCart(){
 
-        document.cookie = "listItem" + "=" + JSON.stringify(arrItem) + "; Path=/; Expires=Fri, 01 July 2022 00:00:01 GMT;';"
-        ShowItemInCart(arrItem)
-        TinhTienThanhToan()
-    })
+    }
+
+    // // Xử lý cookie
+    function setCookie(cname,cvalue,exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function checkCookie() {
+        let user = getCookie("name");
+        if (user != "") {
+            alert("Welcome again " + user);
+        } else {
+            user = prompt("Please enter your name:","");
+            if (user != "" && user != null) {
+                setCookie("name", user, 30);
+            }
+        }
+    }
+
+
+    // $(function () {
+    //     let arrItem = []
+    //     if (JSON.parse(getCookie('listItem')) !== null) {
+    //         arrItem = JSON.parse(getCookie('listItem'))
+    //     }
+    // })
+    // $(document).on('click', '.addToCart', function (){
+    //     // Them item tu id trong card
+    //     let itemAdd = data.filter(item => item.id.indexOf($(this).parents('#myTable').find('.card')) > -1)[0]
+    //     console.log(itemAdd)
+    //     // Them item tu id
+    //     let sameItem = arrItem.filter(item => item.id.indexOf(itemAdd.id) > -1)[0]
+    //     // So sanh 2 id trong card va trong mang
+    //     // Neu 2 id khac nhau thi push them 1 item
+    //     if(sameItem?.id !== itemAdd.id){
+    //         itemAdd.amount = "1"
+    //         arrItem.push(itemAdd)
+    //     }
+    //     else {
+    //         if(parseInt(arrItem[arrItem.indexOf(sameItem)].amount) < parseInt(arrItem[arrItem.indexOf(sameItem)].inventory) )
+    //             arrItem[arrItem.indexOf(sameItem)].amount = (parseInt(arrItem[arrItem.indexOf(sameItem)].amount) + 1).toString()
+    //     }
+    //
+    //     document.cookie = "listItem" + "=" + JSON.stringify(arrItem) + "; Path=/; Expires=Fri, 01 July 2022 00:00:01 GMT;';"
+    //     ShowItemInCart(arrItem)
+    //     TinhTienThanhToan()
+    // })
+    //
+    // // Hiển thị sản phẩm trên cart
+    // function ShowItemInCart(listItem){
+    //     $('.modal-item').text(null)
+    //     listItem.map(item =>{
+    //         $('.modal-item').append(`
+    //         <div class="row w-100 m-0 align-items-center product-line">
+    //             <div class="col-2">
+    //                 <img src=${item.image} alt="img">
+    //             </div>
+    //             <div class="col-2" data-id=${item.id}>
+    //                 ${item.name}
+    //             </div>
+    //             <div class="col-2">
+    //                 ${item.inventory.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+    //             </div>
+    //             <div class="col-2">
+    //                 <input type="text" class="amount" value=${item.amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} data-maxValue = ${item.inventory} placeholder="0" >
+    //             </div>
+    //             <div class="col-2 thanhtien">${((parseInt(item.price) - parseInt(item.price)) * parseInt(item.amount)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} vnđ</div>
+    //             <div class="col-2 delete-item"><i class="fa fa-trash "></i></div>
+    //         </div>
+    //     `)
+    //     })
+    // }
+
+
+
     // $('#search').on('input', function (){
     //     let tuKhoa = $(this).val()
     //     tuKhoa = tuKhoa.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')
