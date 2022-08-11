@@ -387,7 +387,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -499,6 +499,7 @@
     ];
     $(function () {
         loadData();
+        showItemInCart();
         /**
          * Lấy giá cao nhất
          */
@@ -567,15 +568,15 @@
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
             listData.push({
-                a: id,
-                b: image,
-                c: name,
-                d: price
+                id: id,
+                image: image,
+                name: name,
+                price: price
             })
             // console.log(listData);
             setCookie("cookiesData",JSON.stringify(listData))
-            paraJS()
-            showItemInCart(listData)
+            // paraJS()
+            showItemInCart()
         }
 
     /* JSON to array JS */
@@ -584,24 +585,30 @@
         if (JSON.parse(getCookie('cookiesData')) !== null){
             arrItem = JSON.parse(getCookie('cookiesData'))
         }
-        // console.log(arrItem)
+        console.log(arrItem)
     }
 
     // Hiển thị sản phẩm trên cart
-    function showItemInCart(cookiesData){
-        $('.tblCart').text(null)
-        cookiesData.map(arrItem =>{
-        // for (let i = 0; i < data.length; i++) {
-            $('.tblCart').append(`
-            <div class="modal-product">
-                <p><img src="${arrItem.image}" style="width:40px" height="40px"></p>
-                <p>${arrItem.name}</p>
-                <p>${arrItem.price}</p>
-                <input type="number" class="quanti">
-            </div>
-        `)
-            // }
-        })
+    function showItemInCart(){
+        let arrItem1 = [];
+        if (JSON.parse(getCookie('cookiesData')) !== undefined){
+            console.log(1);
+            arrItem1 = JSON.parse(getCookie('cookiesData'))
+            // $('.tblCart').text(null)
+            arrItem1.map(arrItem =>{
+                // for (let i = 0; i < data.length; i++) {
+                $('.tblCart').append(`
+                        <div class="modal-product">
+                            <p><img src="${arrItem.image}" style="width:40px" height="40px"></p>
+                            <p>${arrItem.name}</p>
+                            <p>${arrItem.price}</p>
+                            <input type="number" class="quanti">
+                        </div>
+                    `)
+                // }
+            })
+        }
+
     }
 
     /* Xóa cookies */
