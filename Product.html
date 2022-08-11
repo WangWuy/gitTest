@@ -13,18 +13,19 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <style>
-    *{
+    * {
         margin: 0;
         padding: 0;
-
     }
-    .row{
+
+    .row {
         margin: 0;
         padding: 0;
         width: 100%;
         height: auto;
     }
-    .col-sm-8{
+
+    .col-sm-8 {
         margin-top: 70px;
         background-color: #cccc;
         width: 100%;
@@ -393,12 +394,30 @@
 
     ];
     $(function () {
-        loadData()
-        search()
-        category()
-        fromTo()
-        sort()
-        star()
+        loadData();
+        /**
+         * Lấy giá cao nhất
+         */
+        data.sort(function (a, b) {
+            return a.price - b.price;
+        })
+        $('#input-to').val(data.at(-1).price);
+        /**
+         * Search input - name
+         * Select - danh mục
+         * Select - giá
+         * Click - Rating
+         * Input - giá
+         */
+        $('#search, #input-from, #input-to').on('input', function () {
+            filter()
+        })
+        $('#category, #sort').on('change', function () {
+            filter()
+        })
+        $('#stars').on('click', function () {
+            filter()
+        })
     })
 
     function loadData() {
@@ -447,114 +466,101 @@
             // console.log(searchcategory);
 
             let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-            console.log(dataFilter)
-            // console.log(searchcategory)
+            // console.log('Co: ' + (dataFilter.length))
 
-
-            $('#myTable .card').filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
-                // let a = $(this).text().toLowerCase();
-                // console.log(this);
-                // console.log(a);
-
-            });
-        });
-    }
-
-    //-----------------------from to---------------------
-    function fromTo(){
-        $('#inputto , #inputfrom').on('input', function (){
-            let a = $('#inputto').val();
-            // console.log(a)
-            let b = $('#inputfrom').val();
-            // console.log(b)
-            for (let i = 0; i < data.length; i++){
-                // console.log(a,data[i].price,b)
-                if(a <= data[i].price && data[i].price <= b){
-                    // console.log('gia tien ',data[i].price)
-                    $('.listProduct:eq('+i+')').removeClass('d-none');
-                }else {
-                    $('.listProduct:eq('+i+')').addClass('d-none');
+    function filter() {
+        let name = $('#search').val().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, ''),
+            category = $('#category').val(),
+            sort = $('#sort').val(),
+            rating = $('#stars .selected').length,
+            from = $('#input-from').val(),
+            to = $('#input-to').val();
+        console.log(name)
+        $('#myTable').html('');
+//(data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
+        for (let i = 0; i < data.length; i++) {
+            if ((data[i].name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')).includes(name)
+                || (data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
+                || name === "") {
+                if (data[i].star >= rating || rating === "") {
+                    if (data[i].category === category || category === "") {
+                        if (from <= data[i].price && data[i].price <= to || from === "" && to === "") {
+                            let start = '';
+                            for (let y = 0; y < data[i]['star']; y++) {
+                                start += '<i class="fas fa-star"></i>';
+                            }
+                            $('#myTable').append(`<div class="card listProduct">
+                <img src="${data[i].image}" style="width:200px" height="200px">
+                <h4 class"tenSp">${data[i].name}</h4>
+                <p class="price-">${data[i].pricesale}</p>
+                <p class="price">${data[i].price}</p>
+                <p class="category" style="display: none;">${data[i].category}</p>
+                <p>
+                    ${start}
+                </p>
+                <p><button>
+                    <a>Add to cart</a>
+                </button></p>
+                <div class="icon">${data[i].sale}%</div>
+            </div>`);
+                        }
+                    }
                 }
+            }
+        }
+        $('#sort').on('change', function (event) {
+            event.preventDefault();
+            if (sort === '0') {
+                min();
+            } else {
+                max();
             }
         })
     }
-//    -------------------sort------------------
-   function sort(){
-       $('#sort').on('change', function (event){
-           event.preventDefault();
-           ///lấy giá trị
-           var minPrice = $(this).val().toLowerCase();
-           var maxPrice = $(this).val().toLowerCase();
-               if($(this).val() === 'min'){
-                   min();
-                   // $('.listProduct:eq('+i+')').removeClass('d-none');
-               }else {
-                   max();
-                   // $('.listProduct:eq('+i+')').addClass('d-none');
-               }
-           loadData();
-
-       })
-   }
-
     function min(){
         data = data.sort(function(a, b) {
-            return  a['price'] - b['price'];
+            return  - a['price'] + b['price'];
         });
     }
-
     function max(){
         data = data.sort(function(a, b) {
-            return b['price'] - a['price'];
+            return -b['price'] + a['price'];
         });
     }
-//-------------------------format input-----------------------
-   function format(){
-       $(function() {
-           var $form = $( "#form" );
-           var $input = $form.find( "input" );
 
-           $input.on( "keyup", function( event ) {
-               var selection = window.getSelection().toString();
+    $('#sort').on('change', function (event){
+        event.preventDefault();
+        ///lấy giá trị
+        var minPrice = $(this).val().toLowerCase();
+        var maxPrice = $(this).val().toLowerCase();
+        if($(this).val() === '0'){
+            min();
+        }else {
+            max();
+        }
+        loadData();
+    })
 
-               var $this = $( this );
-               // Get the value.
-               var input = $this.val();
-
-               var input = input.replace(/[\D\s\._\-]+/g, "");
-               // input = input ? parseInt( input, 10 ) : 0; ////format dấu phẩy
-
-               $this.val( function() {
-                   return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
-               } );
-           } );
-
-       });
-   }
-
-//----------------------------------------------------
-    /* Code su kien JS */
-    $(document).ready(function(){
+    $(document).ready(function () {
         /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
-        $('#stars li').on('mouseover', function(){
+        $('#stars li').on('mouseover', function () {
             var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện đang di chuột vào
 
             // Bây giờ đánh dấu tất cả các ngôi sao không phải sau ngôi sao lơ lửng hiện tại
-            $(this).parent().children('li.star').each(function(e){
+            $(this).parent().children('li.star').each(function (e) {
                 if (e < onStar) {
                     $(this).addClass('hover');
                 } else {
                     $(this).removeClass('hover');
                 }
             });
-        }).on('mouseout', function(){
-            $(this).parent().children('li.star').each(function(e){
+        }).on('mouseout', function () {
+            $(this).parent().children('li.star').each(function (e) {
                 $(this).removeClass('hover');
             });
         });
         /* 2. Hành động thực hiện khi nhấp chuột */
-        $('#stars li').on('click', function(){
+        $('#stars li').on('click', function () {
             var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện được chọn
             var stars = $(this).parent().children('li.star');
 
@@ -567,23 +573,119 @@
         });
     });
 
-//-------------------------star----------------
-    $('#stars .star').on('click', function(event) {
-        event.preventDefault();
-        /* Event sk*/
-        let clickStar = $(this).val();
-        for (let i = 0; i <= data.length; i++) {
-                if(data[i].star >= clickStar){
-                    console.log(data[i])
-                    $('.listProduct:eq('+i+')').removeClass('d-none');
-                }else {
-                    $('.listProduct:eq('+i+')').addClass('d-none');
-                }
-        }
-    })
+    // $('#search').on('input', function (){
+    //     let tuKhoa = $(this).val()
+    //     tuKhoa = tuKhoa.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')
+    //     // console.log(tuKhoa)
+    // })
 
+    //     //--------------------------search--------------
+    //    function search(){
+    //        $('#myInput').on('input paste change', function(event) {
+    //            event.preventDefault();
+    //            /* Event sk*/
+    //            var search = $(this).val().toLowerCase();
+    //            $('#myTable .card').filter(function() {
+    //                $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
+    //                // console.log(this)
+    //            });
+    //        });
+    //    }
+    //
+    //     //------------------------category------------------------
+    //     function category(){
+    //         $('#category').on('change', function(event) {
+    //             event.preventDefault();
+    //             /* Event sk*/
+    //             var searchcategory = $(this).val().toLowerCase();
+    //             // console.log(searchcategory);
+    //
+    //             let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
+    //             // console.log('Co: ' + (dataFilter))
+    //
+    //             $('#myTable .card').filter(function() {
+    //                 $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
+    //                 // let a = $(this).text().toLowerCase();
+    //                 // console.log(this);
+    //                 // console.log(a);
+    //
+    //             });
+    //         });
+    //     }
+    //
+    //     //-----------------------from to---------------------
+    //     function fromTo(){
+    //         $('#inputto , #inputfrom').on('input', function (){
+    //             let a = $('#inputto').val();
+    //             // console.log(a)
+    //             let b = $('#inputfrom').val();
+    //             // console.log(b)
+    //             for (let i = 0; i < data.length; i++){
+    //                 // console.log(a,data[i].price,b)
+    //                 if(a <= data[i].price && data[i].price <= b){
+    //                     // console.log('gia tien ',data[i].price)
+    //                     $('.listProduct:eq('+i+')').removeClass('d-none');
+    //                 }else {
+    //                     $('.listProduct:eq('+i+')').addClass('d-none');
+    //                 }
+    //             }
+    //         })
+    //     }
+    //
+    //     //    -------------------sort------------------
+    //    function sort(){
 
+    //    }
+    //     function min(){
+    //         data = data.sort(function(a, b) {
+    //             return  a['price'] - b['price'];
+    //         });
+    //     }
+    //
+    //     function max(){
+    //         data = data.sort(function(a, b) {
+    //             return b['price'] - a['price'];
+    //         });
+    //     }
+    //
+    //     //-------------------------format input-----------------------
+    //    function format(){
+    //        $(function() {
+    //            var $form = $( "#form" );
+    //            var $input = $form.find( "input" );
+    //
+    //            $input.on( "keyup", function( event ) {
+    //                var selection = window.getSelection().toString();
+    //                var $this = $( this );
+    //                // Get the value.
+    //                var input = $this.val();
+    //                var input = input.replace(/[\D\s\._\-]+/g, "");
+    //                $this.val( function() {
+    //                    return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
+    //                } );
+    //            } );
+    //        });
+    //    }
+    //
+    //     //----------------------------------------------------
+    //     // /* Code su kien JS */
 
+    /* Sử lý sự kiện click rating star */
+    //
+    // //-------------------------star----------------
+    //     $('#stars .star').on('click', function(event) {
+    //         event.preventDefault();
+    //         /* Event sk*/
+    //         let clickStar = $(this).val();
+    //         for (let i = 0; i <= data.length; i++) {
+    //                 if(data[i].star >= clickStar){
+    //                     console.log(data[i])
+    //                     $('.listProduct:eq('+i+')').removeClass('d-none');
+    //                 }else {
+    //                     $('.listProduct:eq('+i+')').addClass('d-none');
+    //                 }
+    //         }
+    //     })
 
 </script>
 </body>
