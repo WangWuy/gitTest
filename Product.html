@@ -380,7 +380,7 @@
                                     </tbody>
                                 </table>
                             <div class="cancle">
-                                <button type="button" class="btn btn-danger" data-dismiss="div">X</button>
+                                <button id="delItem" type="button" class="btn btn-danger" data-dismiss="div">X</button>
                             </div>
                         </div>
                     </div>
@@ -523,11 +523,6 @@
         $('#stars').on('click', function () {
             filter()
         })
-        // $('#addToCart').on('click', function (){
-        //     addToCart()
-        // })
-        // setCookie("cokiesData","123")
-
     })
 
     /* Tạo 1 cookies trên web */
@@ -537,9 +532,6 @@
         let expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         //tạo 1 cookies
-
-        //------------------
-
     }
 
     /* Get cookies truyền string vào web */
@@ -579,20 +571,17 @@
             showItemInCart()
         }
 
-    /* JSON to array JS */
-    function paraJS(){
-        let arrItem = []
-        if (JSON.parse(getCookie('cookiesData')) !== null){
-            arrItem = JSON.parse(getCookie('cookiesData'))
-        }
-        console.log(arrItem)
-    }
+    /**/
+    $('#delItem').on('click', function (){
+
+        deleteCookies()
+    })
+
 
     // Hiển thị sản phẩm trên cart
     function showItemInCart(){
         let arrItem1 = [];
         if (JSON.parse(getCookie('cookiesData')) !== undefined){
-            console.log(1);
             arrItem1 = JSON.parse(getCookie('cookiesData'))
             // $('.tblCart').text(null)
             arrItem1.map(arrItem =>{
@@ -612,10 +601,8 @@
     }
 
     /* Xóa cookies */
-    function deleteCookies(){
-        const d = new Date();
-        d.getTime(d.getTime() - 60 * 1000);
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    function deleteCookies(cname){
+        document.cookie = cname + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 
     function loadData() {
