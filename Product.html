@@ -527,8 +527,7 @@
     ];
 
     var listData = [];
-    var dishAdded =
-        getCookie("dishAdded") !== "" ? JSON.parse(getCookie("dishAdded")) : [];
+    let arrItem = []
 
 
     $(function () {
@@ -557,9 +556,18 @@
         $('#stars').on('click', function () {
             filter()
         })
-        // $('#addToCart').on('click', function (){
-        //     addToCart()
-        // })
+        $('.lbldelete').on('click', function (){
+            let id = $('.id-cart:first').text();
+
+            console.log('log',id)
+            // console.log(getCookie('cookiesData', arrItem))
+            let newListData = arrItem.filter(item =>item.id !== id)
+
+            console.log(newListData)
+            document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
+            $(this).parents('.modal-product').remove()
+
+        })
 
 
     })
@@ -611,7 +619,7 @@
 
     /* JSON to array JS */
     function paraJS(){
-        let arrItem = []
+
         if (JSON.parse(getCookie('cookiesData')) !== null){
             arrItem = JSON.parse(getCookie('cookiesData'))
         }
@@ -622,8 +630,9 @@
     function showItemInCart(){
         let arrItem1 = [];
         if (JSON.parse(getCookie('cookiesData')) !== undefined){
-            console.log(1);
+            // console.log(1);
             arrItem1 = JSON.parse(getCookie('cookiesData'))
+            arrItem = JSON.parse(getCookie('cookiesData'))
             // $('.tblCart').text(null)
             arrItem1.map(arrItem =>{
                 // for (let i = 0; i < data.length; i++) {
@@ -644,23 +653,24 @@
     }
     //----------xóa---------
     function deleteCart() {
-        $(document).on("click", ".lbldelete", function () {
-            const filter = dishAdded.filter(
-                (x) => x.id === $(this).parents(".tblCart").find(".id-cart").text()
-            );
-            const index = dishAdded.indexOf(filter[0]);
-            if (index > -1) {
-                dishAdded.splice(index, 1);
-            }
-            $(this).parents("tr").remove();
-            setCookie("dishAdded", JSON.stringify(dishAdded));
-        });
+        // $(document).on("click", ".lbldelete", function () {
+        //     const filter = dishAdded.filter(
+        //         (x) => x.id === $(this).parents(".tblCart").find(".id-cart").text()
+        //     );
+        //     const index = dishAdded.indexOf(filter[0]);
+        //     if (index > -1) {
+        //         dishAdded.splice(index, 1);
+        //     }
+        //     $(this).parents("tr").remove();
+        //     setCookie("dishAdded", JSON.stringify(dishAdded));
+        // });
 
         // let id = $('.tblCart .quanti-cart .quanti').data('id');
-        // let a = $(this).parents('.modal-product').remove();
+        // $(this).parents('.modal-product').remove();
+        // console.log($(this).parents('.modal-product').html())
         // // console.log(a)
         // console.log(id)
-        // // getCookie(I)
+        // getCookie(I)
 
         // }
         // $('#lbl-delete').on("click", function () {
