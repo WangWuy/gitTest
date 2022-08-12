@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <!--    --------------icon------------>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <style>
     * {
@@ -103,7 +104,7 @@
     }
 
     /*    -------search------------*/
-    input[type=text] {
+    input {
         width: 290px;
         box-sizing: border-box;
         border: 2px solid #ccc;
@@ -117,9 +118,9 @@
         transition: width 0.4s ease-in-out;
     }
 
-    input[type=text]:focus {
-        width: 100%;
-    }
+    /*input[type=text]:focus {*/
+    /*    width: 100%;*/
+    /*}*/
 
     /*    ----------------------------*/
     select {
@@ -282,9 +283,35 @@
     .modal-title {
         text-align: center;
     }
-    .quanti {
-        width: 73px;
-        height: 27px;
+
+    .modal-dialog {
+        margin: 50px 0px 0px 440px;
+
+    }
+
+    .modal-content {
+        width: 600px;
+    }
+    .name-cart{
+        width: 150px;
+    }
+    .price-cart{
+        width: 70px;
+    }
+    /*    ---------input quantity card*/
+    .quanti-cart{
+        width: 70px;
+        margin: 0 0 0 70px;
+    }
+/*    -----------------icon-delete------------*/
+    .delete-cart {
+        padding: 5px 0 0 75px;
+    }
+    .delete-cart i:hover{
+        color: #ef0404;
+    }
+    .quanti{
+        width: 100px;
     }
 
 </style>
@@ -313,7 +340,7 @@
         </div>
         <div class="col-sm-4">
             <form id="form">
-                <input type="text" id="search" placeholder="Search for names..">
+                <input  type="text" id="search" placeholder="Search for names..">
                 <select id="category" name="categorylist">
                     <option value="" selected>Tất cả</option>
                     <option value="giay">Giày</option>
@@ -380,12 +407,13 @@
                                     </tbody>
                                 </table>
                             <div class="cancle">
-                                <button id="delItem" type="button" class="btn btn-danger" data-dismiss="div">X</button>
+<!--                                <button type="button" class="btn btn-danger" data-dismiss="div">X</button>-->
                             </div>
                         </div>
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
+                        <label>Tổng: </label>
                         <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
                     </div> 
                 </div>
@@ -497,6 +525,12 @@
             image: 'https://www.modern-notoriety.com/wp-content/uploads/2020/08/kith-nike-air-force-1-nyc-white-3.jpg'
         },
     ];
+
+    var listData = [];
+    var dishAdded =
+        getCookie("dishAdded") !== "" ? JSON.parse(getCookie("dishAdded")) : [];
+
+
     $(function () {
         loadData();
         showItemInCart();
@@ -523,6 +557,11 @@
         $('#stars').on('click', function () {
             filter()
         })
+        // $('#addToCart').on('click', function (){
+        //     addToCart()
+        // })
+        // setCookie("cokiesData","123")
+
     })
 
     /* Tạo 1 cookies trên web */
@@ -532,6 +571,9 @@
         let expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         //tạo 1 cookies
+
+        //------------------
+
     }
 
     /* Get cookies truyền string vào web */
@@ -552,7 +594,7 @@
     }
 
     /* Lấy data từ array chuyển thành string */
-    var listData = [];
+
     function addCart(cart){
 
             let id = cart.parents('.card').find('.idSp').text();
@@ -571,38 +613,94 @@
             showItemInCart()
         }
 
-    /**/
-    $('#delItem').on('click', function (){
-
-        deleteCookies()
-    })
-
+    /* JSON to array JS */
+    function paraJS(){
+        let arrItem = []
+        if (JSON.parse(getCookie('cookiesData')) !== null){
+            arrItem = JSON.parse(getCookie('cookiesData'))
+        }
+        console.log(arrItem)
+    }
 
     // Hiển thị sản phẩm trên cart
     function showItemInCart(){
         let arrItem1 = [];
         if (JSON.parse(getCookie('cookiesData')) !== undefined){
+            console.log(1);
             arrItem1 = JSON.parse(getCookie('cookiesData'))
             // $('.tblCart').text(null)
             arrItem1.map(arrItem =>{
                 // for (let i = 0; i < data.length; i++) {
                 $('.tblCart').append(`
-                        <div class="modal-product">
-                            <p><img src="${arrItem.image}" style="width:40px" height="40px"></p>
-                            <p>${arrItem.name}</p>
-                            <p>${arrItem.price}</p>
-                            <input type="number" class="quanti">
+                        <div class="modal-product" data-id="1">
+                            <div class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
+                            <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
+                            <div class="name-cart"><p>${arrItem.name}</p></div>
+                            <div class="price-cart"><p>${arrItem.price}</p></div>
+                            <div class="quanti-cart"><input type="text" class="quanti" value="1" data-id="1"></div>
+                            <div class="delete-cart" ><lable class="lbldelete" onclick="deleteCart()"><i class="material-icons">delete_forever</i></lable></div>
+<!--                            <input value="1" type="text" data-id="9">-->
                         </div>
                     `)
                 // }
             })
         }
+    }
+    //----------xóa---------
+    function deleteCart() {
+        $(document).on("click", ".lbldelete", function () {
+            const filter = dishAdded.filter(
+                (x) => x.id === $(this).parents(".tblCart").find(".id-cart").text()
+            );
+            const index = dishAdded.indexOf(filter[0]);
+            if (index > -1) {
+                dishAdded.splice(index, 1);
+            }
+            $(this).parents("tr").remove();
+            setCookie("dishAdded", JSON.stringify(dishAdded));
+        });
 
+        // let id = $('.tblCart .quanti-cart .quanti').data('id');
+        // let a = $(this).parents('.modal-product').remove();
+        // // console.log(a)
+        // console.log(id)
+        // // getCookie(I)
+
+        // }
+        // $('#lbl-delete').on("click", function () {
+        // console.log(listData)
+        //     const filter = listData.filter(
+        //         (x) => x.id === $(this).parents(".tblCart").find('.id-cart').text()  //cart
+        //     );
+        //     const index = listData.indexOf(filter[0]);
+        //     if (index > -1) {
+        //         listData.splice(index, 1);
+        //     }
+        //     $(this).parents(".modal-product").remove();
+        //     setCookie("listData", JSON.stringify(listData));
+        //
+        // // // });
     }
 
+    //Doi gia khi thay doi so luong
+    $(document).on("input", ".input-quaty", function () {
+        $(this).val(numberFormat($(this).val()));
+        $(this)
+            .parents("tr")
+            .children(".price")
+            .text(format($(this).val().replaceAll(",", "") * $(this).attr("price")));
+        sumPrice();
+        const thisTitle = $(this).parents("tr").find(".name").text();
+        const index = dishAdded.findIndex((x) => x.title === thisTitle);
+        dishAdded[index].quaty = Number($(this).val());
+        setCookie("dishAdded", JSON.stringify(dishAdded));
+    });
+
     /* Xóa cookies */
-    function deleteCookies(cname){
-        document.cookie = cname + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    function deleteCookies(){
+        const d = new Date();
+        d.getTime(d.getTime() - 60 * 1000);
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
     function loadData() {
