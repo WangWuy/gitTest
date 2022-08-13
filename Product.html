@@ -608,7 +608,7 @@
         let itemId = cart.parents('.card').find('.idSp').text();
         console.log('log', itemId)
 
-
+        arrItem = JSON.parse(getCookie('cookiesData'))
         let arr = arrItem.filter(item => item.id !== itemId)
         // console.log(arrItem)
         if (arr) {
