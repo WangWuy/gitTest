@@ -528,7 +528,7 @@
 
     var listData = [];
     var arrItem = [];
-
+    var amount = 0;
 
     $(function () {
         paraJS();
@@ -575,6 +575,9 @@
         console.log(newListData)
         document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
         $('.lbldelete').parents('.modal-product').remove()
+
+        amount = amount - 1;
+        $('#icon-cart').html(amount)
     }
 
     /* Tạo 1 cookies trên web */
@@ -617,6 +620,9 @@
                 name: name,
                 price: price
             })
+            var number = 1;
+            amount += number;
+            $('#icon-cart').html(amount)
             // console.log(arrItem);
             setCookie("cookiesData",JSON.stringify(arrItem))
             // paraJS()
