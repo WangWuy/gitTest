@@ -528,11 +528,12 @@
 
     var listData = [];
     var arrItem = [];
-
+    var amount = 0;
 
     $(function () {
         paraJS();
         loadData();
+        // showItemInCart();
         /**
          * Lấy giá cao nhất
          */
@@ -565,7 +566,20 @@
         // })
     })
 
+    function deleteCart(){
+        let id = $('.id-cart:first').text();
+        // console.log('log',id)
 
+        let newListData = arrItem.filter(item =>item.id !== id)
+        console.log('arr',arrItem)
+
+        console.log(newListData)
+        document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
+        $('.lbldelete').parents('.modal-product').remove()
+
+        amount = amount - 1;
+        $('#icon-cart').html(amount)
+    }
 
     /* Tạo 1 cookies trên web */
     function setCookie(cname, cvalue, exdays) {
@@ -636,6 +650,9 @@
             // }
             console.log('a',arr);
         }
+        var number = 1;
+        amount += number;
+        $('#icon-cart').html(amount)
     }
 
     function payCart(){
