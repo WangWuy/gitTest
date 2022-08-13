@@ -407,13 +407,13 @@
                                     </tbody>
                                 </table>
                             <div class="cancle">
-<!--                                <button type="button" class="btn btn-danger" data-dismiss="div">X</button>-->
+
                             </div>
                         </div>
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <label>Tổng: </label>
+                        <label style="position: absolute; left: 20px">Tổng: </label>
                         <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
                     </div> 
                 </div>
@@ -527,13 +527,12 @@
     ];
 
     var listData = [];
-    var dishAdded =
-        getCookie("dishAdded") !== "" ? JSON.parse(getCookie("dishAdded")) : [];
+    var arrItem = [];
 
 
     $(function () {
         loadData();
-        showItemInCart();
+        // showItemInCart();
         /**
          * Lấy giá cao nhất
          */
@@ -557,12 +556,25 @@
         $('#stars').on('click', function () {
             filter()
         })
-        // $('#addToCart').on('click', function (){
-        //     addToCart()
+        $('#addCart').on('click', function () {
+            showItemInCart();
+        })
+        // $('.delete-cart #delete').on('click', function (){
+        //     deleteCart();
         // })
-        // setCookie("cokiesData","123")
-
     })
+
+    function deleteCart(){
+        let id = $('.id-cart:first').text();
+        // console.log('log',id)
+
+        let newListData = arrItem.filter(item =>item.id !== id)
+        console.log('arr',arrItem)
+
+        console.log(newListData)
+        document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
+        $('.lbldelete').parents('.modal-product').remove()
+    }
 
     /* Tạo 1 cookies trên web */
     function setCookie(cname, cvalue, exdays) {
@@ -571,9 +583,6 @@
         let expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         //tạo 1 cookies
-
-        //------------------
-
     }
 
     /* Get cookies truyền string vào web */
@@ -592,115 +601,75 @@
         }
         return "";
     }
-
     /* Lấy data từ array chuyển thành string */
-
+    // listData = getCookie('cookiesData');
     function addCart(cart){
 
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
-            listData.push({
+            // let listData = getCookie('cookiesData')
+
+            arrItem.push({
                 id: id,
                 image: image,
                 name: name,
                 price: price
             })
-            // console.log(listData);
-        // Them item tu id trong card
-
-        setCookie("cookiesData",JSON.stringify(listData))
-            showItemInCart()
+            // console.log(arrItem);
+            setCookie("cookiesData",JSON.stringify(arrItem))
+            // paraJS()
+            // showItemInCart()
         }
 
     /* JSON to array JS */
     function paraJS(){
-        let arrItem = []
         if (JSON.parse(getCookie('cookiesData')) !== null){
             arrItem = JSON.parse(getCookie('cookiesData'))
         }
-        console.log(arrItem)
+        // console.log(arrItem)
     }
 
     // Hiển thị sản phẩm trên cart
-    function showItemInCart(){
-        let arrItem1 = [];
-        if (JSON.parse(getCookie('cookiesData')) !== undefined){
+    function showItemInCart() {
+        if (JSON.parse(getCookie('cookiesData')) !== undefined) {
             // console.log(1);
-            arrItem1 = JSON.parse(getCookie('cookiesData'))
-            // $('.tblCart').text(null)
-            arrItem1.map(arrItem => {
-                // for (let i = 0; i < data.length; i++) {
-                $('.tblCart').append(`
-                        <div class="modal-product" data-id="1">
+            // arrItem1 = JSON.parse(getCookie('cookiesData'))
+            arrItem = JSON.parse(getCookie('cookiesData'))
+
+        // $('.tblCart').text(null)
+        // arrItem1.map(arrItem =>{
+        //     $('.tblCart').append(`
+        //             <div class="modal-product">
+        //                 <div class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
+        //                 <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
+        //                 <div class="name-cart"><p>${arrItem.name}</p></div>
+        //                 <div class="price-cart"><p>${arrItem.price}</p></div>
+        //                 <div class="quanti-cart"><input type="text" class="quanti" value="1"></div>
+        //                 <div class="delete-cart" ><lable class="lbldelete"><i class="material-icons">delete_forever</i></lable></div>
+        //             </div>
+        //         `)
+        // })
+        // }
+        // let arrItem = [''];
+        $('.tblCart').text(null)
+        arrItem.map(arrItem => {
+            $('.tblCart').append(`
+                        <div class="modal-product">
+                        <tr>
                             <div class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
                             <div class="price-cart"><p>${arrItem.price}</p></div>
-                            <div class="quanti-cart"><input type="text" class="quanti" value="1" data-id="1"></div>
-                            <div class="delete-cart" ><lable class="lbldelete" onclick="deleteCart()"><i class="material-icons">delete_forever</i></lable></div>
+                            <div class="quanti-cart"><input type="text" class="quanti" value="1"></div>
+                            <div class="delete-cart" ><lable onclick="deleteCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
+                        </tr>
                         </div>
                     `)
-            })
-        }
+        })
     }
-    //----------xóa---------
-    function deleteCart() {
-        $(document).on("click", ".lbldelete", function () {
-            const filter = dishAdded.filter(
-                (x) => x.id === $(this).parents(".tblCart").find(".id-cart").text()
-            );
-            const index = dishAdded.indexOf(filter[0]);
-            if (index > -1) {
-                dishAdded.splice(index, 1);
-            }
-            $(this).parents("tr").remove();
-            setCookie("dishAdded", JSON.stringify(dishAdded));
-        });
-
-        // let id = $('.tblCart .quanti-cart .quanti').data('id');
-        // let a = $(this).parents('.modal-product').remove();
-        // // console.log(a)
-        // console.log(id)
-        // // getCookie(I)
-        // }
-        // $('#lbl-delete').on("click", function () {
-        // console.log(listData)
-        //     const filter = listData.filter(
-        //         (x) => x.id === $(this).parents(".tblCart").find('.id-cart').text()  //cart
-        //     );
-        //     const index = listData.indexOf(filter[0]);
-        //     if (index > -1) {
-        //         listData.splice(index, 1);
-        //     }
-        //     $(this).parents(".modal-product").remove();
-        //     setCookie("listData", JSON.stringify(listData));
-        //
-        // // // });
     }
-
-    //Doi gia khi thay doi so luong
-    // $(document).on("input", ".input-quaty", function () {
-    //     $(this).val(numberFormat($(this).val()));
-    //     $(this)
-    //         .parents("tr")
-    //         .children(".price")
-    //         .text(format($(this).val().replaceAll(",", "") * $(this).attr("price")));
-    //     sumPrice();
-    //     const thisTitle = $(this).parents("tr").find(".name").text();
-    //     const index = dishAdded.findIndex((x) => x.title === thisTitle);
-    //     dishAdded[index].quaty = Number($(this).val());
-    //     setCookie("dishAdded", JSON.stringify(dishAdded));
-    // });
-
-    /* Xóa cookies */
-    function deleteCookies(){
-        const d = new Date();
-        d.getTime(d.getTime() - 60 * 1000);
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
-
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
@@ -737,7 +706,6 @@
             to = $('#input-to').val();
         console.log(name, category, sort, rating)
         $('#myTable').html('');
-//(data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
         for (let i = 0; i < data.length; i++) {
             if ((data[i].name.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '')).includes(name)
                 || (data[i].name).toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").replaceAll(/\s/g, '') === name
@@ -904,24 +872,24 @@
     //     }
     //
     //     //-------------------------format input-----------------------
-    //    function format(){
-    //        $(function() {
-    //            var $form = $( "#form" );
-    //            var $input = $form.find( "input" );
-    //
-    //            $input.on( "keyup", function( event ) {
-    //                var selection = window.getSelection().toString();
-    //                var $this = $( this );
-    //                // Get the value.
-    //                var input = $this.val();
-    //                var input = input.replace(/[\D\s\._\-]+/g, "");
-    //                $this.val( function() {
-    //                    return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
-    //                } );
-    //            } );
-    //        });
-    //    }
-    //
+       function format(){
+           $(function() {
+               var $form = $( "#form" );
+               var $input = $form.find( "input" );
+
+               $input.on( "keyup", function( event ) {
+                   var selection = window.getSelection().toString();
+                   var $this = $( this );
+                   // Get the value.
+                   var input = $this.val();
+                   var input = input.replace(/[\D\s\._\-]+/g, "");
+                   $this.val( function() {
+                       return ( input === 0 ) ? "" : input.toLocaleString( "en-US" );
+                   } );
+               } );
+           });
+       }
+
     //     //----------------------------------------------------
     //     // /* Code su kien JS */
 
