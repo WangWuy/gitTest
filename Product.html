@@ -413,7 +413,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <label style="position: absolute; left: 20px">Tổng: </label>
+                        <label style="position: absolute; left: 20px">Tổng:<span class="sum-span"></span> </label>
                         <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
                     </div> 
                 </div>
@@ -528,12 +528,12 @@
 
     var listData = [];
     var arrItem = [];
+    let sumTong = 0 ;
     var amount = 0;
 
     $(function () {
         paraJS();
         loadData();
-        // showItemInCart();
         /**
          * Lấy giá cao nhất
          */
@@ -566,20 +566,7 @@
         // })
     })
 
-    function deleteCart(){
-        let id = $('.id-cart:first').text();
-        // console.log('log',id)
 
-        let newListData = arrItem.filter(item =>item.id !== id)
-        console.log('arr',arrItem)
-
-        console.log(newListData)
-        document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
-        $('.lbldelete').parents('.modal-product').remove()
-
-        amount = amount - 1;
-        $('#icon-cart').html(amount)
-    }
 
     /* Tạo 1 cookies trên web */
     function setCookie(cname, cvalue, exdays) {
@@ -609,18 +596,17 @@
     /* Lấy data từ array chuyển thành string */
     // listData = getCookie('cookiesData');
     function addCart(cart) {
-        if (cart) {
-
+        if(cart) {
             let itemId = cart.parents('.card').find('.idSp').text();
-            // console.log('log', itemId)
+            console.log('log', itemId)
 
             arrItem = JSON.parse(getCookie('cookiesData'));
             let arr = arrItem.filter(item => item.id !== itemId)
+            // console.log(arrItem)
             if (arr) {
                 for (let i = 0; i < arrItem.length; i++) {
                     if (arrItem[i].id == itemId) {
-                        // let quantity = cart.parents('.card').find('.quantity').text();
-                        arrItem[i].quantity += 1
+                        arrItem[i].quantity += 1;
                     }
                 }
                 setCookie("cookiesData", JSON.stringify(arrItem))
@@ -634,9 +620,7 @@
             // let quantity = cart.parents('.card').find('.quantity').text();
             // let listData = getCookie('cookiesData')
 
-            arrItem = JSON.parse(getCookie('cookiesData'));
-            let arr = arrItem.filter(item => item.id !== itemId)
-            arr.push({
+            arrItem.push({
                 id: id,
                 image: image,
                 name: name,
@@ -644,20 +628,12 @@
                 quantity: 1,
             })
             setCookie("cookiesData", JSON.stringify(arrItem))
-            // paraJS()
-            // showItemInCart()
-            // }
-            // console.log('a',arr);
-
         var number = 1;
         amount += number;
         $('#icon-cart').html(amount)
+
     }
 
-    function payCart(){
-        let priceSp = cart.parents('.card').find('.price').text();
-        console.log(priceSp)
-    }
     /* JSON to array JS */
     function paraJS(){
         if (JSON.parse(getCookie('cookiesData')) !== null){
@@ -682,13 +658,46 @@
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
                             <div class="price-cart"><p>${arrItem.price}</p></div>
-                            <div class="quanti-cart"><input type="text" class="quanti" value="${arrItem.quantity}"></div>
+                            <div class="quanti-cart"><input value="${arrItem.quantity}" type="text" class="quanti"></div>
                             <div class="delete-cart" ><lable onclick="deleteCart(); showItemInCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
                         </tr>
                         </div>
                     `)
         })
     }
+        payCart();
+    }
+    function deleteCart(){
+
+        let id = $('.tblCart .modal-product .id-cart:eq(0)').text();
+        console.log('log',id)
+
+        let newListData = arrItem.filter(item =>item.id !== id)
+        // console.log('arr',arrItem)
+
+        // $(this).parents('.modal-product').remove();
+
+        // console.log(newListData)
+        document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
+        amount = amount - 1;
+        $('#icon-cart').html(amount)
+        payCart();
+    }
+
+    function payCart(){
+
+        arrItem = JSON.parse(getCookie('cookiesData'));
+        // let arr = arrItem.filter(item => item.price);
+        for (let i = 0 ; i < arrItem.length; i ++){
+            let priceSp = arrItem[i].price;
+            console.log(priceSp)
+            let quantitySp = arrItem[i].quantity;
+            console.log(quantitySp)
+
+            sumTong += priceSp * quantitySp;
+            // console.log(sumTong);
+        }
+        $('.sum-span').append(" " ,sumTong," VND")
     }
 
     function loadData() {
