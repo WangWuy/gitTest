@@ -413,7 +413,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <label style="position: absolute; left: 20px">Tổng: </label>
+                        <label style="position: absolute; left: 20px">Tổng:<span class="sum-span"></span> </label>
                         <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
                     </div> 
                 </div>
@@ -528,6 +528,7 @@
 
     var listData = [];
     var arrItem = [];
+    let sumTong = 0 ;
 
 
     $(function () {
@@ -595,26 +596,28 @@
     /* Lấy data từ array chuyển thành string */
     // listData = getCookie('cookiesData');
     function addCart(cart) {
-        let itemId = cart.parents('.card').find('.idSp').text();
-        console.log('log', itemId)
+        if(cart) {
+            let itemId = cart.parents('.card').find('.idSp').text();
+            console.log('log', itemId)
 
-        arrItem = JSON.parse(getCookie('cookiesData'));
-        let arr = arrItem.filter(item => item.id !== itemId)
-        // console.log(arrItem)
-        if (arr) {
-            for (let i = 0; i < arrItem.length; i++) {
-                if (arrItem[i].id == itemId) {
-                     arrItem[i].quantity += 1;
+            arrItem = JSON.parse(getCookie('cookiesData'));
+            let arr = arrItem.filter(item => item.id !== itemId)
+            // console.log(arrItem)
+            if (arr) {
+                for (let i = 0; i < arrItem.length; i++) {
+                    if (arrItem[i].id == itemId) {
+                        arrItem[i].quantity += 1;
+                    }
                 }
-            }
-            setCookie("cookiesData", JSON.stringify(arrItem))
+                setCookie("cookiesData", JSON.stringify(arrItem))
 
-        } else {
+            }
+        }
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
-            // let quantity = cart.parents('.card').find('.quantity').text();
+            let quantity = cart.parents('.card').find('.quantity').text();
             // let listData = getCookie('cookiesData')
 
             arrItem.push({
@@ -624,12 +627,7 @@
                 price: price,
                 quantity: 1,
             })
-            // console.log(arrItem);
             setCookie("cookiesData", JSON.stringify(arrItem))
-            // paraJS()
-            // showItemInCart()
-            // }
-        }
     }
 
     /* JSON to array JS */
@@ -656,13 +654,14 @@
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
                             <div class="price-cart"><p>${arrItem.price}</p></div>
-                            <div class="quanti-cart"><input type="text" class="quanti">${arrItem.quantity}</div>
+                            <div class="quanti-cart"><input value="${arrItem.quantity}" type="text" class="quanti"></div>
                             <div class="delete-cart" ><lable onclick="deleteCart(); showItemInCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
                         </tr>
                         </div>
                     `)
         })
     }
+        payCart();
     }
     function deleteCart(){
 
@@ -676,8 +675,25 @@
 
         // console.log(newListData)
         document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
-
+        payCart();
     }
+
+    function payCart(){
+
+        arrItem = JSON.parse(getCookie('cookiesData'));
+        // let arr = arrItem.filter(item => item.price);
+        for (let i = 0 ; i < arrItem.length; i ++){
+            let priceSp = arrItem[i].price;
+            console.log(priceSp)
+            let quantitySp = arrItem[i].quantity;
+            console.log(quantitySp)
+
+            sumTong += priceSp * quantitySp;
+            // console.log(sumTong);
+        }
+        $('.sum-span').append(" " ,sumTong," VND")
+    }
+
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
