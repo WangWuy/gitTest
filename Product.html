@@ -565,10 +565,11 @@
     })
 
     function deleteCart(){
-        let id = $('.id-cart:first').text();
+        let itemRemove = $('.id-cart:first').text();
+        // let itemRemove = arrItem.filter(item => item.id.indexOf($(this).parents('.tblCart').find('.div:eq(1)').attr('data-id')) > -1)[0]
         // console.log('log',id)
 
-        let newListData = arrItem.filter(item =>item.id !== id)
+        let newListData = arrItem.filter(item =>item.id !== itemRemove)
         console.log('arr',arrItem)
 
         console.log(newListData)
@@ -610,17 +611,51 @@
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
             // let listData = getCookie('cookiesData')
-
-            arrItem.push({
-                id: id,
-                image: image,
-                name: name,
-                price: price
-            })
-            // console.log(arrItem);
-            setCookie("cookiesData",JSON.stringify(arrItem))
-            // paraJS()
-            // showItemInCart()
+            // if (!$('.id-cart').length){
+                arrItem.push({
+                    id: id,
+                    image: image,
+                    name: name,
+                    price: price,
+                    quati: 0,
+            //         quaty: Number(
+            //             $('.id-cart').parents(".modal-product").find(".quanti").val()
+            //         ),
+                })
+            //     setCookie("cookiesData", JSON.stringify(arrItem))
+            // }else {
+            //     let isSame = false;
+            //     $(".id-cart").each(function () {
+            //         if ($(this).text() === id) {
+            //             isSame = true;
+            //         }
+            //         // console.log(isSame)
+            //     });
+            //     // Them gia khi thay doi so luong trong cart
+            //     if (isSame) {
+            //         $('.id-cart').parents(".modal-product").find(".quanti").val(Number(
+            //             $('.id-cart').parents(".modal-product").find(".quanti").val()) + 1)
+            //         $('.id-cart').parents(".modal-product").children(".price").text(format(Number(
+            //             $('.id-cart').parents(".modal-product").find(".quanti").val()) *
+            //             $('.id-cart').parents(".modal-product").find(".quanti").attr("price")))
+            //         const index = arrItem.findIndex((x) => arrItem.id === data.id);
+            //         arrItem[index].quaty = Number($('.id-cart').val());
+            //         console.log(isSame)
+            //         setCookie("cookiesData", JSON.stringify(arrItem))
+            //     } else {
+            //         arrItem.push({
+            //             id: id,
+            //             image: image,
+            //             name: name,
+            //             price: price,
+            //             quaty: Number(
+            //                 $('.id-cart').parents(".modal-product").find(".quanti").val()
+            //             ),
+            //         });
+                    setCookie("cookiesData", JSON.stringify(arrItem))
+                    showItemInCart()
+        console.log(arrItem)
+                // }
         }
 
     /* JSON to array JS */
@@ -635,41 +670,27 @@
     function showItemInCart() {
         if (JSON.parse(getCookie('cookiesData')) !== undefined) {
             // console.log(1);
-            // arrItem1 = JSON.parse(getCookie('cookiesData'))
             arrItem = JSON.parse(getCookie('cookiesData'))
 
-        // $('.tblCart').text(null)
-        // arrItem1.map(arrItem =>{
-        //     $('.tblCart').append(`
-        //             <div class="modal-product">
-        //                 <div class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
-        //                 <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
-        //                 <div class="name-cart"><p>${arrItem.name}</p></div>
-        //                 <div class="price-cart"><p>${arrItem.price}</p></div>
-        //                 <div class="quanti-cart"><input type="text" class="quanti" value="1"></div>
-        //                 <div class="delete-cart" ><lable class="lbldelete"><i class="material-icons">delete_forever</i></lable></div>
-        //             </div>
-        //         `)
-        // })
-        // }
-        // let arrItem = [''];
         $('.tblCart').text(null)
         arrItem.map(arrItem => {
             $('.tblCart').append(`
                         <div class="modal-product">
                         <tr>
-                            <div class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
+                            <div data-id="1" class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
                             <div class="price-cart"><p>${arrItem.price}</p></div>
                             <div class="quanti-cart"><input type="text" class="quanti" value="1"></div>
-                            <div class="delete-cart" ><lable onclick="deleteCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
+                            <div class="delete-cart" ><lable onclick="deleteCart(), showItemInCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
                         </tr>
                         </div>
                     `)
         })
     }
     }
+
+    // Hien thi san pham tren index
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
@@ -679,7 +700,7 @@
             }
             a +=
                 `<div class="card listProduct">
-                <p class="idSp" style="display: none;">${data[i].id}</p>
+                <p data-id="1" class="idSp" style="display: none;">${data[i].id}</p>
                 <img class="imgSp" src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
