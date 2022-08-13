@@ -531,6 +531,7 @@
 
 
     $(function () {
+        paraJS();
         loadData();
         // showItemInCart();
         /**
@@ -565,11 +566,10 @@
     })
 
     function deleteCart(){
-        let itemRemove = $('.id-cart:first').text();
-        // let itemRemove = arrItem.filter(item => item.id.indexOf($(this).parents('.tblCart').find('.div:eq(1)').attr('data-id')) > -1)[0]
+        let id = $('.id-cart:first').text();
         // console.log('log',id)
 
-        let newListData = arrItem.filter(item =>item.id !== itemRemove)
+        let newListData = arrItem.filter(item =>item.id !== id)
         console.log('arr',arrItem)
 
         console.log(newListData)
@@ -604,59 +604,44 @@
     }
     /* Lấy data từ array chuyển thành string */
     // listData = getCookie('cookiesData');
-    function addCart(cart){
+    function addCart(cart) {
+        let itemId = cart.parents('.card').find('.idSp').text();
+        console.log('log', itemId)
 
+        let arr = arrItem.filter(item => item.id !== itemId)
+        console.log(arrItem)
+        if (arr) {
+            for (let i = 0; i < arrItem.length; i++) {
+                if (arrItem[i].id == itemId) {
+                    // let quantity = cart.parents('.card').find('.quantity').text();
+                    quantity ++ ;
+                    console.log('quan',quantity)
+                }
+            }
+            setCookie("cookiesData", JSON.stringify(arrItem))
+
+        } else {
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
+            // let quantity = cart.parents('.card').find('.quantity').text();
             // let listData = getCookie('cookiesData')
-            // if (!$('.id-cart').length){
-                arrItem.push({
-                    id: id,
-                    image: image,
-                    name: name,
-                    price: price,
-                    quati: 0,
-            //         quaty: Number(
-            //             $('.id-cart').parents(".modal-product").find(".quanti").val()
-            //         ),
-                })
-            //     setCookie("cookiesData", JSON.stringify(arrItem))
-            // }else {
-            //     let isSame = false;
-            //     $(".id-cart").each(function () {
-            //         if ($(this).text() === id) {
-            //             isSame = true;
-            //         }
-            //         // console.log(isSame)
-            //     });
-            //     // Them gia khi thay doi so luong trong cart
-            //     if (isSame) {
-            //         $('.id-cart').parents(".modal-product").find(".quanti").val(Number(
-            //             $('.id-cart').parents(".modal-product").find(".quanti").val()) + 1)
-            //         $('.id-cart').parents(".modal-product").children(".price").text(format(Number(
-            //             $('.id-cart').parents(".modal-product").find(".quanti").val()) *
-            //             $('.id-cart').parents(".modal-product").find(".quanti").attr("price")))
-            //         const index = arrItem.findIndex((x) => arrItem.id === data.id);
-            //         arrItem[index].quaty = Number($('.id-cart').val());
-            //         console.log(isSame)
-            //         setCookie("cookiesData", JSON.stringify(arrItem))
-            //     } else {
-            //         arrItem.push({
-            //             id: id,
-            //             image: image,
-            //             name: name,
-            //             price: price,
-            //             quaty: Number(
-            //                 $('.id-cart').parents(".modal-product").find(".quanti").val()
-            //             ),
-            //         });
-                    setCookie("cookiesData", JSON.stringify(arrItem))
-                    showItemInCart()
-        console.log(arrItem)
-                // }
+
+            arrItem.push({
+                id: id,
+                image: image,
+                name: name,
+                price: price,
+                quantity: 1,
+            })
+            // console.log(arrItem);
+            setCookie("cookiesData", JSON.stringify(arrItem))
+            // paraJS()
+            // showItemInCart()
+            // }
         }
+    }
 
     /* JSON to array JS */
     function paraJS(){
@@ -668,29 +653,60 @@
 
     // Hiển thị sản phẩm trên cart
     function showItemInCart() {
+        // if (){
+        //
+        // }else
         if (JSON.parse(getCookie('cookiesData')) !== undefined) {
             // console.log(1);
+            // arrItem1 = JSON.parse(getCookie('cookiesData'))
             arrItem = JSON.parse(getCookie('cookiesData'))
 
+        // $('.tblCart').text(null)
+        // arrItem1.map(arrItem =>{
+        //     $('.tblCart').append(`
+        //             <div class="modal-product">
+        //                 <div class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
+        //                 <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
+        //                 <div class="name-cart"><p>${arrItem.name}</p></div>
+        //                 <div class="price-cart"><p>${arrItem.price}</p></div>
+        //                 <div class="quanti-cart"><input type="text" class="quanti" value="1"></div>
+        //                 <div class="delete-cart" ><lable class="lbldelete"><i class="material-icons">delete_forever</i></lable></div>
+        //             </div>
+        //         `)
+        // })
+        // }
+        // let arrItem = [''];
         $('.tblCart').text(null)
         arrItem.map(arrItem => {
             $('.tblCart').append(`
                         <div class="modal-product">
                         <tr>
-                            <div data-id="1" class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
+                            <div data-id="${arrItem.id}" class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
                             <div class="price-cart"><p>${arrItem.price}</p></div>
-                            <div class="quanti-cart"><input type="text" class="quanti" value="1"></div>
-                            <div class="delete-cart" ><lable onclick="deleteCart(), showItemInCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
+                            <div class="quanti-cart"><input type="text" class="quanti">${arrItem.quantity}</div>
+                            <div class="delete-cart" ><lable onclick="deleteCart(); showItemInCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
                         </tr>
                         </div>
                     `)
         })
     }
     }
+    function deleteCart(){
 
-    // Hien thi san pham tren index
+        let id = $('.tblCart .modal-product .id-cart:eq(0)').text();
+        console.log('log',id)
+
+        let newListData = arrItem.filter(item =>item.id !== id)
+        // console.log('arr',arrItem)
+
+        // $(this).parents('.modal-product').remove();
+
+        // console.log(newListData)
+        document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
+
+    }
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
@@ -700,7 +716,7 @@
             }
             a +=
                 `<div class="card listProduct">
-                <p data-id="1" class="idSp" style="display: none;">${data[i].id}</p>
+                <p class="idSp" style="display: none;">${data[i].id}</p>
                 <img class="imgSp" src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
@@ -823,75 +839,6 @@
         });
     });
 
-    //     //--------------------------search--------------
-    //    function search(){
-    //        $('#myInput').on('input paste change', function(event) {
-    //            event.preventDefault();
-    //            /* Event sk*/
-    //            var search = $(this).val().toLowerCase();
-    //            $('#myTable .card').filter(function() {
-    //                $(this).toggle($(this).text().toLowerCase().indexOf(search)>-1);
-    //                // console.log(this)
-    //            });
-    //        });
-    //    }
-    //
-    //     //------------------------category------------------------
-    //     function category(){
-    //         $('#category').on('change', function(event) {
-    //             event.preventDefault();
-    //             /* Event sk*/
-    //             var searchcategory = $(this).val().toLowerCase();
-    //             // console.log(searchcategory);
-    //
-    //             let dataFilter = data.filter(item=> item.category.toLowerCase() == searchcategory)
-    //             // console.log('Co: ' + (dataFilter))
-    //
-    //             $('#myTable .card').filter(function() {
-    //                 $(this).toggle($(this).text().toLowerCase().indexOf(searchcategory)>-1);
-    //                 // let a = $(this).text().toLowerCase();
-    //                 // console.log(this);
-    //                 // console.log(a);
-    //
-    //             });
-    //         });
-    //     }
-    //
-    //     //-----------------------from to---------------------
-    //     function fromTo(){
-    //         $('#inputto , #inputfrom').on('input', function (){
-    //             let a = $('#inputto').val();
-    //             // console.log(a)
-    //             let b = $('#inputfrom').val();
-    //             // console.log(b)
-    //             for (let i = 0; i < data.length; i++){
-    //                 // console.log(a,data[i].price,b)
-    //                 if(a <= data[i].price && data[i].price <= b){
-    //                     // console.log('gia tien ',data[i].price)
-    //                     $('.listProduct:eq('+i+')').removeClass('d-none');
-    //                 }else {
-    //                     $('.listProduct:eq('+i+')').addClass('d-none');
-    //                 }
-    //             }
-    //         })
-    //     }
-    //
-    //     //    -------------------sort------------------
-    //    function sort(){
-
-    //    }
-    //     function min(){
-    //         data = data.sort(function(a, b) {
-    //             return  a['price'] - b['price'];
-    //         });
-    //     }
-    //
-    //     function max(){
-    //         data = data.sort(function(a, b) {
-    //             return b['price'] - a['price'];
-    //         });
-    //     }
-    //
     //     //-------------------------format input-----------------------
        function format(){
            $(function() {
@@ -910,28 +857,6 @@
                } );
            });
        }
-
-    //     //----------------------------------------------------
-    //     // /* Code su kien JS */
-
-    /* Sử lý sự kiện click rating star */
-    //
-    // //-------------------------star----------------
-    //     $('#stars .star').on('click', function(event) {
-    //         event.preventDefault();
-    //         /* Event sk*/
-    //         let clickStar = $(this).val();
-    //         for (let i = 0; i <= data.length; i++) {
-    //                 if(data[i].star >= clickStar){
-    //                     console.log(data[i])
-    //                     $('.listProduct:eq('+i+')').removeClass('d-none');
-    //                 }else {
-    //                     $('.listProduct:eq('+i+')').addClass('d-none');
-    //                 }
-    //         }
-    //     })
-
-
 </script>
 </body>
 </html>
