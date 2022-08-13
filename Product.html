@@ -529,7 +529,7 @@
     var listData = [];
     var arrItem = [];
     let sumTong = 0 ;
-
+    var amount = 0;
 
     $(function () {
         paraJS();
@@ -617,7 +617,7 @@
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
-            let quantity = cart.parents('.card').find('.quantity').text();
+            // let quantity = cart.parents('.card').find('.quantity').text();
             // let listData = getCookie('cookiesData')
 
             arrItem.push({
@@ -628,6 +628,10 @@
                 quantity: 1,
             })
             setCookie("cookiesData", JSON.stringify(arrItem))
+    }
+    var number = 1;
+    amount += number;
+    $('#icon-cart').html(amount)
     }
 
     /* JSON to array JS */
@@ -675,6 +679,8 @@
 
         // console.log(newListData)
         document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
+        amount = amount - 1;
+        $('#icon-cart').html(amount)
         payCart();
     }
 
