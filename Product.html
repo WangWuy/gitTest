@@ -611,23 +611,22 @@
     function addCart(cart) {
         if (cart) {
 
-        }
-        let itemId = cart.parents('.card').find('.idSp').text();
-        console.log('log', itemId)
+            let itemId = cart.parents('.card').find('.idSp').text();
+            // console.log('log', itemId)
 
-        arrItem = JSON.parse(getCookie('cookiesData'));
-        let arr = arrItem.filter(item => item.id !== itemId)
-        if (arr) {
-            for (let i = 0; i < arrItem.length; i++) {
-                if (arrItem[i].id == itemId) {
-                    // let quantity = cart.parents('.card').find('.quantity').text();
-                    arrItem[i].quantity += 1
+            arrItem = JSON.parse(getCookie('cookiesData'));
+            let arr = arrItem.filter(item => item.id !== itemId)
+            if (arr) {
+                for (let i = 0; i < arrItem.length; i++) {
+                    if (arrItem[i].id == itemId) {
+                        // let quantity = cart.parents('.card').find('.quantity').text();
+                        arrItem[i].quantity += 1
+                    }
                 }
+                setCookie("cookiesData", JSON.stringify(arrItem))
+
             }
-            setCookie("cookiesData", JSON.stringify(arrItem))
-
-        } else {
-
+        }
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
@@ -648,8 +647,8 @@
             // paraJS()
             // showItemInCart()
             // }
-            console.log('a',arr);
-        }
+            // console.log('a',arr);
+
         var number = 1;
         amount += number;
         $('#icon-cart').html(amount)
@@ -691,20 +690,7 @@
         })
     }
     }
-    function deleteCart(){
 
-        let id = $('.tblCart .modal-product .id-cart:eq(0)').text();
-        console.log('log',id)
-
-        let newListData = arrItem.filter(item =>item.id !== id)
-        // console.log('arr',arrItem)
-
-        // $(this).parents('.modal-product').remove();
-
-        // console.log(newListData)
-        document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
-
-    }
     function loadData() {
         let a = '';
         for (let i = 0; i < data.length; i++) {
