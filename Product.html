@@ -595,23 +595,25 @@
     /* Lấy data từ array chuyển thành string */
     // listData = getCookie('cookiesData');
     function addCart(cart) {
+        if (cart) {
+
+        }
         let itemId = cart.parents('.card').find('.idSp').text();
         console.log('log', itemId)
 
         arrItem = JSON.parse(getCookie('cookiesData'));
         let arr = arrItem.filter(item => item.id !== itemId)
-        console.log(arrItem)
         if (arr) {
             for (let i = 0; i < arrItem.length; i++) {
                 if (arrItem[i].id == itemId) {
                     // let quantity = cart.parents('.card').find('.quantity').text();
-                    quantity ++ ;
-                    console.log('quan',quantity)
+                    arrItem[i].quantity += 1
                 }
             }
             setCookie("cookiesData", JSON.stringify(arrItem))
 
         } else {
+
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
@@ -619,21 +621,27 @@
             // let quantity = cart.parents('.card').find('.quantity').text();
             // let listData = getCookie('cookiesData')
 
-            arrItem.push({
+            arrItem = JSON.parse(getCookie('cookiesData'));
+            let arr = arrItem.filter(item => item.id !== itemId)
+            arr.push({
                 id: id,
                 image: image,
                 name: name,
                 price: price,
                 quantity: 1,
             })
-            // console.log(arrItem);
             setCookie("cookiesData", JSON.stringify(arrItem))
             // paraJS()
             // showItemInCart()
             // }
+            console.log('a',arr);
         }
     }
 
+    function payCart(){
+        let priceSp = cart.parents('.card').find('.price').text();
+        console.log(priceSp)
+    }
     /* JSON to array JS */
     function paraJS(){
         if (JSON.parse(getCookie('cookiesData')) !== null){
@@ -658,7 +666,7 @@
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
                             <div class="price-cart"><p>${arrItem.price}</p></div>
-                            <div class="quanti-cart"><input type="text" class="quanti">${arrItem.quantity}</div>
+                            <div class="quanti-cart"><input type="text" class="quanti" value="${arrItem.quantity}"></div>
                             <div class="delete-cart" ><lable onclick="deleteCart(); showItemInCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
                         </tr>
                         </div>
