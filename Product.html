@@ -637,15 +637,16 @@
                 name: name,
                 price: price
             })
-            var number = 1;
-            amount += number;
-            $('#icon-cart').html(amount)
+
             // console.log(arrItem);
             setCookie("cookiesData",JSON.stringify(arrItem))
             // paraJS()
             // showItemInCart()
             // }
         }
+        var number = 1;
+        amount += number;
+        $('#icon-cart').html(amount)
     }
 
     /* JSON to array JS */
