@@ -407,13 +407,13 @@
                                     </tbody>
                                 </table>
                             <div class="cancle">
-<!--                                <button type="button" class="btn btn-danger" data-dismiss="div">X</button>-->
+
                             </div>
                         </div>
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <label>Tổng: </label>
+                        <label style="position: absolute; left: 20px">Tổng: </label>
                         <button type="button" class="btn btn-success" data-dismiss="modal">Pay</button>
                     </div> 
                 </div>
@@ -566,7 +566,6 @@
     })
 
     function deleteCart(){
-        console.log('aa')
         let id = $('.id-cart:first').text();
         // console.log('log',id)
 
@@ -575,7 +574,7 @@
 
         console.log(newListData)
         document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
-        $(this).parents('.modal-product').remove()
+        $('.lbldelete').parents('.modal-product').remove()
     }
 
     /* Tạo 1 cookies trên web */
@@ -634,10 +633,10 @@
 
     // Hiển thị sản phẩm trên cart
     function showItemInCart() {
-        // if (JSON.parse(getCookie('cookiesData')) !== undefined) {
+        if (JSON.parse(getCookie('cookiesData')) !== undefined) {
             // console.log(1);
             // arrItem1 = JSON.parse(getCookie('cookiesData'))
-            // arrItem = JSON.parse(getCookie('cookiesData'))
+            arrItem = JSON.parse(getCookie('cookiesData'))
 
         // $('.tblCart').text(null)
         // arrItem1.map(arrItem =>{
@@ -654,19 +653,22 @@
         // })
         // }
         // let arrItem = [''];
+        $('.tblCart').text(null)
         arrItem.map(arrItem => {
             $('.tblCart').append(`
                         <div class="modal-product">
+                        <tr>
                             <div class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
                             <div class="price-cart"><p>${arrItem.price}</p></div>
                             <div class="quanti-cart"><input type="text" class="quanti" value="1"></div>
                             <div class="delete-cart" ><lable onclick="deleteCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
+                        </tr>
                         </div>
                     `)
         })
-    // }
+    }
     }
     function loadData() {
         let a = '';
