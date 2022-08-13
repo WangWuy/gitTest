@@ -608,14 +608,13 @@
         let itemId = cart.parents('.card').find('.idSp').text();
         console.log('log', itemId)
 
+
         let arr = arrItem.filter(item => item.id !== itemId)
-        console.log(arrItem)
+        // console.log(arrItem)
         if (arr) {
             for (let i = 0; i < arrItem.length; i++) {
                 if (arrItem[i].id == itemId) {
-                    // let quantity = cart.parents('.card').find('.quantity').text();
-                    quantity ++ ;
-                    console.log('quan',quantity)
+                    arrItem[i].quantity += 1
                 }
             }
             setCookie("cookiesData", JSON.stringify(arrItem))
@@ -625,7 +624,7 @@
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
-            // let quantity = cart.parents('.card').find('.quantity').text();
+            // let quantity = cart.parents('.card').find('.quantity').val();
             // let listData = getCookie('cookiesData')
 
             arrItem.push({
