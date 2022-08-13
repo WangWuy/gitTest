@@ -612,14 +612,13 @@
         let itemId = cart.parents('.card').find('.idSp').text();
         console.log('log', itemId)
 
+        arrItem = JSON.parse(getCookie('cookiesData'));
         let arr = arrItem.filter(item => item.id !== itemId)
-        console.log(arrItem)
+        // console.log(arrItem)
         if (arr) {
             for (let i = 0; i < arrItem.length; i++) {
                 if (arrItem[i].id == itemId) {
-                    // let quantity = cart.parents('.card').find('.quantity').text();
-                    quantity ++ ;
-                    console.log('quan',quantity)
+                     arrItem[i].quantity += 1;
                 }
             }
             setCookie("cookiesData", JSON.stringify(arrItem))
