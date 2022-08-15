@@ -528,13 +528,14 @@
 
     var listData = [];
     var arrItem = [];
-    let sumTong = 0 ;
+
     var amount = 0;
 
     $(function () {
         // setCookie("cookiesData", JSON.stringify(arrItem))
         paraJS();
         loadData();
+        payCart()
         /**
          * Lấy giá cao nhất
          */
@@ -565,6 +566,35 @@
         //     deleteCart();
         //     showItemInCart();
         // })
+        /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
+        $('#stars li').on('mouseover', function () {
+            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện đang di chuột vào
+
+            // Bây giờ đánh dấu tất cả các ngôi sao không phải sau ngôi sao lơ lửng hiện tại
+            $(this).parent().children('li.star').each(function (e) {
+                if (e < onStar) {
+                    $(this).addClass('hover');
+                } else {
+                    $(this).removeClass('hover');
+                }
+            });
+        }).on('mouseout', function () {
+            $(this).parent().children('li.star').each(function (e) {
+                $(this).removeClass('hover');
+            });
+        });
+        /* 2. Hành động thực hiện khi nhấp chuột */
+        $('#stars li').on('click', function () {
+            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện được chọn
+            var stars = $(this).parent().children('li.star');
+
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).removeClass('selected');
+            }
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).addClass('selected');
+            }
+        });
     })
 
 
@@ -595,26 +625,7 @@
         return "";
     }
     /* Lấy data từ array chuyển thành string */
-    function add(cart) {
-        if(cart) {
-            let itemId = cart.parents('.card').find('.idSp').text();
-            console.log('log', itemId)
-
-            arrItem = JSON.parse(getCookie('cookiesData'));
-            let arr = arrItem.filter(item => item.id !== itemId)
-            // console.log(arrItem)
-            if (arr) {
-                for (let i = 0; i < arrItem.length; i++) {
-                    if (arrItem[i].id == itemId) {
-                        arrItem[i].quantity += 1;
-                    }
-                }
-            }
-        }else {
-            return;
-        }
-
-    }
+    /* Thêm sản phẩm vào cart và lọc sp đã có*/
     function addCart(cart) {
         let itemId = cart.parents('.card').find('.idSp').text();
         // console.log('log', itemId)
@@ -628,8 +639,13 @@
                         arrItem[i].quantity += 1;
                     }
                     setCookie("cookiesData", JSON.stringify(arrItem))
+
+                    let number = 1
+                    amount = amount + number
+                    $('icon-cart').html(amount)
                 }
-        }else if(arr.length !==1) {
+            // console.log((arr.length === 1))
+        }else if(arr.length === 0) {
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
@@ -645,6 +661,8 @@
             })
             setCookie("cookiesData", JSON.stringify(arrItem))
         }
+        // console.log((arr.length === 0))
+        payCart()
     }
 
     /* JSON to array JS */
@@ -677,6 +695,8 @@
     }
         payCart();
     }
+
+    /* Xóa sp trên cart */
     function deleteCart(){
 
         let id = $('.tblCart .modal-product .id-cart:eq(0)').text();
@@ -694,17 +714,17 @@
     }
 
     function payCart(){
-
-        arrItem = JSON.parse(getCookie('cookiesData'));
+        let sumTong = 0
+        // arrItem = JSON.parse(getCookie('cookiesData'));
         // let arr = arrItem.filter(item => item.price);
         for (let i = 0 ; i < arrItem.length; i ++){
             let priceSp = arrItem[i].price;
-            console.log(priceSp)
+            console.log(arrItem)
             let quantitySp = arrItem[i].quantity;
             console.log(quantitySp)
 
             sumTong += priceSp * quantitySp;
-            // console.log(sumTong);
+            console.log(sumTong);
         }
         $('.sum-span').text(null)
         $('.sum-span').append(" " ,sumTong," VND")
@@ -810,37 +830,6 @@
         loadData();
     })
 
-    $(document).ready(function () {
-        /* 1. Hình dung mọi thứ trên Hover - Xem phần tiếp theo để biết hành động khi nhấp chuột */
-        $('#stars li').on('mouseover', function () {
-            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện đang di chuột vào
-
-            // Bây giờ đánh dấu tất cả các ngôi sao không phải sau ngôi sao lơ lửng hiện tại
-            $(this).parent().children('li.star').each(function (e) {
-                if (e < onStar) {
-                    $(this).addClass('hover');
-                } else {
-                    $(this).removeClass('hover');
-                }
-            });
-        }).on('mouseout', function () {
-            $(this).parent().children('li.star').each(function (e) {
-                $(this).removeClass('hover');
-            });
-        });
-        /* 2. Hành động thực hiện khi nhấp chuột */
-        $('#stars li').on('click', function () {
-            var onStar = parseInt($(this).data('value'), 10); // Ngôi sao hiện được chọn
-            var stars = $(this).parent().children('li.star');
-
-            for (i = 0; i < stars.length; i++) {
-                $(stars[i]).removeClass('selected');
-            }
-            for (i = 0; i < onStar; i++) {
-                $(stars[i]).addClass('selected');
-            }
-        });
-    });
 
     // function increaseQuantity(){
     // //    Lấy mảng ra
