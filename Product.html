@@ -532,6 +532,7 @@
     var amount = 0;
 
     $(function () {
+        // setCookie("cookiesData", JSON.stringify(arrItem))
         paraJS();
         loadData();
         /**
@@ -594,33 +595,46 @@
         return "";
     }
     /* Lấy data từ array chuyển thành string */
-    // listData = getCookie('cookiesData');
-    function addCart(cart) {
-
+    function add(cart) {
+        if(cart) {
             let itemId = cart.parents('.card').find('.idSp').text();
             console.log('log', itemId)
 
             arrItem = JSON.parse(getCookie('cookiesData'));
-            // B2: ktra cookie
             let arr = arrItem.filter(item => item.id !== itemId)
-            console.log(arr)
-        if(cart) {
+            // console.log(arrItem)
             if (arr) {
                 for (let i = 0; i < arrItem.length; i++) {
                     if (arrItem[i].id == itemId) {
                         arrItem[i].quantity += 1;
                     }
                 }
-
             }
+        }else {
+            return;
         }
-        // console.log(arr)
+
+    }
+    function addCart(cart) {
+        let itemId = cart.parents('.card').find('.idSp').text();
+        // console.log('log', itemId)
+        arrItem = JSON.parse(getCookie('cookiesData'));
+        // console.log(arrItem)
+        let arr = arrItem.filter(item => item.id === itemId)
+        // {name : Áo ; price : giá}
+        if(arr.length === 1) {
+                for (let i = 0; i < arrItem.length; i++) {
+                    if (arrItem[i].id == itemId) {
+                        arrItem[i].quantity += 1;
+                    }
+                    setCookie("cookiesData", JSON.stringify(arrItem))
+                }
+        }else if(arr.length !==1) {
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
-            // let quantity = cart.parents('.card').find('.quantity').text();
-            // let listData = getCookie('cookiesData')
+            let quantity = cart.parents('.card').find('.quantity').text();
 
             arrItem.push({
                 id: id,
@@ -630,10 +644,7 @@
                 quantity: 1,
             })
             setCookie("cookiesData", JSON.stringify(arrItem))
-        var number = 1;
-        amount += number;
-        $('#icon-cart').html(amount)
-
+        }
     }
 
     /* JSON to array JS */
@@ -646,9 +657,6 @@
 
     // Hiển thị sản phẩm trên cart
     function showItemInCart() {
-        // if (){
-        //
-        // }else
         if (JSON.parse(getCookie('cookiesData')) !== undefined) {
             arrItem = JSON.parse(getCookie('cookiesData'))
         $('.tblCart').text(null)
@@ -683,10 +691,8 @@
         document.cookie = "cookiesData" + "=" + JSON.stringify(newListData) + "; Path=/; Expires=Fri, 01 July 2023 00:00:01 GMT;';"
         amount = amount - 1;
         $('#icon-cart').html(amount)
-        payCart();
     }
 
-    // Thanh toán giỏ hàng
     function payCart(){
 
         arrItem = JSON.parse(getCookie('cookiesData'));
@@ -700,8 +706,6 @@
             sumTong += priceSp * quantitySp;
             // console.log(sumTong);
         }
-
-        // $('.modal-total').find('span').text(sumTong.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","))
         $('.sum-span').text(null)
         $('.sum-span').append(" " ,sumTong," VND")
     }
