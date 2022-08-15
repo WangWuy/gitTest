@@ -596,23 +596,25 @@
     /* Lấy data từ array chuyển thành string */
     // listData = getCookie('cookiesData');
     function addCart(cart) {
-        if(cart) {
+
             let itemId = cart.parents('.card').find('.idSp').text();
             console.log('log', itemId)
 
             arrItem = JSON.parse(getCookie('cookiesData'));
+            // B2: ktra cookie
             let arr = arrItem.filter(item => item.id !== itemId)
-            // console.log(arrItem)
+            console.log(arr)
+        if(cart) {
             if (arr) {
                 for (let i = 0; i < arrItem.length; i++) {
                     if (arrItem[i].id == itemId) {
                         arrItem[i].quantity += 1;
                     }
                 }
-                setCookie("cookiesData", JSON.stringify(arrItem))
 
             }
         }
+        // console.log(arr)
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
@@ -684,6 +686,7 @@
         payCart();
     }
 
+    // Thanh toán giỏ hàng
     function payCart(){
 
         arrItem = JSON.parse(getCookie('cookiesData'));
@@ -697,6 +700,9 @@
             sumTong += priceSp * quantitySp;
             // console.log(sumTong);
         }
+
+        // $('.modal-total').find('span').text(sumTong.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+        $('.sum-span').text(null)
         $('.sum-span').append(" " ,sumTong," VND")
     }
 
