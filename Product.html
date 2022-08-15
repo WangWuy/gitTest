@@ -432,6 +432,7 @@
             price: 1900000,
             star: 3,
             sale: 50,
+            // quantity: 1,
             image: 'http://sieurep.com/wp-content/uploads/2020/10/IMG_1667-1024x801.jpg'
         },
         {
@@ -638,6 +639,7 @@
         // console.log(arrItem)
         let arr = arrItem.filter(item => item.id === itemId)
         // {name : Áo ; price : giá}
+        // console.log('arr: ', arr)
         if(arr.length === 1) {
                 for (let i = 0; i < arrItem.length; i++) {
                     if (arrItem[i].id == itemId) {
@@ -645,20 +647,29 @@
                     }
                     setCookie("cookiesData", JSON.stringify(arrItem))
                 }
+            // console.log((arr.length === 1))
         }else if(arr.length !==1) {
             let id = cart.parents('.card').find('.idSp').text();
             let image = cart.parents('.card').find('.imgSp').attr('src');
             let name = cart.parents('.card').find('h4').text();
             let price = cart.parents('.card').find('.price').text();
             let quantity = cart.parents('.card').find('.quantity').text();
-
-            arrItem.push({
+            // let itemAdd = []
+            // for (let i = 0; i < data.length; i++){
+            //     if (itemId == data[i].id){
+            //         itemAdd = data[i]
+            //         // console.log('a: ',itemAdd)
+            //         arrItem.push(itemAdd)
+            //     }
+            // }
+            // console.log(arrItem)
+                arrItem.push({
                 id: id,
                 image: image,
                 name: name,
                 price: price,
                 quantity: 1,
-            })
+                })
             setCookie("cookiesData", JSON.stringify(arrItem))
         }
         let number = 1 ;
@@ -683,7 +694,7 @@
             $('.tblCart').append(`
                         <div class="modal-product">
                         <tr>
-                            <div data-id="${arrItem.id}" class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
+                            <div data-id="1" class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
                             <div class="price-cart"><p>${arrItem.price}</p></div>
@@ -737,17 +748,18 @@
                 start += '<i class="fas fa-star"></i>';
             }
             a +=
-                `<div class="card listProduct">
+                `<div class="card listProduct" data-id="1">
                 <p class="idSp" style="display: none;">${data[i].id}</p>
                 <img class="imgSp" src="${data[i].image}" style="width:200px" height="200px">
                 <h4 class"tenSp">${data[i].name}</h4>
                 <p class="price-">${data[i].pricesale}</p>
                 <p class="price">${data[i].price}</p>
+                <p class="quantity" style="display: none">${data[i].quantity}</p>
                 <p class="category" style="display: none;">${data[i].category}</p>
                 <p>
                     ${start}
                 </p>
-                <p><button class="addToCart" data-id="" data-name="" onclick="addCart($(this))">
+                <p><button class="addToCart" data-id="${arrItem.id}" data-image="${arrItem.image}" data-name="${arrItem.name}" data-price="${arrItem.price}" data-quantity="${arrItem.quantity}" onclick="addCart($(this))">
                     <a>Add to cart</a>
                 </button></p>
                 <div class="icon">${data[i].sale}%</div>
