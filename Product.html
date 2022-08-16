@@ -711,10 +711,11 @@
                             <div data-id="1" class="id-cart" style="display: none;"><p>${arrItem.id}</p></div>
                             <div class="image-cart"><p><img src="${arrItem.image}" style="width:50px" height="50px"></p></div>
                             <div class="name-cart"><p>${arrItem.name}</p></div>
-                            <div class="price-cart"><p>${arrItem.price}</p></div>
-                            <div class="quanti-cart"><input value="1" type="text" class="quanti" id="qti"></div>
+                            <div class="price-cart" data-value="price"><p>${arrItem.price}</p></div>
+                            <div class="quanti-cart"><input value="${arrItem.quantity}" type="text" class="quanti" id="qti"></div>
                             <div class="delete-cart" ><lable onclick="deleteCart(); showItemInCart()" class="lbldelete"><i id="delete" class="material-icons">delete_forever</i></lable></div>
                         </tr>
+
                         </div>
                     `)
         })
